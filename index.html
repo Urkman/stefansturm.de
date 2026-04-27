@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stefan Sturm – Senior iOS Developer</title>
+  <!-- No-flash theme: apply before first paint -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (t === 'dark' || (!t && d)) document.documentElement.setAttribute('data-theme','dark');
+    })();
+  </script>
+  <meta name="description" content="Stefan Sturm – Senior iOS Developer mit 15+ Jahren Erfahrung in Swift, SwiftUI und Combine.">
+  <meta name="author" content="Stefan Sturm">
+  <meta property="og:title" content="Stefan Sturm – Senior iOS Developer">
+  <meta property="og:description" content="15+ Jahre iOS-Entwicklung · Swift · SwiftUI · Combine">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Skip link for accessibility -->
+  <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="header" id="header" role="banner">
+    <div class="container">
+      <nav class="nav" aria-label="Hauptnavigation">
+        <a href="#hero" class="nav-logo" aria-label="Stefan Sturm – Startseite">
+          <span class="nav-logo-name">Stefan Sturm</span>
+          <span class="nav-logo-title">iOS Developer</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen/schließen" aria-expanded="false" aria-controls="navMenu">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" aria-label="Dark mode umschalten">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+
+        <ul class="nav-menu" id="navMenu" role="list">
+          <li><a href="#about"      class="nav-link">Über mich</a></li>
+          <li><a href="#experience" class="nav-link">Erfahrung</a></li>
+          <li><a href="#skills"     class="nav-link">Skills</a></li>
+          <li><a href="#projects"   class="nav-link">Projekte</a></li>
+          <li><a href="#ai"         class="nav-link">AI & Tools</a></li>
+          <li><a href="#education"  class="nav-link">Ausbildung</a></li>
+          <li><a href="#contact"    class="nav-link">Kontakt</a></li>
+          <li>
+            <button class="btn btn-primary btn-sm" id="downloadCvBtn" aria-label="Download as PDF">
+              <i class="fas fa-file-pdf" aria-hidden="true"></i>
+              <span>PDF</span>
+            </button>
+            <button class="btn btn-outline btn-sm" id="downloadMdBtn" aria-label="Download as MD">
+              <i class="fab fa-markdown" aria-hidden="true"></i>
+              <span>MD</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN ==================== -->
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" id="hero" aria-label="Einführung">
+      <div class="hero-bg-shapes" aria-hidden="true">
+        <span class="shape shape-1"></span>
+        <span class="shape shape-2"></span>
+        <span class="shape shape-3"></span>
+      </div>
+      <div class="container">
+        <div class="hero-grid">
+
+          <div class="hero-content">
+            <div class="hero-badge">
+              <i class="fab fa-apple" aria-hidden="true"></i>
+              Senior iOS Developer
+            </div>
+            <h1 class="hero-name">Stefan <span class="text-accent">Sturm</span></h1>
+            <p class="hero-tagline">15+ Jahre iOS-Entwicklung</p>
+            <p class="hero-bio" id="hero-bio"><!-- filled by JS --></p>
+            <div class="hero-actions">
+              <button class="btn btn-primary btn-lg" id="heroDownloadBtn">
+                <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                Download as PDF
+              </button>
+              <button class="btn btn-outline btn-lg" id="heroDownloadMdBtn">
+                <i class="fab fa-markdown" aria-hidden="true"></i>
+                Download as MD
+              </button>
+              <a href="#experience" class="btn btn-outline btn-lg">
+                <i class="fas fa-briefcase" aria-hidden="true"></i>
+                Meine Erfahrung
+              </a>
+            </div>
+            <div class="hero-social" id="hero-social" aria-label="Social Links"><!-- filled by JS --></div>
+          </div>
+
+          <div class="hero-aside">
+            <div class="hero-avatar" aria-hidden="true">
+              <img src="assets/stefan.jpeg" alt="Stefan Sturm" id="profileImg" onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='flex'">
+              <div class="avatar-initials" id="avatarFallback">SS</div>
+            </div>
+            <div class="hero-stats" id="hero-stats" aria-label="Statistiken"><!-- filled by JS --></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section section-alt" id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <h2 class="section-title" id="about-heading">Über mich</h2>
+        <div class="about-content" id="about-content"><!-- filled by JS --></div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience" aria-labelledby="experience-heading">
+      <div class="container">
+        <h2 class="section-title" id="experience-heading">Beruflicher Werdegang</h2>
+        <div class="timeline" id="timeline" role="list"><!-- filled by JS --></div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section section-alt" id="skills" aria-labelledby="skills-heading">
+      <div class="container">
+        <h2 class="section-title" id="skills-heading">Kenntnisse</h2>
+        <div class="skills-grid" id="skills-grid"><!-- filled by JS --></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects" aria-labelledby="projects-heading">
+      <div class="container">
+        <h2 class="section-title" id="projects-heading">Projekte</h2>
+        <div class="projects-grid" id="projects-grid"><!-- filled by JS --></div>
+      </div>
+    </section>
+
+    <!-- AI & TOOLS -->
+    <section class="section section-alt" id="ai" aria-labelledby="ai-heading">
+      <div class="container">
+        <h2 class="section-title" id="ai-heading">AI & Tools</h2>
+        <div id="ai-content"><!-- filled by JS --></div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section" id="education" aria-labelledby="education-heading">
+      <div class="container">
+        <h2 class="section-title" id="education-heading">Ausbildung</h2>
+        <div class="education-grid" id="education-grid"><!-- filled by JS --></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section-alt" id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <h2 class="section-title" id="contact-heading">Kontakt</h2>
+        <div class="contact-layout" id="contact-layout"><!-- filled by JS --></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p>© <span id="footer-year">2026</span> Stefan Sturm · Senior iOS Developer</p>
+      <p class="footer-sub">Willich, Deutschland</p>
+    </div>
+  </footer>
+
+  <!-- PDF loading overlay -->
+  <div class="pdf-overlay" id="pdfOverlay" aria-hidden="true" role="status" aria-label="PDF wird erstellt">
+    <div class="pdf-overlay-inner">
+      <div class="pdf-spinner" aria-hidden="true"></div>
+      <p>CV wird erstellt…</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
