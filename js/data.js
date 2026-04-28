@@ -20,6 +20,7 @@ const CV = {
     birthplace:    'Willich-Anrath',
     github:        'https://github.com/Urkman',
     linkedin:      'https://www.linkedin.com/in/sturmstefan/',
+    twitter:       'https://x.com/StefanSturm_dev',
   },
 
   summary: `Stefan Sturm ist ein erfahrener Senior iOS-Entwickler mit einer beeindruckenden

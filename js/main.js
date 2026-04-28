@@ -82,6 +82,9 @@ function renderHero() {
     </a>
     <a href="mailto:${esc(p.email)}" class="hero-social-link">
       <i class="fas fa-envelope" aria-hidden="true"></i> ${esc(p.email)}
+    </a>
+    <a href="${esc(p.twitter)}" target="_blank" rel="noopener noreferrer" class="hero-social-link">
+      <i class="fab fa-x-twitter" aria-hidden="true"></i> X
     </a>`;
 
   // Stats
@@ -200,6 +203,7 @@ function renderContact() {
     { icon: 'fas fa-location-dot',  label: 'Adresse',   val: esc(p.address) },
     { icon: 'fab fa-github',        label: 'GitHub',    val: `<a href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" class="contact-val">${esc(p.github.replace('https://', ''))}</a>` },
     { icon: 'fab fa-linkedin',      label: 'LinkedIn',  val: `<a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="contact-val">${esc(p.linkedin.replace('https://', ''))}</a>` },
+    { icon: 'fab fa-x-twitter',     label: 'X',         val: `<a href="${esc(p.twitter)}" target="_blank" rel="noopener noreferrer" class="contact-val">${esc(p.twitter.replace('https://', ''))}</a>` },
     { icon: 'fas fa-flag',          label: 'Nationalität', val: esc(p.nationality) },
   ];
 
@@ -447,7 +451,7 @@ function buildCvMarkdown() {
   lines.push(`**${p.title}**`);
   lines.push('');
   lines.push(`📧 ${p.email} | 📞 ${p.phone} | 🌍 ${p.address}`);
-  lines.push(`🔗 ${p.github} | ${p.linkedin}`);
+  lines.push(`🔗 ${p.github} | ${p.linkedin} | ${p.twitter}`);
   lines.push('');
 
   // Profil
