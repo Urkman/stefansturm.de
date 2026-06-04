@@ -3,6 +3,9 @@
  * Stefan Sturm Personal Website
  */
 
+let currentLang = localStorage.getItem('language') === 'en' ? 'en' : 'de';
+let activeCV = localizeCV(currentLang);
+
 /* ══════════════════════════════════════════════
    DARK MODE
 ══════════════════════════════════════════════ */
@@ -22,7 +25,7 @@ function setupThemeToggle() {
   function applyTheme(dark) {
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     localStorage.setItem('theme', dark ? 'dark' : 'light');
-    btn.setAttribute('aria-label', dark ? 'Light mode umschalten' : 'Dark mode umschalten');
+    btn.setAttribute('aria-label', dark ? t('themeToggleLight') : t('themeToggle'));
     btn.querySelector('i').className = dark ? 'fas fa-sun' : 'fas fa-moon';
   }
 
@@ -49,6 +52,57 @@ function esc(str) {
     .replace(/"/g, '&quot;');
 }
 
+function t(key) {
+  return I18N[currentLang]?.[key] || I18N.de[key] || key;
+}
+
+function mergeLocalized(base, override) {
+  if (override === undefined) return base;
+  if (Array.isArray(base)) {
+    return base.map((item, index) => mergeLocalized(item, override?.[index]));
+  }
+  if (base && typeof base === 'object') {
+    const merged = { ...base };
+    Object.keys(override || {}).forEach(key => {
+      merged[key] = mergeLocalized(base[key], override[key]);
+    });
+    return merged;
+  }
+  return override;
+}
+
+function localizeCV(lang) {
+  return mergeLocalized(CV, CV_TRANSLATIONS[lang]);
+}
+
+function applyStaticTranslations() {
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel));
+  });
+  document.querySelectorAll('.language-option').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === currentLang);
+    btn.setAttribute('aria-pressed', String(btn.dataset.lang === currentLang));
+  });
+  const themeBtn = document.getElementById('themeToggle');
+  if (themeBtn) {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeBtn.setAttribute('aria-label', isDark ? t('themeToggleLight') : t('themeToggle'));
+  }
+  document.title = currentLang === 'en'
+    ? 'Stefan Sturm – Senior iOS Developer'
+    : 'Stefan Sturm – Senior iOS Developer';
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', currentLang === 'en'
+      ? 'Stefan Sturm – Senior iOS Developer with 15+ years of experience in Swift, SwiftUI and Combine.'
+      : 'Stefan Sturm – Senior iOS Developer mit 15+ Jahren Erfahrung in Swift, SwiftUI und Combine.');
+  }
+}
+
 /** Render an array of tech strings as tag chips. */
 function renderTechTags(techArray) {
   if (!techArray || !techArray.length) return '';
@@ -62,10 +116,10 @@ function renderTechTags(techArray) {
 ══════════════════════════════════════════════ */
 
 function renderHero() {
-  const p = CV.personal;
+  const p = activeCV.personal;
 
   // Bio
-  document.getElementById('hero-bio').innerHTML = CV.summary
+  document.getElementById('hero-bio').innerHTML = activeCV.summary
     .replace(/\n/g, ' ')
     .split('<br><br>')[0]
     .trim()
@@ -88,7 +142,7 @@ function renderHero() {
     </a>`;
 
   // Stats
-  document.getElementById('hero-stats').innerHTML = CV.stats
+  document.getElementById('hero-stats').innerHTML = activeCV.stats
     .map(s => `
       <div class="hero-stat">
         <span class="hero-stat-val">${esc(s.value)}</span>
@@ -98,10 +152,10 @@ function renderHero() {
 }
 
 function renderAbout() {
-  const paras = CV.summary.split('<br><br>');
+  const paras = activeCV.summary.split('<br><br>');
   const parasHtml = paras.map(p => `<p>${p.replace(/\n/g, ' ').trim()}</p>`).join('');
 
-  const langsHtml = CV.languages.map(l => `
+  const langsHtml = activeCV.languages.map(l => `
     <div class="lang-chip">
       <span class="lang-name">${esc(l.name)}</span>
       <span class="lang-level">${esc(l.level)}</span>
@@ -115,7 +169,7 @@ function renderAbout() {
 }
 
 function renderExperience() {
-  const html = CV.experience.map(job => {
+  const html = activeCV.experience.map(job => {
     const appLink = job.appUrl ? `
       <a href="${esc(job.appUrl)}" target="_blank" rel="noopener noreferrer" class="timeline-app-link">
         <i class="fab fa-app-store-ios" aria-hidden="true"></i>
@@ -131,7 +185,7 @@ function renderExperience() {
           <p class="timeline-company">${esc(job.company)}</p>
           <div class="timeline-meta">
             <span><i class="fas fa-location-dot" aria-hidden="true"></i> ${esc(job.location)}</span>
-            ${job.current ? '<span class="text-accent"><i class="fas fa-circle" style="font-size:.45rem;vertical-align:middle" aria-hidden="true"></i> Aktuell</span>' : ''}
+            ${job.current ? `<span class="text-accent"><i class="fas fa-circle" style="font-size:.45rem;vertical-align:middle" aria-hidden="true"></i> ${esc(t('current'))}</span>` : ''}
           </div>
           ${appLink}
           <p class="timeline-desc">${esc(job.description)}</p>
@@ -144,7 +198,7 @@ function renderExperience() {
 }
 
 function renderSkills() {
-  const html = CV.skills.map(cat => `
+  const html = activeCV.skills.map(cat => `
     <div class="skill-card reveal">
       <h3 class="skill-card-title">
         <i class="${esc(cat.icon)}" aria-hidden="true"></i>
@@ -163,7 +217,7 @@ function renderSkills() {
 }
 
 function renderProjects() {
-  const html = CV.projects.map(proj => `
+  const html = activeCV.projects.map(proj => `
     <article class="project-card reveal">
       <div class="project-header">
         <h3 class="project-name">${esc(proj.name)}</h3>
@@ -172,7 +226,7 @@ function renderProjects() {
       ${proj.url ? `
         <a href="${esc(proj.url)}" target="_blank" rel="noopener noreferrer" class="project-store-link">
           <i class="fab fa-app-store-ios" aria-hidden="true"></i>
-          Im App Store ansehen
+          ${esc(t('appStoreView'))}
           <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
         </a>` : ''}
       <p class="project-desc">${esc(proj.description)}</p>
@@ -183,7 +237,7 @@ function renderProjects() {
 }
 
 function renderEducation() {
-  const html = CV.education.map(edu => `
+  const html = activeCV.education.map(edu => `
     <div class="edu-card reveal">
       <span class="edu-period">${esc(edu.period)}</span>
       <div>
@@ -196,15 +250,15 @@ function renderEducation() {
 }
 
 function renderContact() {
-  const p = CV.personal;
+  const p = activeCV.personal;
   const items = [
     { icon: 'fas fa-envelope',      label: 'E-Mail',    val: `<a href="mailto:${esc(p.email)}" class="contact-val">${esc(p.email)}</a>` },
-    { icon: 'fas fa-phone',         label: 'Telefon',   val: `<a href="tel:${esc(p.phone)}" class="contact-val">${esc(p.phone)}</a>` },
-    { icon: 'fas fa-location-dot',  label: 'Adresse',   val: esc(p.address) },
+    { icon: 'fas fa-phone',         label: currentLang === 'en' ? 'Phone' : 'Telefon', val: `<a href="tel:${esc(p.phone)}" class="contact-val">${esc(p.phone)}</a>` },
+    { icon: 'fas fa-location-dot',  label: currentLang === 'en' ? 'Address' : 'Adresse', val: esc(p.address) },
     { icon: 'fab fa-github',        label: 'GitHub',    val: `<a href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" class="contact-val">${esc(p.github.replace('https://', ''))}</a>` },
     { icon: 'fab fa-linkedin',      label: 'LinkedIn',  val: `<a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="contact-val">${esc(p.linkedin.replace('https://', ''))}</a>` },
     { icon: 'fab fa-x-twitter',     label: 'X',         val: `<a href="${esc(p.twitter)}" target="_blank" rel="noopener noreferrer" class="contact-val">${esc(p.twitter.replace('https://', ''))}</a>` },
-    { icon: 'fas fa-flag',          label: 'Nationalität', val: esc(p.nationality) },
+    { icon: 'fas fa-flag',          label: t('cvNationality'), val: esc(p.nationality) },
   ];
 
   document.getElementById('contact-layout').innerHTML = items.map(item => `
@@ -218,7 +272,22 @@ function renderContact() {
 }
 
 function renderAI() {
-  const ai = CV.ai;
+  const ai = activeCV.ai;
+
+  const workflowHtml = ai.workflow.map(w => `
+    <div class="ai-workflow-card reveal">
+      <div class="ai-workflow-icon" aria-hidden="true"><i class="${esc(w.icon)}"></i></div>
+      <div>
+        <p class="ai-workflow-title">${esc(w.title)}</p>
+        <p class="ai-workflow-desc">${esc(w.desc)}</p>
+      </div>
+    </div>`).join('');
+
+  const learningsHtml = ai.learnings.map((learning, index) => `
+    <div class="ai-learning-item reveal">
+      <span class="ai-learning-bullet" aria-hidden="true">${index + 1}</span>
+      <span>${esc(learning)}</span>
+    </div>`).join('');
 
   const modelsHtml = ai.modelMatrix.map(m => `
     <div class="ai-model-card reveal">
@@ -245,12 +314,22 @@ function renderAI() {
     <p class="ai-intro reveal">${esc(ai.intro)}</p>
 
     <h3 class="ai-sub-title reveal">
-      <i class="fas fa-microchip" aria-hidden="true"></i> Model-Matrix: Welches Modell für was
+      <i class="fas fa-route" aria-hidden="true"></i> ${esc(t('aiWorkflowTitle'))}
+    </h3>
+    <div class="ai-workflow-grid">${workflowHtml}</div>
+
+    <h3 class="ai-sub-title reveal">
+      <i class="fas fa-check-double" aria-hidden="true"></i> ${esc(t('aiStabilityTitle'))}
+    </h3>
+    <div class="ai-learnings">${learningsHtml}</div>
+
+    <h3 class="ai-sub-title reveal">
+      <i class="fas fa-microchip" aria-hidden="true"></i> ${esc(t('aiModelTitle'))}
     </h3>
     <div class="ai-models-grid">${modelsHtml}</div>
 
     <h3 class="ai-sub-title reveal">
-      <i class="fas fa-toolbox" aria-hidden="true"></i> Tool-Stack
+      <i class="fas fa-toolbox" aria-hidden="true"></i> ${esc(t('aiToolsTitle'))}
     </h3>
     <div class="ai-tools-grid">${toolsHtml}</div>`;
 }
@@ -262,7 +341,7 @@ function renderAI() {
 ══════════════════════════════════════════════ */
 
 function buildCvHtml() {
-  const p = CV.personal;
+  const p = activeCV.personal;
 
   const S = {
     page:       'display:flex;width:210mm;min-height:297mm;font-family:Helvetica Neue,Arial,sans-serif;font-size:10pt;color:#111827;background:#fff;',
@@ -276,20 +355,20 @@ function buildCvHtml() {
     langRow:    'display:flex;justify-content:space-between;font-size:8pt;margin-bottom:4pt;',
   };
 
-  const topSkills = CV.skills.flatMap(c => c.items).filter(s => s.years);
-  const profileText = CV.summary.replace(/<br><br>/g, ' ').replace(/\n/g, ' ').trim();
+  const topSkills = activeCV.skills.flatMap(c => c.items).filter(s => s.years);
+  const profileText = activeCV.summary.replace(/<br><br>/g, ' ').replace(/\n/g, ' ').trim();
 
   const skillsHtml = topSkills.map(s =>
     `<div style="${S.skillRow}"><span>${esc(s.name)}</span><span style="opacity:.75;">${esc(s.years)}</span></div>`
   ).join('');
 
-  const langsHtml = CV.languages.map(l =>
+  const langsHtml = activeCV.languages.map(l =>
     `<div style="${S.langRow}"><span>${esc(l.name)}</span><span style="opacity:.75;">${esc(l.level)}${l.note ? ' · ' + esc(l.note) : ''}</span></div>`
   ).join('');
 
   // Skills grid: 2-column layout of all categories
   const kenntnisseHtml = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8pt;">` +
-    CV.skills.map(cat => `
+    activeCV.skills.map(cat => `
       <div style="page-break-inside:avoid;">
         <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:3pt;">${esc(cat.category)}</p>
         <p style="font-size:7.5pt;color:#6b7280;line-height:1.6;">${cat.items.map(i => esc(i.name)).join(' · ')}</p>
@@ -297,10 +376,20 @@ function buildCvHtml() {
 
   // AI section: intro + model matrix + tools
   const aiHtml = `
-    <p style="font-size:8pt;color:#4b5563;line-height:1.6;margin-bottom:8pt;">${esc(CV.ai.intro)}</p>
-    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:5pt;">Model-Matrix</p>
+    <p style="font-size:8pt;color:#4b5563;line-height:1.6;margin-bottom:8pt;">${esc(activeCV.ai.intro)}</p>
+    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:5pt;">Agentic Workflow</p>
     <div style="margin-bottom:8pt;">
-      ${CV.ai.modelMatrix.map(m => `
+      ${activeCV.ai.workflow.map(w => `
+        <div style="display:flex;gap:6pt;margin-bottom:5pt;padding-bottom:5pt;border-bottom:1px solid #f3f4f6;">
+          <p style="font-size:7.5pt;font-weight:700;color:#374151;min-width:110pt;flex-shrink:0;">${esc(w.title)}</p>
+          <p style="font-size:7pt;color:#6b7280;line-height:1.4;">${esc(w.desc)}</p>
+        </div>`).join('')}
+    </div>
+    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:5pt;">${esc(t('cvWorkflowPrinciples'))}</p>
+    <p style="font-size:7.5pt;color:#6b7280;line-height:1.6;margin-bottom:8pt;">${activeCV.ai.learnings.map(esc).join(' · ')}</p>
+    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:5pt;">${esc(t('aiModelShort'))}</p>
+    <div style="margin-bottom:8pt;">
+      ${activeCV.ai.modelMatrix.map(m => `
         <div style="display:flex;gap:6pt;margin-bottom:5pt;padding-bottom:5pt;border-bottom:1px solid #f3f4f6;">
           <p style="font-size:7.5pt;font-weight:700;color:#374151;min-width:110pt;flex-shrink:0;">${esc(m.category)}</p>
           <div>
@@ -309,10 +398,10 @@ function buildCvHtml() {
           </div>
         </div>`).join('')}
     </div>
-    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:3pt;">Tool-Stack</p>
-    <p style="font-size:7.5pt;color:#6b7280;line-height:1.6;">${CV.ai.tools.map(t => esc(t.name)).join(' · ')}</p>`;
+    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:3pt;">${esc(t('aiToolsTitle'))}</p>
+    <p style="font-size:7.5pt;color:#6b7280;line-height:1.6;">${activeCV.ai.tools.map(t => esc(t.name)).join(' · ')}</p>`;
 
-  const expHtml = CV.experience.map(job => `
+  const expHtml = activeCV.experience.map(job => `
     <div style="margin-bottom:11pt;page-break-inside:avoid;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6pt;margin-bottom:1pt;">
         <strong style="font-size:9pt;color:#111827;line-height:1.3;">${esc(job.role)}</strong>
@@ -324,7 +413,7 @@ function buildCvHtml() {
       <p style="font-size:7pt;color:#9ca3af;line-height:1.4;">${job.tech ? job.tech.join(' · ') : ''}</p>
     </div>`).join('');
 
-  const projHtml = CV.projects.map(proj => `
+  const projHtml = activeCV.projects.map(proj => `
     <div style="margin-bottom:9pt;page-break-inside:avoid;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6pt;margin-bottom:1pt;">
         <strong style="font-size:8.5pt;color:#111827;">${esc(proj.name)}</strong>
@@ -333,14 +422,14 @@ function buildCvHtml() {
       <p style="font-size:8pt;color:#4b5563;line-height:1.5;">${esc(proj.description)}</p>
     </div>`).join('');
 
-  const eduHtml = CV.education.map(e => `
+  const eduHtml = activeCV.education.map(e => `
     <div style="margin-bottom:7pt;page-break-inside:avoid;">
       <strong style="font-size:8.5pt;color:#111827;display:block;">${esc(e.degree)}</strong>
       <span style="font-size:7.5pt;color:#6b7280;">${esc(e.institution)} · ${esc(e.period)}</span>
     </div>`).join('');
 
   return `<!DOCTYPE html>
-<html lang="de">
+<html lang="${esc(currentLang)}">
 <head>
 <meta charset="UTF-8">
 <title>CV – ${esc(p.name)}</title>
@@ -362,49 +451,49 @@ function buildCvHtml() {
 </style>
 </head>
 <body>
-<button id="printBtn" onclick="window.print()">Als PDF speichern</button>
+<button id="printBtn" onclick="window.print()">${esc(t('cvPrint'))}</button>
 <div style="${S.page}">
 
   <div style="${S.sidebar}">
     <p style="font-size:20pt;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:3pt;">${esc(p.name)}</p>
     <p style="font-size:10pt;font-weight:500;color:rgba(255,255,255,.85);margin-bottom:14pt;">${esc(p.title)}</p>
 
-    <h2 style="${S.h2sb}margin-top:0;">Kontakt</h2>
+    <h2 style="${S.h2sb}margin-top:0;">${esc(t('cvContact'))}</h2>
     <div style="${S.contactRow}"><span>✉</span><span>${esc(p.email)}</span></div>
     <div style="${S.contactRow}"><span>☎</span><span>${esc(p.phone)}</span></div>
     <div style="${S.contactRow}"><span>⌂</span><span>${esc(p.address)}</span></div>
     <div style="${S.contactRow}"><span>⚙</span><span>${esc(p.github.replace('https://', ''))}</span></div>
     <div style="${S.contactRow}"><span>in</span><span>${esc(p.linkedin.replace('https://www.', ''))}</span></div>
 
-    <h2 style="${S.h2sb}">Kernkompetenzen</h2>
+    <h2 style="${S.h2sb}">${esc(t('cvCoreSkills'))}</h2>
     ${skillsHtml}
 
-    <h2 style="${S.h2sb}">Sprachen</h2>
+    <h2 style="${S.h2sb}">${esc(t('cvLanguages'))}</h2>
     ${langsHtml}
 
-    <h2 style="${S.h2sb}">Persönlich</h2>
+    <h2 style="${S.h2sb}">${esc(t('cvPersonal'))}</h2>
     <div style="font-size:8pt;color:rgba(255,255,255,.88);line-height:1.7;">
-      <p>Nationalität: ${esc(p.nationality)}</p>
-      <p>Geburtsort: ${esc(p.birthplace)}</p>
-      <p>Familienstand: ${esc(p.maritalStatus)}</p>
+      <p>${esc(t('cvNationality'))}: ${esc(p.nationality)}</p>
+      <p>${esc(t('cvBirthplace'))}: ${esc(p.birthplace)}</p>
+      <p>${esc(t('cvMaritalStatus'))}: ${esc(p.maritalStatus)}</p>
     </div>
   </div>
 
   <div style="${S.main}">
     <div style="${S.section}">
-      <h2 style="${S.h2mn}margin-top:0;">Profil</h2>
+      <h2 style="${S.h2mn}margin-top:0;">${esc(t('cvProfile'))}</h2>
       <p style="font-size:8pt;color:#4b5563;line-height:1.65;">${esc(profileText)}</p>
     </div>
     <div style="${S.section}">
-      <h2 style="${S.h2mn}">Beruflicher Werdegang</h2>
+      <h2 style="${S.h2mn}">${esc(t('cvExperience'))}</h2>
       ${expHtml}
     </div>
     <div style="${S.section}">
-      <h2 style="${S.h2mn}">Projekte</h2>
+      <h2 style="${S.h2mn}">${esc(t('cvProjects'))}</h2>
       ${projHtml}
     </div>
     <div style="${S.section}">
-      <h2 style="${S.h2mn}">Kenntnisse</h2>
+      <h2 style="${S.h2mn}">${esc(t('cvSkills'))}</h2>
       ${kenntnisseHtml}
     </div>
     <div style="${S.section}">
@@ -412,7 +501,7 @@ function buildCvHtml() {
       ${aiHtml}
     </div>
     <div style="${S.section}">
-      <h2 style="${S.h2mn}">Ausbildung</h2>
+      <h2 style="${S.h2mn}">${esc(t('cvEducation'))}</h2>
       ${eduHtml}
     </div>
   </div>
@@ -436,14 +525,14 @@ function downloadCv() {
   if (!win) {
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Stefan_Sturm_CV.html';
+    a.download = currentLang === 'en' ? 'Stefan_Sturm_Resume.html' : 'Stefan_Sturm_CV.html';
     a.click();
   }
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
 function buildCvMarkdown() {
-  const p = CV.personal;
+  const p = activeCV.personal;
   const lines = [];
 
   // Header
@@ -454,15 +543,15 @@ function buildCvMarkdown() {
   lines.push(`🔗 ${p.github} | ${p.linkedin} | ${p.twitter}`);
   lines.push('');
 
-  // Profil
-  lines.push('## Profil');
-  lines.push(CV.summary.replace(/<br><br>/g, '\n\n').replace(/\n/g, ' ').trim());
+  // Profile
+  lines.push(`## ${t('markdownProfile')}`);
+  lines.push(activeCV.summary.replace(/<br><br>/g, '\n\n').replace(/\n/g, ' ').trim());
   lines.push('');
 
-  // Beruflicher Werdegang
-  lines.push('## Beruflicher Werdegang');
+  // Experience
+  lines.push(`## ${t('cvExperience')}`);
   lines.push('');
-  CV.experience.forEach(job => {
+  activeCV.experience.forEach(job => {
     lines.push(`### ${job.role}`);
     lines.push(`**${job.company}**${job.location ? ` · ${job.location}` : ''} | ${job.period}`);
     if (job.appName) lines.push(`*${job.appName}*`);
@@ -472,20 +561,20 @@ function buildCvMarkdown() {
     lines.push('');
   });
 
-  // Projekte
-  lines.push('## Projekte');
+  // Projects
+  lines.push(`## ${t('cvProjects')}`);
   lines.push('');
-  CV.projects.forEach(proj => {
+  activeCV.projects.forEach(proj => {
     lines.push(`### ${proj.name} (${proj.period})`);
     lines.push(proj.description);
     if (proj.tech && proj.tech.length) lines.push(`\n> ${proj.tech.join(' · ')}`);
     lines.push('');
   });
 
-  // Kenntnisse
-  lines.push('## Kenntnisse');
+  // Skills
+  lines.push(`## ${t('cvSkills')}`);
   lines.push('');
-  CV.skills.forEach(cat => {
+  activeCV.skills.forEach(cat => {
     lines.push(`**${cat.category}:** ${cat.items.map(i => i.name + (i.years ? ` (${i.years})` : '')).join(', ')}`);
   });
   lines.push('');
@@ -493,34 +582,46 @@ function buildCvMarkdown() {
   // AI & Agentic Development
   lines.push('## AI & Agentic Development');
   lines.push('');
-  lines.push(CV.ai.intro);
+  lines.push(activeCV.ai.intro);
   lines.push('');
-  lines.push('### Model-Matrix');
+  lines.push('### Agentic Workflow');
   lines.push('');
-  CV.ai.modelMatrix.forEach(m => {
+  activeCV.ai.workflow.forEach(w => {
+    lines.push(`**${w.title}:** ${w.desc}`);
+    lines.push('');
+  });
+  lines.push(`### ${t('cvWorkflowPrinciples')}`);
+  lines.push('');
+  activeCV.ai.learnings.forEach(learning => {
+    lines.push(`- ${learning}`);
+  });
+  lines.push('');
+  lines.push(`### ${t('aiModelShort')}`);
+  lines.push('');
+  activeCV.ai.modelMatrix.forEach(m => {
     lines.push(`**${m.category}:** ${m.models.join(', ')}`);
     lines.push(m.desc);
     lines.push('');
   });
-  lines.push('### Tool-Stack');
+  lines.push(`### ${t('aiToolsTitle')}`);
   lines.push('');
-  CV.ai.tools.forEach(t => {
+  activeCV.ai.tools.forEach(t => {
     lines.push(`**${t.name}:** ${t.desc}`);
     lines.push('');
   });
 
-  // Ausbildung
-  lines.push('## Ausbildung');
+  // Education
+  lines.push(`## ${t('cvEducation')}`);
   lines.push('');
-  CV.education.forEach(e => {
+  activeCV.education.forEach(e => {
     lines.push(`- **${e.degree}** – ${e.institution} (${e.period})`);
   });
   lines.push('');
 
-  // Sprachen
-  lines.push('## Sprachen');
+  // Languages
+  lines.push(`## ${t('cvLanguages')}`);
   lines.push('');
-  CV.languages.forEach(l => {
+  activeCV.languages.forEach(l => {
     lines.push(`- **${l.name}** – ${l.level}${l.note ? ` (${l.note})` : ''}`);
   });
   lines.push('');
@@ -534,7 +635,7 @@ function downloadMarkdown() {
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
   a.href     = url;
-  a.download = 'Stefan_Sturm_CV.md';
+  a.download = currentLang === 'en' ? 'Stefan_Sturm_Resume.md' : 'Stefan_Sturm_CV.md';
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
@@ -597,6 +698,35 @@ function updateActiveLink() {
   });
 }
 
+function renderAll() {
+  activeCV = localizeCV(currentLang);
+  applyStaticTranslations();
+  renderHero();
+  renderAbout();
+  renderExperience();
+  renderSkills();
+  renderProjects();
+  renderAI();
+  renderEducation();
+  renderContact();
+
+  const fyEl = document.getElementById('footer-year');
+  if (fyEl) fyEl.textContent = new Date().getFullYear();
+}
+
+function setupLanguageToggle() {
+  document.querySelectorAll('.language-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const nextLang = btn.dataset.lang === 'en' ? 'en' : 'de';
+      if (nextLang === currentLang) return;
+      currentLang = nextLang;
+      localStorage.setItem('language', currentLang);
+      renderAll();
+      requestAnimationFrame(() => initReveal());
+    });
+  });
+}
+
 /* ══════════════════════════════════════════════
    SCROLL REVEAL (Intersection Observer)
 ══════════════════════════════════════════════ */
@@ -636,19 +766,7 @@ function initReveal() {
 ══════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Render all sections
-  renderHero();
-  renderAbout();
-  renderExperience();
-  renderSkills();
-  renderProjects();
-  renderAI();
-  renderEducation();
-  renderContact();
-
-  // Footer year
-  const fyEl = document.getElementById('footer-year');
-  if (fyEl) fyEl.textContent = new Date().getFullYear();
+  renderAll();
 
   // Wire CV download buttons
   ['downloadCvBtn', 'heroDownloadBtn'].forEach(id => {
@@ -665,6 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Nav behaviour
   initNav();
   setupThemeToggle();
+  setupLanguageToggle();
 
   // Scroll-reveal (runs after render so .reveal elements exist)
   requestAnimationFrame(() => initReveal());
