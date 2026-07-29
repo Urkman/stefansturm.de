@@ -37,8 +37,22 @@ const profiles = {
 
 const forbiddenAiTerms = /\bAI\b|Agentic|Codex|Claude|ChatGPT|Copilot|Grok|Prompt Engineering|RocketSim|App Store Connect CLI/i;
 for (const [lang, profile] of Object.entries(profiles)) {
-  assert.equal(profile.ai, undefined, `${lang}: AI data must be removed`);
-  assert.doesNotMatch(JSON.stringify(profile), forbiddenAiTerms, `${lang}: AI wording remains`);
+  assert.equal(profile.ai, undefined, `${lang}: standalone AI data must be removed`);
+
+  const aiSkills = profile.skills.find(category => category.category === 'AI & Agentic Development');
+  assert.ok(aiSkills, `${lang}: AI skills category missing`);
+  [
+    /Codex/,
+    /Claude/,
+    /ChatGPT/,
+    /GitHub Copilot/,
+    /Grok/,
+    /Prompt Engineering/,
+    /PRD \/ (Sprintplanung|sprint planning)/,
+    /AI-(gestütztes|assisted) Testing/i,
+  ].forEach(pattern => {
+    assert.match(JSON.stringify(aiSkills), pattern, `${lang}: missing AI skill ${pattern}`);
+  });
 }
 
 const requiredTerms = {
