@@ -334,6 +334,25 @@ in interdisziplinären Teams.`,
   // ──────────────────────────────────────────────
   projects: [
     {
+      name: 'DevBar – Apple Developer Toolkit',
+      period: '2026 – bis jetzt',
+      url: 'https://devbar.netlify.app',
+      linkType: 'website',
+      description: 'Eine native macOS-26-Menüleisten-App für Apple-Plattform-Entwickler. DevBar bereinigt Xcode- und SPM-Caches, steuert Simulatoren, unterstützt Git-Workflows mit Diffs, Commits, Push und Pull Requests und bündelt Referenzen sowie Entwicklerwerkzeuge. Die App arbeitet sandboxed und weitgehend offline; Commit-Nachrichten entstehen lokal mit Apple Intelligence.',
+      tech: [
+        'Swift',
+        'SwiftUI',
+        'Swift Concurrency',
+        'Foundation',
+        'AppKit',
+        'Apple Intelligence',
+        'macOS 26',
+        'GitHub',
+        'XCTest',
+        'Xcode Cloud',
+      ],
+    },
+    {
       name:   'Fast.io – Fasting Timer',
       period: '2025 – bis jetzt',
       url:    'https://apps.apple.com/de/app/fast-io-fasting-timer/id6755233993',
@@ -638,6 +657,10 @@ He safeguards delivery with automated tests in Swift Testing and XCTest and reli
       { category: 'AI Tools' },
     ],
     projects: [
+      {
+        period: '2026 – present',
+        description: 'A native macOS 26 menu-bar app for Apple-platform developers. DevBar cleans Xcode and SPM caches, controls simulators, supports Git workflows with diffs, commits, pushes and pull requests, and bundles references and everyday developer utilities. The app is sandboxed and mostly offline; commit messages are generated locally with Apple Intelligence.',
+      },
       {
         period: '2025 – present',
         description: 'An easy-to-use intermittent fasting timer for iPhone and Apple Watch. Fast.io helps users consistently track fasting goals with real-time tracking, hydration logging, Live Activities, Dynamic Island, Home Screen widgets and Apple Health integration. It supports popular fasting schedules such as 16:8, 18:6 and OMAD. Available as a one-time purchase, no subscription.',
