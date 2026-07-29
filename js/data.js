@@ -23,16 +23,16 @@ const CV = {
     twitter:       'https://x.com/StefanSturm_dev',
   },
 
-  summary: `Stefan Sturm ist ein erfahrener Senior iOS-Entwickler mit einer beeindruckenden
-Karriere, die über 15 Jahre umfasst. Seine Expertise in der Entwicklung hochwertiger mobiler
-Anwendungen spiegelt sich in seiner Arbeit für namhafte Unternehmen wie 1und1, RTL, Nexenio,
-Porsche und viele weitere wider.
+  summary: `Stefan Sturm ist Senior iOS-Entwickler mit mehr als 15 Jahren Erfahrung in der
+Entwicklung hochwertiger mobiler Anwendungen mit Swift. Sein Schwerpunkt liegt auf reaktiven
+und deklarativen Benutzeroberflächen mit SwiftUI und Combine, Swift Concurrency mit async/await
+und Actors sowie der Arbeit mit Foundation und den iOS-Plattform-APIs.
 <br><br>
-Er hat maßgeblich zur Entwicklung von Apps wie der 1und1 Mail App, RTL+, der Luca App und der
-My Porsche App beigetragen. Stefan ist spezialisiert auf die Verwendung moderner Technologien
-wie Swift, SwiftUI und Combine, und er beherrscht die Implementierung komplexer Architekturen
-wie MVVM, CleanSwift und Viper. Stefan legt großen Wert auf qualitativ hochwertigen Code,
-kontinuierliche Weiterbildung und eine enge Zusammenarbeit im Team.`,
+Er sichert seine Arbeit mit automatisierten Tests in Swift Testing und XCTest ab und setzt auf
+verlässliche GitLab-CI/CD-Prozesse. Seine Projekterfahrung bei Unternehmen wie Chrono24, 1und1, RTL, Nexenio und
+Porsche umfasst komplexe Produktlandschaften sowie ein internationales E-Commerce- und
+Marktplatzumfeld. Sehr gute Deutsch- und Englischkenntnisse unterstützen die enge Zusammenarbeit
+in interdisziplinären Teams.`,
 
   stats: [
     { value: '15+', label: 'Jahre iOS' },
@@ -78,10 +78,10 @@ kontinuierliche Weiterbildung und eine enge Zusammenarbeit im Team.`,
       location: 'Karlsruhe',
       appName:  'Chrono24 App',
       appUrl:   'https://apps.apple.com/de/app/chrono24-luxusuhren-shoppen/id472912032',
-      description: 'Bei Chrono24 habe ich die Neuentwicklung des Katalogs unterstützt.',
+      description: 'Bei Chrono24 habe ich die Neuentwicklung des Katalogs in einem internationalen E-Commerce- und Marktplatzumfeld unterstützt.',
       tech: ['Swift', 'SwiftUI', 'Combine', 'REST (JSON)', 'CleanSwift', 'CI/CD',
-             'Jenkins', 'Gitlab', 'Git', 'Xcode', 'Jira', 'Confluence',
-             'UI Tests', 'Unit Tests', 'Snapshot Tests', 'SPM'],
+             'Jenkins', 'GitLab', 'Git', 'Xcode', 'Jira', 'Confluence',
+             'UI Tests', 'Unit Tests', 'Snapshot Tests', 'SPM', 'E-Commerce', 'Marketplace'],
     },
     {
       period:   '03/2024 – 10/2024',
@@ -233,7 +233,11 @@ kontinuierliche Weiterbildung und eine enge Zusammenarbeit im Team.`,
         { name: 'SwiftUI',        years: '5 Jahre' },
         { name: 'UIKit',          years: '15 Jahre' },
         { name: 'Combine',        years: '5 Jahre' },
-        { name: 'Async/Await',    years: '3 Jahre' },
+        { name: 'Swift Concurrency', years: '3 Jahre' },
+        { name: 'async/await',       years: '3 Jahre' },
+        { name: 'Actors',            years: '3 Jahre' },
+        { name: 'Foundation',        years: '15 Jahre' },
+        { name: 'iOS-Plattform-APIs', years: '15 Jahre' },
         { name: 'Widgets / Siri', years: '5 Jahre' },
         { name: 'Apple Watch',    years: '10 Jahre' },
         { name: 'iPhone / iPad',  years: '15 Jahre' },
@@ -263,22 +267,24 @@ kontinuierliche Weiterbildung und eine enge Zusammenarbeit im Team.`,
       category: 'Tools & CI/CD',
       icon: 'fas fa-wrench',
       items: [
-        { name: 'Xcode',            years: '15 Jahre' },
-        { name: 'Git / Jenkins',    years: '15 Jahre' },
-        { name: 'Jira / Confluence',years: '20 Jahre' },
-        { name: 'Shell',            years: '20 Jahre' },
-        { name: 'Gitlab' },
+        { name: 'Xcode',             years: '15 Jahre' },
+        { name: 'Git',               years: '15 Jahre' },
+        { name: 'Jenkins',           years: '15 Jahre' },
+        { name: 'Jira / Confluence', years: '20 Jahre' },
+        { name: 'Shell',             years: '20 Jahre' },
+        { name: 'GitLab CI/CD' },
         { name: 'Azure DevOps' },
         { name: 'Xcode Cloud' },
         { name: 'SPM' },
-        { name: 'Cocoapods' },
+        { name: 'CocoaPods' },
       ],
     },
     {
       category: 'Testing',
       icon: 'fas fa-vial',
       items: [
-        { name: 'Unit Tests',     years: '10 Jahre' },
+        { name: 'Swift Testing' },
+        { name: 'XCTest',         years: '10 Jahre' },
         { name: 'UI Tests',       years: '10 Jahre' },
         { name: 'Snapshot Tests', years: '10 Jahre' },
       ],
@@ -293,20 +299,6 @@ kontinuierliche Weiterbildung und eine enge Zusammenarbeit im Team.`,
         { name: 'Verschlüsselungen' },
       ],
     },
-    {
-      category: 'AI & Agentic Development',
-      icon: 'fas fa-microchip',
-      items: [
-        { name: 'Codex (Agentic)' },
-        { name: 'Claude' },
-        { name: 'ChatGPT' },
-        { name: 'GitHub Copilot' },
-        { name: 'Grok' },
-        { name: 'Prompt Engineering' },
-        { name: 'PRD / Sprintplanung' },
-        { name: 'AI-gestütztes Testing' },
-      ],
-    },
   ],
 
   // ──────────────────────────────────────────────
@@ -318,9 +310,10 @@ kontinuierliche Weiterbildung und eine enge Zusammenarbeit im Team.`,
       name:   'Fast.io – Fasting Timer',
       period: '2025 – bis jetzt',
       url:    'https://apps.apple.com/de/app/fast-io-fasting-timer/id6755233993',
-      description: 'Komplett mit AI entwickelt – von Planung und Design über Implementierung bis hin zu Tests. Ein wunderschön einfacher Intervallfasten-Timer für iPhone und Apple Watch. Fast.io hilft dabei, Fastenziele konsequent zu verfolgen – mit Echtzeit-Tracking, Hydration-Log, Live Activities, Dynamic Island, Home Screen Widgets und Apple Health Integration. Unterstützt populäre Fasten-Schemata wie 16:8, 18:6 und OMAD. Als Einmalkauf erhältlich – kein Abo.',
-      tech: ['Swift', 'SwiftUI', 'HealthKit', 'Live Activities', 'WidgetKit',
-             'Apple Watch', 'Dynamic Island', 'Xcode Cloud', 'MVVM'],
+      description: 'Ein einfach zu bedienender Intervallfasten-Timer für iPhone und Apple Watch. Fast.io hilft dabei, Fastenziele konsequent zu verfolgen – mit Echtzeit-Tracking, Hydration-Log, Live Activities, Dynamic Island, Home Screen Widgets und Apple Health Integration. Unterstützt populäre Fasten-Schemata wie 16:8, 18:6 und OMAD. Als Einmalkauf erhältlich – kein Abo.',
+      tech: ['Swift', 'SwiftUI', 'Swift Concurrency', 'Foundation', 'Swift Testing', 'XCTest',
+             'HealthKit', 'Live Activities', 'WidgetKit', 'Apple Watch', 'Dynamic Island',
+             'Xcode Cloud', 'MVVM'],
     },
     {
       name:   'OverlayLab – Weather Camera & Text Overlays',
@@ -347,125 +340,6 @@ kontinuierliche Weiterbildung und eine enge Zusammenarbeit im Team.`,
     //   tech: ['Swift', 'SwiftUI'],
     // },
   ],
-
-  // ──────────────────────────────────────────────
-  // AI EXPERIENCE
-  // Source: https://fastio.sturm-dev.de/blog-post.html?slug=fast-io-ai-build-report-de-2026-02-27
-  // ──────────────────────────────────────────────
-  ai: {
-    intro: 'Ich habe Fast.io als iOS-App für Intervallfasten komplett mit AI als primärem Engineering-Motor entwickelt – kein klassisches "AI als Assistenz", sondern AI als Hauptantrieb. Dabei bin ich von Vibe Coding zu Agentic Coding gewechselt und habe dabei viel über Struktur, Context-Management und Modellauswahl gelernt.',
-    blogUrl: 'https://fastio.sturm-dev.de/blog-post.html?slug=fast-io-ai-build-report-de-2026-02-27&lang=de',
-
-    journey: [
-      {
-        phase:    'Phase 1 – Vibe Coding',
-        icon:     'fas fa-bolt',
-        color:    'orange',
-        desc:     'Schnell MVP zusammenstecken, iterieren, weiter. Der MVP war flott da, fühlte sich aber wackelig an – zu große Schritte, zu wenig Struktur, später viele kleine Reibungen.',
-      },
-      {
-        phase:    'Phase 2 – Agentic Coding',
-        icon:     'fas fa-robot',
-        color:    'accent',
-        desc:     'PRD überarbeitet, in Sprints runtergebrochen, Entwicklung in kleinsten Inkrementen: Designsystem → Homescreen → Persistenz → Features → Polish. Alles über PRs mit klaren Checks und Review-Loops.',
-        highlight: true,
-      },
-    ],
-
-    learnings: [
-      'Skills und Guidelines sind nicht Deko – sie machen aus AI-Output wiederholbar guten Output.',
-      'Context-Management ist entscheidend: kleiner, sauberer Kontext schlägt riesige Dumps.',
-      'Nicht jedes Modell ist für jede Aufgabe gut – mehr Reasoning ist nicht immer effizient.',
-      'Agentic Workflows funktionieren nur, wenn Aufgaben sauber geschnitten sind: Definition of Done, Tests, PR-Grenzen.',
-    ],
-
-    workflow: [
-      {
-        title: 'Planung mit Skills',
-        icon:  'fas fa-clipboard-list',
-        desc:  'Für Produktideen, technische Konzepte und Sprint-Schnitte nutze ich Skills wie brainstorming und grill-me. Erst wird die Richtung geschärft, dann werden Annahmen aktiv hinterfragt, bevor Codex in die Umsetzung geht.',
-      },
-      {
-        title: 'Worktree- und PR-Flow',
-        icon:  'fas fa-code-branch',
-        desc:  'Implementierung läuft isoliert in Worktrees und wird über Pull Requests gesteuert. Jede Aufgabe bekommt klare Grenzen, nachvollziehbare Commits, Reviews und einen sauberen Rückweg, falls ein Ansatz nicht trägt.',
-      },
-      {
-        title: 'UI-Tests mit RocketSim',
-        icon:  'fas fa-mobile-screen-button',
-        desc:  'Für iOS-Oberflächen nutze ich RocketSim zusammen mit dem passenden Skill, um Simulator-Zustand, Accessibility-Elemente, Screenshots und Interaktionen schnell zu prüfen. So wird UI-Feedback Teil des Agentic Workflows.',
-      },
-      {
-        title: 'Deployment über ASC CLI',
-        icon:  'fab fa-app-store-ios',
-        desc:  'App Store Connect CLI nutze ich für Release-orientierte Arbeit: Build- und TestFlight-Flows, Metadaten, Screenshots, Lokalisierungen und Submission-Checks werden reproduzierbar aus dem Repo heraus angestoßen.',
-      },
-    ],
-
-    modelMatrix: [
-      {
-        category: 'Planung / PRD / Struktur',
-        icon:     'fas fa-diagram-project',
-        models:   ['ChatGPT', 'Grok'],
-        desc:     'PRD, Sprint-Planung, Architekturentscheidungen, Gap-Checks, Brainstorming.',
-      },
-      {
-        category: 'Implementierung',
-        icon:     'fas fa-code',
-        models:   ['GPT Codex', 'Claude Opus', 'Grok Code', 'Gemini Pro'],
-        desc:     'Feature-Entwicklung, Refactoring und komplexe Implementierungsaufgaben.',
-      },
-      {
-        category: 'Bugfixing / UI-Polish',
-        icon:     'fas fa-magnifying-glass-arrow-right',
-        models:   ['Codex low (schnelle Fixes)', 'Claude Opus (tiefere Ursachen)'],
-        desc:     'Mix je nach Tiefe des Problems – schnelle Surface-Fixes vs. Root-Cause-Analyse.',
-      },
-    ],
-
-    tools: [
-      {
-        name: 'Codex',
-        icon: 'fas fa-terminal',
-        desc: 'Hauptwerkzeug für die Implementierung. Läuft als Agentic Workflow direkt im Repo – Aufgaben werden als PR-Beschreibung übergeben, Codex implementiert, öffnet einen PR und ich reviewe. Sehr gut für klar definierte Features mit sauberem Kontext.',
-      },
-      {
-        name: 'Claude',
-        icon: 'fas fa-wand-magic-sparkles',
-        desc: 'Besonders stark bei UI-Arbeit und komplexem SwiftUI-Code. Claude versteht den visuellen Kontext sehr gut und liefert bei Design-System-Fragen, Layout-Logik und State-Management konsistent guten Output. Auch für Code-Reviews und tiefere Ursachenanalyse bei Bugs mein erstes Werkzeug.',
-      },
-      {
-        name: 'GitHub Copilot',
-        icon: 'fab fa-github',
-        desc: 'Direkt in VS Code und Xcode – ideal für repetitive Muster, Boilerplate und schnelle In-Editor-Completions. Spart besonders viel Zeit bei Tests und Datenmodellen, bei denen die Struktur klar ist, aber das Ausformulieren ermüdend wäre.',
-      },
-      {
-        name: 'Xcode',
-        icon: 'fas fa-hammer',
-        desc: 'Build-Reality-Check und letztes Qualitätstor: Unit Tests, UI Tests, Simulator-Runs und Profiling mit Instruments. Kein AI-Tool ersetzt das echte Build-Feedback – Xcode bleibt der Ground Truth.',
-      },
-      {
-        name: 'RocketSim',
-        icon: 'fas fa-mobile-screen-button',
-        desc: 'Schnelle Simulator-Inspektion mit Accessibility-Snapshot, Screenshots und UI-Aktionen. Besonders hilfreich, wenn ein Agent eine Änderung gebaut hat und die Oberfläche direkt verifiziert werden muss.',
-      },
-      {
-        name: 'App Store Connect CLI',
-        icon: 'fab fa-app-store-ios',
-        desc: 'CLI-gestützter Release-Workflow für TestFlight, Metadaten, Screenshots, Lokalisierung und Submission-Checks. Dadurch bleibt Deployment dokumentiert, wiederholbar und gut reviewbar.',
-      },
-      {
-        name: 'ChatGPT',
-        icon: 'fas fa-comments',
-        desc: 'PRDs schreiben, Sprint-Planung, Architekturentscheidungen diskutieren und Gap-Analysen durchführen. ChatGPT eignet sich gut als "erster Gesprächspartner", wenn eine Idee noch Struktur braucht, bevor man in die Implementierung geht.',
-      },
-      {
-        name: 'Grok',
-        icon: 'fas fa-brain',
-        desc: 'Zweite Meinung und Brainstorming-Partner. Gut wenn ChatGPT eine Richtung vorgibt und ich prüfen will, ob es alternative Ansätze gibt. Auch für schnelle technische Gegenchecks – "stimmt diese Architekturentscheidung wirklich?"',
-      },
-    ],
-  },
 
   // ──────────────────────────────────────────────
   // EDUCATION
@@ -511,11 +385,6 @@ const I18N = {
     pdfCreating: 'CV wird erstellt…',
     current: 'Aktuell',
     appStoreView: 'Im App Store ansehen',
-    aiWorkflowTitle: 'Mein Agentic Workflow',
-    aiStabilityTitle: 'Was den Workflow stabil macht',
-    aiModelTitle: 'Model-Matrix: Welches Modell für was',
-    aiModelShort: 'Model-Matrix',
-    aiToolsTitle: 'Tool-Stack',
     cvPrint: 'Als PDF speichern',
     cvContact: 'Kontakt',
     cvCoreSkills: 'Kernkompetenzen',
@@ -529,7 +398,6 @@ const I18N = {
     cvProjects: 'Projekte',
     cvSkills: 'Kenntnisse',
     cvEducation: 'Ausbildung',
-    cvWorkflowPrinciples: 'Workflow-Prinzipien',
     markdownProfile: 'Profil',
   },
   en: {
@@ -561,11 +429,6 @@ const I18N = {
     pdfCreating: 'Creating CV…',
     current: 'Current',
     appStoreView: 'View on the App Store',
-    aiWorkflowTitle: 'My Agentic Workflow',
-    aiStabilityTitle: 'What makes the workflow stable',
-    aiModelTitle: 'Model matrix: which model for what',
-    aiModelShort: 'Model Matrix',
-    aiToolsTitle: 'Tool stack',
     cvPrint: 'Save as PDF',
     cvContact: 'Contact',
     cvCoreSkills: 'Core skills',
@@ -579,7 +442,6 @@ const I18N = {
     cvProjects: 'Projects',
     cvSkills: 'Skills',
     cvEducation: 'Education',
-    cvWorkflowPrinciples: 'Workflow principles',
     markdownProfile: 'Profile',
   },
 };
@@ -593,9 +455,9 @@ const CV_TRANSLATIONS = {
       maritalStatus: 'Married',
       birthplace: 'Willich-Anrath',
     },
-    summary: `Stefan Sturm is an experienced senior iOS developer with a career spanning more than 15 years. His expertise in building high-quality mobile applications is reflected in his work for well-known companies such as 1&1, RTL, Nexenio, Porsche and many others.
+    summary: `Stefan Sturm is a senior iOS developer with more than 15 years of experience building high-quality mobile applications with Swift. His focus includes reactive and declarative user interfaces with SwiftUI and Combine, Swift Concurrency with async/await and Actors, and practical work with Foundation and iOS platform APIs.
 <br><br>
-He has made major contributions to apps such as the 1&1 Mail App, RTL+, the Luca App and the My Porsche App. Stefan specializes in modern technologies such as Swift, SwiftUI and Combine, and is experienced in implementing complex architectures such as MVVM, CleanSwift and Viper. He values high-quality code, continuous learning and close collaboration within teams.`,
+He safeguards delivery with automated tests in Swift Testing and XCTest and relies on robust GitLab CI/CD processes. His project experience at companies such as Chrono24, 1&1, RTL, Nexenio and Porsche covers complex product environments as well as an international e-commerce and marketplace setting. Professional German and English support close collaboration in interdisciplinary teams.`,
     stats: [
       { label: 'years iOS' },
       { label: 'companies' },
@@ -614,10 +476,10 @@ He has made major contributions to apps such as the 1&1 Mail App, RTL+, the Luca
                'UI tests', 'Unit tests', 'Snapshot tests', 'SPM'],
       },
       {
-        description: 'At Chrono24, I supported the redevelopment of the catalog experience.',
+        description: 'At Chrono24, I supported the redevelopment of the catalog in an international e-commerce and marketplace environment.',
         tech: ['Swift', 'SwiftUI', 'Combine', 'REST (JSON)', 'CleanSwift', 'CI/CD',
                'Jenkins', 'GitLab', 'Git', 'Xcode', 'Jira', 'Confluence',
-               'UI tests', 'Unit tests', 'Snapshot tests', 'SPM'],
+               'UI tests', 'Unit tests', 'Snapshot tests', 'SPM', 'E-Commerce', 'Marketplace'],
       },
       {
         role: 'Senior iOS Developer',
@@ -687,6 +549,10 @@ He has made major contributions to apps such as the 1&1 Mail App, RTL+, the Luca
           { years: '15 years' },
           { years: '5 years' },
           { years: '3 years' },
+          { years: '3 years' },
+          { years: '3 years' },
+          { years: '15 years' },
+          { name: 'iOS platform APIs', years: '15 years' },
           { years: '5 years' },
           { years: '10 years' },
           { years: '15 years' },
@@ -706,6 +572,7 @@ He has made major contributions to apps such as the 1&1 Mail App, RTL+, the Luca
         items: [
           { years: '15 years' },
           { years: '15 years' },
+          { years: '15 years' },
           { years: '20 years' },
           { years: '20 years' },
         ],
@@ -713,6 +580,7 @@ He has made major contributions to apps such as the 1&1 Mail App, RTL+, the Luca
       {
         category: 'Testing',
         items: [
+          {},
           { years: '10 years' },
           { years: '10 years' },
           { years: '10 years' },
@@ -727,23 +595,11 @@ He has made major contributions to apps such as the 1&1 Mail App, RTL+, the Luca
           { name: 'Encryption' },
         ],
       },
-      {
-        items: [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          { name: 'PRD / sprint planning' },
-          { name: 'AI-assisted testing' },
-        ],
-      },
     ],
     projects: [
       {
         period: '2025 – present',
-        description: 'Built completely with AI, from planning and design through implementation and testing. A beautifully simple intermittent fasting timer for iPhone and Apple Watch. Fast.io helps users consistently track fasting goals with real-time tracking, hydration logging, Live Activities, Dynamic Island, Home Screen widgets and Apple Health integration. It supports popular fasting schedules such as 16:8, 18:6 and OMAD. Available as a one-time purchase, no subscription.',
+        description: 'An easy-to-use intermittent fasting timer for iPhone and Apple Watch. Fast.io helps users consistently track fasting goals with real-time tracking, hydration logging, Live Activities, Dynamic Island, Home Screen widgets and Apple Health integration. It supports popular fasting schedules such as 16:8, 18:6 and OMAD. Available as a one-time purchase, no subscription.',
       },
       {
         period: '2025 – present',
@@ -754,84 +610,6 @@ He has made major contributions to apps such as the 1&1 Mail App, RTL+, the Luca
         description: 'Development of an app for controlling and monitoring a Tesla. The app is built entirely with the latest Apple frameworks because I use it as a learning project for new technologies. It consists of the app itself plus a REST API, also developed with Swift / Vapor.',
       },
     ],
-    ai: {
-      intro: 'I built Fast.io, an iOS app for intermittent fasting, completely with AI as the primary engineering engine. This was not classic "AI as assistance", but AI as the main driver. In the process, I moved from vibe coding to agentic coding and learned a lot about structure, context management and model selection.',
-      journey: [
-        {
-          phase: 'Phase 1 – Vibe Coding',
-          desc: 'Quickly assemble the MVP, iterate, move on. The MVP arrived quickly, but felt fragile: steps were too large, structure was too thin and many small frictions appeared later.',
-        },
-        {
-          phase: 'Phase 2 – Agentic Coding',
-          desc: 'The PRD was revised and broken down into sprints, with development in the smallest useful increments: design system, home screen, persistence, features and polish. Everything ran through PRs with clear checks and review loops.',
-        },
-      ],
-      learnings: [
-        'Skills and guidelines are not decoration; they turn AI output into repeatably good output.',
-        'Context management is critical: small, clean context beats huge dumps.',
-        'Not every model is good for every task; more reasoning is not always more efficient.',
-        'Agentic workflows only work when tasks are clearly scoped: definition of done, tests and PR boundaries.',
-      ],
-      workflow: [
-        {
-          title: 'Planning with skills',
-          desc: 'For product ideas, technical concepts and sprint slices, I use skills such as brainstorming and grill-me. First the direction is sharpened, then assumptions are challenged before Codex moves into implementation.',
-        },
-        {
-          title: 'Worktree and PR flow',
-          desc: 'Implementation runs isolated in worktrees and is driven through pull requests. Each task gets clear boundaries, traceable commits, reviews and a clean fallback if an approach does not hold up.',
-        },
-        {
-          title: 'UI testing with RocketSim',
-          desc: 'For iOS interfaces, I use RocketSim together with the matching skill to quickly inspect simulator state, accessibility elements, screenshots and interactions. This makes UI feedback part of the agentic workflow.',
-        },
-        {
-          title: 'Deployment through ASC CLI',
-          desc: 'I use App Store Connect CLI for release-oriented work: build and TestFlight flows, metadata, screenshots, localization and submission checks are started reproducibly from the repository.',
-        },
-      ],
-      modelMatrix: [
-        {
-          category: 'Planning / PRD / structure',
-          desc: 'PRDs, sprint planning, architecture decisions, gap checks and brainstorming.',
-        },
-        {
-          category: 'Implementation',
-          desc: 'Feature development, refactoring and complex implementation tasks.',
-        },
-        {
-          category: 'Bug fixing / UI polish',
-          models: ['Codex low (quick fixes)', 'Claude Opus (deeper root causes)'],
-          desc: 'A mix depending on problem depth: quick surface fixes versus root-cause analysis.',
-        },
-      ],
-      tools: [
-        {
-          desc: 'Main tool for implementation. It runs as an agentic workflow directly in the repository: tasks are passed in as PR descriptions, Codex implements, opens a PR and I review it. Very strong for clearly defined features with clean context.',
-        },
-        {
-          desc: 'Especially strong for UI work and complex SwiftUI code. Claude understands visual context very well and produces consistently good output for design-system questions, layout logic and state management. It is also my first choice for code reviews and deeper bug root-cause analysis.',
-        },
-        {
-          desc: 'Integrated directly into VS Code and Xcode: ideal for repetitive patterns, boilerplate and quick in-editor completions. It saves a lot of time for tests and data models where the structure is clear but writing everything out is tedious.',
-        },
-        {
-          desc: 'Build reality check and final quality gate: unit tests, UI tests, simulator runs and profiling with Instruments. No AI tool replaces real build feedback; Xcode remains the ground truth.',
-        },
-        {
-          desc: 'Fast simulator inspection with accessibility snapshots, screenshots and UI actions. Especially useful when an agent has built a change and the interface needs to be verified directly.',
-        },
-        {
-          desc: 'CLI-driven release workflow for TestFlight, metadata, screenshots, localization and submission checks. This keeps deployment documented, repeatable and easy to review.',
-        },
-        {
-          desc: 'Writing PRDs, sprint planning, discussing architecture decisions and running gap analyses. ChatGPT works well as the first conversation partner when an idea still needs structure before implementation starts.',
-        },
-        {
-          desc: 'Second opinion and brainstorming partner. Useful when ChatGPT suggests one direction and I want to check whether alternative approaches exist. Also helpful for quick technical counter-checks: does this architecture decision really hold up?',
-        },
-      ],
-    },
     education: [
       { degree: 'Information Technology', institution: 'University of Applied Sciences, 4 semesters electrical engineering' },
       { degree: 'University of Applied Sciences entrance qualification', institution: 'Fachoberschule, Kempen' },
