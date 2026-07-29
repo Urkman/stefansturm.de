@@ -151,12 +151,19 @@ const CV_PRINT_STYLES = `
   .cv-app{margin-top:.5mm;font-size:6.9pt;color:#697586}
   .cv-copy{margin-top:1mm;font-size:7.35pt;line-height:1.34;color:#465466}
   .cv-tech{margin-top:1mm;font-size:6.4pt;line-height:1.28;color:#8793a3}
+  .cv-recent .cv-role{margin-bottom:5mm}
+  .cv-recent .cv-role h3{font-size:9pt}
+  .cv-recent .cv-company{font-size:8.1pt}
+  .cv-recent .cv-period{font-size:7.2pt}
+  .cv-recent .cv-app{font-size:7.2pt}
+  .cv-recent .cv-copy{margin-top:1.2mm;font-size:8pt;line-height:1.4}
+  .cv-recent .cv-tech{margin-top:1.2mm;font-size:6.7pt;line-height:1.32}
   .cv-page-header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:3mm;border-bottom:.5mm solid #d9e7f5}
   .cv-page-header strong{font-size:13pt;color:#152033}
   .cv-page-header span{font-size:8pt;color:#0070e0}
   .cv-page-two-top{display:grid;grid-template-columns:1.1fr .9fr;gap:6mm;padding-top:4mm}
   .cv-earlier-column .cv-role{margin-bottom:2.8mm}
-  .cv-earlier-column .cv-copy{font-size:7pt;line-height:1.3}
+  .cv-earlier-column .cv-copy{font-size:7.4pt;line-height:1.35}
   .cv-additional{margin-top:2mm}
   .cv-additional>h3{margin-bottom:1.4mm;font-size:7.5pt;color:#253244}
   .cv-history-row{display:grid;grid-template-columns:24mm 28mm 1fr;gap:2mm;padding:1.1mm 0;border-top:.2mm solid #e7edf4;font-size:6.5pt;line-height:1.2;color:#596779}
@@ -165,15 +172,16 @@ const CV_PRINT_STYLES = `
   .cv-project-heading{display:flex;justify-content:space-between;gap:3mm;align-items:flex-start}
   .cv-project h3{font-size:7.7pt;line-height:1.2;color:#152033}
   .cv-project-heading span{flex-shrink:0;font-size:6.4pt;font-weight:700;color:#0070e0}
-  .cv-project>p:not(.cv-tech){margin-top:1mm;font-size:6.8pt;line-height:1.32;color:#526071}
+  .cv-project>p:not(.cv-tech){margin-top:1mm;font-size:7.2pt;line-height:1.34;color:#526071}
+  .cv-project .cv-tech{font-size:6.6pt}
   .cv-skills{margin-top:3mm}
-  .cv-skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.3mm 6mm}
+  .cv-skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.7mm 6mm}
   .cv-skill-group{break-inside:avoid}
-  .cv-skill-group h3{margin-bottom:.7mm;font-size:7.1pt;color:#253244}
-  .cv-skill-group p{font-size:6.6pt;line-height:1.3;color:#697586}
+  .cv-skill-group h3{margin-bottom:.7mm;font-size:7.4pt;color:#253244}
+  .cv-skill-group p{font-size:6.9pt;line-height:1.34;color:#697586}
   .cv-education{margin-top:3.5mm}
-  .cv-education-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4mm 6mm}
-  .cv-education-row{display:flex;justify-content:space-between;gap:3mm;border-bottom:.2mm solid #e7edf4;padding-bottom:.8mm;font-size:6.5pt;line-height:1.2;break-inside:avoid}
+  .cv-education-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.7mm 6mm}
+  .cv-education-row{display:flex;justify-content:space-between;gap:3mm;border-bottom:.2mm solid #e7edf4;padding-bottom:1mm;font-size:6.8pt;line-height:1.25;break-inside:avoid}
   .cv-education-row strong{color:#253244}
   .cv-education-row span{text-align:right;color:#697586}
   .cv-role,.cv-project,.cv-education-row,.cv-skill-group{break-inside:avoid}
