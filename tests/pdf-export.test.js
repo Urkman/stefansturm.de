@@ -50,7 +50,7 @@ for (const lang of ['de', 'en']) {
   assert.match(page2, /DevBar - Apple Developer Toolkit/);
   assert.match(page2, /Fast\.io - Fasting Timer/);
   assert.match(page2, /AI &amp; Agentic Development/);
-  assert.match(page2, /Informationstechnik/);
+  assert.match(page2, lang === 'de' ? /Informationstechnik/ : /Information Technology/);
   assert.match(html, /data:image\/jpeg;base64,TEST_PHOTO/);
 
   assert.doesNotMatch(html, /Albert-Brülls/);
