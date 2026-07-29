@@ -271,69 +271,6 @@ function renderContact() {
     </div>`).join('');
 }
 
-function renderAI() {
-  const ai = activeCV.ai;
-
-  const workflowHtml = ai.workflow.map(w => `
-    <div class="ai-workflow-card reveal">
-      <div class="ai-workflow-icon" aria-hidden="true"><i class="${esc(w.icon)}"></i></div>
-      <div>
-        <p class="ai-workflow-title">${esc(w.title)}</p>
-        <p class="ai-workflow-desc">${esc(w.desc)}</p>
-      </div>
-    </div>`).join('');
-
-  const learningsHtml = ai.learnings.map((learning, index) => `
-    <div class="ai-learning-item reveal">
-      <span class="ai-learning-bullet" aria-hidden="true">${index + 1}</span>
-      <span>${esc(learning)}</span>
-    </div>`).join('');
-
-  const modelsHtml = ai.modelMatrix.map(m => `
-    <div class="ai-model-card reveal">
-      <div class="ai-model-header">
-        <div class="ai-model-icon" aria-hidden="true"><i class="${esc(m.icon)}"></i></div>
-        <span class="ai-model-category">${esc(m.category)}</span>
-      </div>
-      <p class="ai-model-desc">${esc(m.desc)}</p>
-      <div class="ai-model-tags">
-        ${m.models.map(model => `<span class="ai-model-tag">${esc(model)}</span>`).join('')}
-      </div>
-    </div>`).join('');
-
-  const toolsHtml = ai.tools.map(t => `
-    <div class="ai-tool-card reveal">
-      <div class="ai-tool-icon" aria-hidden="true"><i class="${esc(t.icon)}"></i></div>
-      <div>
-        <p class="ai-tool-name">${esc(t.name)}</p>
-        <p class="ai-tool-desc">${esc(t.desc)}</p>
-      </div>
-    </div>`).join('');
-
-  document.getElementById('ai-content').innerHTML = `
-    <p class="ai-intro reveal">${esc(ai.intro)}</p>
-
-    <h3 class="ai-sub-title reveal">
-      <i class="fas fa-route" aria-hidden="true"></i> ${esc(t('aiWorkflowTitle'))}
-    </h3>
-    <div class="ai-workflow-grid">${workflowHtml}</div>
-
-    <h3 class="ai-sub-title reveal">
-      <i class="fas fa-check-double" aria-hidden="true"></i> ${esc(t('aiStabilityTitle'))}
-    </h3>
-    <div class="ai-learnings">${learningsHtml}</div>
-
-    <h3 class="ai-sub-title reveal">
-      <i class="fas fa-microchip" aria-hidden="true"></i> ${esc(t('aiModelTitle'))}
-    </h3>
-    <div class="ai-models-grid">${modelsHtml}</div>
-
-    <h3 class="ai-sub-title reveal">
-      <i class="fas fa-toolbox" aria-hidden="true"></i> ${esc(t('aiToolsTitle'))}
-    </h3>
-    <div class="ai-tools-grid">${toolsHtml}</div>`;
-}
-
 /* ══════════════════════════════════════════════
    PDF / CV DOWNLOAD
    Builds a clean A4 CV document from CV data,
@@ -373,33 +310,6 @@ function buildCvHtml() {
         <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:3pt;">${esc(cat.category)}</p>
         <p style="font-size:7.5pt;color:#6b7280;line-height:1.6;">${cat.items.map(i => esc(i.name)).join(' · ')}</p>
       </div>`).join('') + `</div>`;
-
-  // AI section: intro + model matrix + tools
-  const aiHtml = `
-    <p style="font-size:8pt;color:#4b5563;line-height:1.6;margin-bottom:8pt;">${esc(activeCV.ai.intro)}</p>
-    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:5pt;">Agentic Workflow</p>
-    <div style="margin-bottom:8pt;">
-      ${activeCV.ai.workflow.map(w => `
-        <div style="display:flex;gap:6pt;margin-bottom:5pt;padding-bottom:5pt;border-bottom:1px solid #f3f4f6;">
-          <p style="font-size:7.5pt;font-weight:700;color:#374151;min-width:110pt;flex-shrink:0;">${esc(w.title)}</p>
-          <p style="font-size:7pt;color:#6b7280;line-height:1.4;">${esc(w.desc)}</p>
-        </div>`).join('')}
-    </div>
-    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:5pt;">${esc(t('cvWorkflowPrinciples'))}</p>
-    <p style="font-size:7.5pt;color:#6b7280;line-height:1.6;margin-bottom:8pt;">${activeCV.ai.learnings.map(esc).join(' · ')}</p>
-    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:5pt;">${esc(t('aiModelShort'))}</p>
-    <div style="margin-bottom:8pt;">
-      ${activeCV.ai.modelMatrix.map(m => `
-        <div style="display:flex;gap:6pt;margin-bottom:5pt;padding-bottom:5pt;border-bottom:1px solid #f3f4f6;">
-          <p style="font-size:7.5pt;font-weight:700;color:#374151;min-width:110pt;flex-shrink:0;">${esc(m.category)}</p>
-          <div>
-            <p style="font-size:7.5pt;color:#007AFF;font-weight:600;margin-bottom:1pt;">${m.models.map(esc).join(' · ')}</p>
-            <p style="font-size:7pt;color:#6b7280;line-height:1.4;">${esc(m.desc)}</p>
-          </div>
-        </div>`).join('')}
-    </div>
-    <p style="font-size:7.5pt;font-weight:700;color:#374151;margin-bottom:3pt;">${esc(t('aiToolsTitle'))}</p>
-    <p style="font-size:7.5pt;color:#6b7280;line-height:1.6;">${activeCV.ai.tools.map(t => esc(t.name)).join(' · ')}</p>`;
 
   const expHtml = activeCV.experience.map(job => `
     <div style="margin-bottom:11pt;page-break-inside:avoid;">
@@ -497,10 +407,6 @@ function buildCvHtml() {
       ${kenntnisseHtml}
     </div>
     <div style="${S.section}">
-      <h2 style="${S.h2mn}">AI &amp; Agentic Development</h2>
-      ${aiHtml}
-    </div>
-    <div style="${S.section}">
       <h2 style="${S.h2mn}">${esc(t('cvEducation'))}</h2>
       ${eduHtml}
     </div>
@@ -578,37 +484,6 @@ function buildCvMarkdown() {
     lines.push(`**${cat.category}:** ${cat.items.map(i => i.name + (i.years ? ` (${i.years})` : '')).join(', ')}`);
   });
   lines.push('');
-
-  // AI & Agentic Development
-  lines.push('## AI & Agentic Development');
-  lines.push('');
-  lines.push(activeCV.ai.intro);
-  lines.push('');
-  lines.push('### Agentic Workflow');
-  lines.push('');
-  activeCV.ai.workflow.forEach(w => {
-    lines.push(`**${w.title}:** ${w.desc}`);
-    lines.push('');
-  });
-  lines.push(`### ${t('cvWorkflowPrinciples')}`);
-  lines.push('');
-  activeCV.ai.learnings.forEach(learning => {
-    lines.push(`- ${learning}`);
-  });
-  lines.push('');
-  lines.push(`### ${t('aiModelShort')}`);
-  lines.push('');
-  activeCV.ai.modelMatrix.forEach(m => {
-    lines.push(`**${m.category}:** ${m.models.join(', ')}`);
-    lines.push(m.desc);
-    lines.push('');
-  });
-  lines.push(`### ${t('aiToolsTitle')}`);
-  lines.push('');
-  activeCV.ai.tools.forEach(t => {
-    lines.push(`**${t.name}:** ${t.desc}`);
-    lines.push('');
-  });
 
   // Education
   lines.push(`## ${t('cvEducation')}`);
@@ -706,7 +581,6 @@ function renderAll() {
   renderExperience();
   renderSkills();
   renderProjects();
-  renderAI();
   renderEducation();
   renderContact();
 

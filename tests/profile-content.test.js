@@ -87,4 +87,14 @@ for (const [lang, profile] of Object.entries(profiles)) {
   assert.doesNotMatch(fastIo.description, forbiddenAiTerms, `${lang}: Fast.io still contains AI wording`);
 }
 
+const sourceFiles = {
+  html: fs.readFileSync(path.join(root, 'index.html'), 'utf8'),
+  main: fs.readFileSync(path.join(root, 'js/main.js'), 'utf8'),
+  css: fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8'),
+};
+
+assert.doesNotMatch(sourceFiles.html, /href="#ai"|id="ai"|AI & Tools/);
+assert.doesNotMatch(sourceFiles.main, /renderAI|activeCV\.ai|AI & Agentic Development/);
+assert.doesNotMatch(sourceFiles.css, /\.ai-[a-z-]+/);
+
 console.log('Profile content contract passed for DE and EN');
