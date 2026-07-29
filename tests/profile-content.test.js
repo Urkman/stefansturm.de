@@ -35,24 +35,61 @@ const profiles = {
   en: mergeLocalized(CV, CV_TRANSLATIONS.en),
 };
 
+const expectedAiSkills = {
+  de: {
+    workflow: [
+      'Agentic Development',
+      'Prompt & Context Engineering',
+      'Planning Skills (brainstorming / grill-me)',
+      'PRD / Sprintplanung',
+      'Worktree / PR Workflows',
+      'AI-gestütztes Testing',
+      'AI Code Review',
+      'Modellauswahl',
+    ],
+    tools: ['Codex', 'Claude', 'ChatGPT', 'GitHub Copilot', 'Grok'],
+  },
+  en: {
+    workflow: [
+      'Agentic Development',
+      'Prompt & Context Engineering',
+      'Planning Skills (brainstorming / grill-me)',
+      'PRD / Sprint Planning',
+      'Worktree / PR Workflows',
+      'AI-assisted Testing',
+      'AI Code Review',
+      'Model Selection',
+    ],
+    tools: ['Codex', 'Claude', 'ChatGPT', 'GitHub Copilot', 'Grok'],
+  },
+};
+
 const forbiddenAiTerms = /\bAI\b|Agentic|Codex|Claude|ChatGPT|Copilot|Grok|Prompt Engineering|RocketSim|App Store Connect CLI/i;
 for (const [lang, profile] of Object.entries(profiles)) {
   assert.equal(profile.ai, undefined, `${lang}: standalone AI data must be removed`);
 
-  const aiSkills = profile.skills.find(category => category.category === 'AI & Agentic Development');
-  assert.ok(aiSkills, `${lang}: AI skills category missing`);
-  [
-    /Codex/,
-    /Claude/,
-    /ChatGPT/,
-    /GitHub Copilot/,
-    /Grok/,
-    /Prompt Engineering/,
-    /PRD \/ (Sprintplanung|sprint planning)/,
-    /AI-(gestütztes|assisted) Testing/i,
-  ].forEach(pattern => {
-    assert.match(JSON.stringify(aiSkills), pattern, `${lang}: missing AI skill ${pattern}`);
-  });
+  const workflow = profile.skills.find(category => category.category === 'AI & Agentic Development');
+  const aiTools = profile.skills.find(category => category.category === 'AI Tools');
+  const generalTools = profile.skills.find(category => category.category === 'Tools & CI/CD');
+
+  assert.ok(workflow, `${lang}: AI workflow skills category missing`);
+  assert.ok(aiTools, `${lang}: AI tools category missing`);
+  assert.ok(generalTools, `${lang}: general tools category missing`);
+  assert.deepEqual(
+    Array.from(workflow.items, item => item.name),
+    expectedAiSkills[lang].workflow,
+    `${lang}: AI workflow skills differ`
+  );
+  assert.deepEqual(
+    Array.from(aiTools.items, item => item.name),
+    expectedAiSkills[lang].tools,
+    `${lang}: AI tools differ`
+  );
+  assert.ok(generalTools.items.some(item => item.name === 'RocketSim'), `${lang}: RocketSim must be a general tool`);
+  assert.ok(
+    generalTools.items.some(item => item.name === 'App Store Connect CLI'),
+    `${lang}: App Store Connect CLI must be a general tool`
+  );
 }
 
 const requiredTerms = {
