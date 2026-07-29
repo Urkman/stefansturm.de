@@ -64,6 +64,30 @@ const expectedAiSkills = {
   },
 };
 
+const expectedDevBar = {
+  de: {
+    period: '2026 – bis jetzt',
+    description: 'Eine native macOS-26-Menüleisten-App für Apple-Plattform-Entwickler. DevBar bereinigt Xcode- und SPM-Caches, steuert Simulatoren, unterstützt Git-Workflows mit Diffs, Commits, Push und Pull Requests und bündelt Referenzen sowie Entwicklerwerkzeuge. Die App arbeitet sandboxed und weitgehend offline; Commit-Nachrichten entstehen lokal mit Apple Intelligence.',
+  },
+  en: {
+    period: '2026 – present',
+    description: 'A native macOS 26 menu-bar app for Apple-platform developers. DevBar cleans Xcode and SPM caches, controls simulators, supports Git workflows with diffs, commits, pushes and pull requests, and bundles references and everyday developer utilities. The app is sandboxed and mostly offline; commit messages are generated locally with Apple Intelligence.',
+  },
+};
+
+const expectedDevBarTech = [
+  'Swift',
+  'SwiftUI',
+  'Swift Concurrency',
+  'Foundation',
+  'AppKit',
+  'Apple Intelligence',
+  'macOS 26',
+  'GitHub',
+  'XCTest',
+  'Xcode Cloud',
+];
+
 const forbiddenAiTerms = /\bAI\b|Agentic|Codex|Claude|ChatGPT|Copilot|Grok|Prompt Engineering|RocketSim|App Store Connect CLI/i;
 for (const [lang, profile] of Object.entries(profiles)) {
   assert.equal(profile.ai, undefined, `${lang}: standalone AI data must be removed`);
@@ -90,6 +114,16 @@ for (const [lang, profile] of Object.entries(profiles)) {
     generalTools.items.some(item => item.name === 'App Store Connect CLI'),
     `${lang}: App Store Connect CLI must be a general tool`
   );
+}
+
+for (const [lang, profile] of Object.entries(profiles)) {
+  const devbar = profile.projects[0];
+  assert.equal(devbar.name, 'DevBar – Apple Developer Toolkit', `${lang}: DevBar must be first`);
+  assert.equal(devbar.period, expectedDevBar[lang].period, `${lang}: DevBar period differs`);
+  assert.equal(devbar.url, 'https://devbar.netlify.app', `${lang}: DevBar URL differs`);
+  assert.equal(devbar.linkType, 'website', `${lang}: DevBar link type differs`);
+  assert.equal(devbar.description, expectedDevBar[lang].description, `${lang}: DevBar description differs`);
+  assert.deepEqual(Array.from(devbar.tech), expectedDevBarTech, `${lang}: DevBar technology tags differ`);
 }
 
 const requiredTerms = {
