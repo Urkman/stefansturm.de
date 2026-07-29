@@ -217,7 +217,12 @@ function renderSkills() {
 }
 
 function renderProjects() {
-  const html = activeCV.projects.map(proj => `
+  const html = activeCV.projects.map(proj => {
+    const isWebsite = proj.linkType === 'website';
+    const linkIcon = isWebsite ? 'fas fa-globe' : 'fab fa-app-store-ios';
+    const linkLabel = isWebsite ? t('websiteView') : t('appStoreView');
+
+    return `
     <article class="project-card reveal">
       <div class="project-header">
         <h3 class="project-name">${esc(proj.name)}</h3>
@@ -225,13 +230,14 @@ function renderProjects() {
       </div>
       ${proj.url ? `
         <a href="${esc(proj.url)}" target="_blank" rel="noopener noreferrer" class="project-store-link">
-          <i class="fab fa-app-store-ios" aria-hidden="true"></i>
-          ${esc(t('appStoreView'))}
+          <i class="${linkIcon}" aria-hidden="true"></i>
+          ${esc(linkLabel)}
           <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
         </a>` : ''}
       <p class="project-desc">${esc(proj.description)}</p>
       ${renderTechTags(proj.tech)}
-    </article>`).join('');
+    </article>`;
+  }).join('');
 
   document.getElementById('projects-grid').innerHTML = html;
 }

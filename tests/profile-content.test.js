@@ -181,5 +181,9 @@ const sourceFiles = {
 assert.doesNotMatch(sourceFiles.html, /href="#ai"|id="ai"|AI & Tools/);
 assert.doesNotMatch(sourceFiles.main, /renderAI|activeCV\.ai|AI & Agentic Development/);
 assert.doesNotMatch(sourceFiles.css, /\.ai-[a-z-]+/);
+assert.match(sourceFiles.main, /proj\.linkType === 'website'/);
+assert.match(sourceFiles.main, /t\('websiteView'\)/);
+assert.match(dataSource, /websiteView:\s*'Website ansehen'/);
+assert.match(dataSource, /websiteView:\s*'View website'/);
 
 console.log('Profile content contract passed for DE and EN');
