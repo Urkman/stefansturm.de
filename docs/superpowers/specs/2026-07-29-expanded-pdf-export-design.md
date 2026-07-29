@@ -33,6 +33,7 @@ The expanded PDF includes all non-private CV data available for the active langu
 
 - Portrait
 - Name and professional title
+- Full personal tagline
 - City, email, phone, GitHub, LinkedIn, and X
 - Nationality
 - All languages, levels, and notes
