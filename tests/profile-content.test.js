@@ -13,7 +13,7 @@ vm.runInNewContext(
   { filename: 'js/data.js' }
 );
 
-const { CV, CV_TRANSLATIONS } = context.__profile;
+const { CV, I18N, CV_TRANSLATIONS } = context.__profile;
 
 function mergeLocalized(base, override) {
   if (override === undefined) return base;
@@ -117,6 +117,10 @@ for (const [lang, profile] of Object.entries(profiles)) {
 }
 
 for (const [lang, profile] of Object.entries(profiles)) {
+  profile.projects.forEach(project => {
+    assert.ok(project.cvDescription, `${lang}: ${project.name} is missing cvDescription`);
+  });
+
   const devbar = profile.projects[0];
   assert.equal(devbar.name, 'DevBar – Apple Developer Toolkit', `${lang}: DevBar must be first`);
   assert.equal(devbar.period, expectedDevBar[lang].period, `${lang}: DevBar period differs`);
@@ -124,6 +128,21 @@ for (const [lang, profile] of Object.entries(profiles)) {
   assert.equal(devbar.linkType, 'website', `${lang}: DevBar link type differs`);
   assert.equal(devbar.description, expectedDevBar[lang].description, `${lang}: DevBar description differs`);
   assert.deepEqual(Array.from(devbar.tech), expectedDevBarTech, `${lang}: DevBar technology tags differ`);
+}
+
+const pdfTranslationKeys = [
+  'cvProfileSummary',
+  'cvLocation',
+  'cvEarlierExperience',
+  'cvAdditionalExperience',
+  'cvSelectedProjects',
+  'cvTechnicalSkills',
+  'cvPage',
+];
+for (const lang of ['de', 'en']) {
+  pdfTranslationKeys.forEach(key => {
+    assert.ok(I18N[lang][key], `${lang}: missing PDF translation ${key}`);
+  });
 }
 
 const requiredTerms = {
