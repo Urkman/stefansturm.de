@@ -138,6 +138,13 @@ const pdfTranslationKeys = [
   'cvSelectedProjects',
   'cvTechnicalSkills',
   'cvPage',
+  'pdfExportMenu',
+  'compactCvTitle',
+  'compactCvDescription',
+  'expandedCvTitle',
+  'expandedCvDescription',
+  'cvExpandedLabel',
+  'cvStatistics',
 ];
 for (const lang of ['de', 'en']) {
   pdfTranslationKeys.forEach(key => {

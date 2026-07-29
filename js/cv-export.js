@@ -43,6 +43,74 @@ function getCvPhotoDataUrl() {
   }
 }
 
+function closePdfExportMenu(menu, restoreFocus = false) {
+  const trigger = menu.querySelector('.pdf-export-trigger');
+  const options = menu.querySelector('.pdf-export-options');
+  options.hidden = true;
+  trigger.setAttribute('aria-expanded', 'false');
+  if (restoreFocus) trigger.focus();
+}
+
+function openPdfExportMenu(menu, focusFirst = false) {
+  document.querySelectorAll('[data-pdf-menu]').forEach(otherMenu => {
+    if (otherMenu !== menu) closePdfExportMenu(otherMenu);
+  });
+  const trigger = menu.querySelector('.pdf-export-trigger');
+  const options = menu.querySelector('.pdf-export-options');
+  options.hidden = false;
+  trigger.setAttribute('aria-expanded', 'true');
+  if (focusFirst) options.querySelector('.pdf-export-option').focus();
+}
+
+function setupPdfExportMenus() {
+  const menus = Array.from(document.querySelectorAll('[data-pdf-menu]'));
+
+  menus.forEach(menu => {
+    const trigger = menu.querySelector('.pdf-export-trigger');
+    const optionsPanel = menu.querySelector('.pdf-export-options');
+    const options = Array.from(menu.querySelectorAll('.pdf-export-option'));
+
+    trigger.addEventListener('click', event => {
+      event.stopPropagation();
+      if (optionsPanel.hidden) openPdfExportMenu(menu);
+      else closePdfExportMenu(menu);
+    });
+
+    trigger.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        openPdfExportMenu(menu, true);
+      }
+      if (event.key === 'Escape') closePdfExportMenu(menu);
+    });
+
+    options.forEach((option, index) => {
+      option.addEventListener('click', () => {
+        closePdfExportMenu(menu);
+        downloadCv(option.dataset.cvExport);
+      });
+      option.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closePdfExportMenu(menu, true);
+        }
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          const direction = event.key === 'ArrowDown' ? 1 : -1;
+          const nextIndex = (index + direction + options.length) % options.length;
+          options[nextIndex].focus();
+        }
+      });
+    });
+  });
+
+  document.addEventListener('click', event => {
+    menus.forEach(menu => {
+      if (!menu.contains(event.target)) closePdfExportMenu(menu);
+    });
+  });
+}
+
 function renderCvSectionTitle(title) {
   return `<h2 class="cv-section-title">${cvEsc(title)}</h2>`;
 }

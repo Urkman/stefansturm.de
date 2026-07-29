@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/styles.css?v=20260729-ios-profile">
+  <link rel="stylesheet" href="css/styles.css?v=20260729-expanded-pdf">
 </head>
 <body>
 
@@ -64,10 +64,31 @@
           <li><a href="#education"  class="nav-link" data-i18n="navEducation">Ausbildung</a></li>
           <li><a href="#contact"    class="nav-link" data-i18n="navContact">Kontakt</a></li>
           <li>
-            <button class="btn btn-primary btn-sm" id="downloadCvBtn" aria-label="Download as PDF" data-i18n-aria-label="downloadPdf">
-              <i class="fas fa-file-pdf" aria-hidden="true"></i>
-              <span>PDF</span>
-            </button>
+            <div class="pdf-export-menu pdf-export-menu-nav" data-pdf-menu>
+              <button class="btn btn-primary btn-sm pdf-export-trigger" id="downloadCvBtn"
+                      aria-haspopup="menu" aria-expanded="false"
+                      aria-label="PDF-Export auswählen" data-i18n-aria-label="pdfExportMenu">
+                <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                <span>PDF</span>
+                <i class="fas fa-chevron-down pdf-export-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="pdf-export-options" role="menu" hidden>
+                <button type="button" class="pdf-export-option" role="menuitem" data-cv-export="compact">
+                  <i class="fas fa-file-lines" aria-hidden="true"></i>
+                  <span>
+                    <strong data-i18n="compactCvTitle">Kompakter CV</strong>
+                    <small data-i18n="compactCvDescription">Professioneller Lebenslauf auf zwei Seiten</small>
+                  </span>
+                </button>
+                <button type="button" class="pdf-export-option" role="menuitem" data-cv-export="expanded">
+                  <i class="fas fa-file-circle-plus" aria-hidden="true"></i>
+                  <span>
+                    <strong data-i18n="expandedCvTitle">Ausführlicher CV</strong>
+                    <small data-i18n="expandedCvDescription">Vollständiger Lebenslauf mit allen Details</small>
+                  </span>
+                </button>
+              </div>
+            </div>
             <button class="btn btn-outline btn-sm" id="downloadMdBtn" aria-label="Download as MD" data-i18n-aria-label="downloadMd">
               <i class="fab fa-markdown" aria-hidden="true"></i>
               <span>MD</span>
@@ -100,10 +121,31 @@
             <p class="hero-tagline" data-i18n="heroTagline">15+ Jahre iOS-Entwicklung</p>
             <p class="hero-bio" id="hero-bio"><!-- filled by JS --></p>
             <div class="hero-actions">
-              <button class="btn btn-primary btn-lg" id="heroDownloadBtn">
-                <i class="fas fa-file-pdf" aria-hidden="true"></i>
-                <span data-i18n="downloadPdfText">Download as PDF</span>
-              </button>
+              <div class="pdf-export-menu pdf-export-menu-hero" data-pdf-menu>
+                <button class="btn btn-primary btn-lg pdf-export-trigger" id="heroDownloadBtn"
+                        aria-haspopup="menu" aria-expanded="false"
+                        aria-label="PDF-Export auswählen" data-i18n-aria-label="pdfExportMenu">
+                  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                  <span data-i18n="downloadPdfText">Download as PDF</span>
+                  <i class="fas fa-chevron-down pdf-export-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="pdf-export-options" role="menu" hidden>
+                  <button type="button" class="pdf-export-option" role="menuitem" data-cv-export="compact">
+                    <i class="fas fa-file-lines" aria-hidden="true"></i>
+                    <span>
+                      <strong data-i18n="compactCvTitle">Kompakter CV</strong>
+                      <small data-i18n="compactCvDescription">Professioneller Lebenslauf auf zwei Seiten</small>
+                    </span>
+                  </button>
+                  <button type="button" class="pdf-export-option" role="menuitem" data-cv-export="expanded">
+                    <i class="fas fa-file-circle-plus" aria-hidden="true"></i>
+                    <span>
+                      <strong data-i18n="expandedCvTitle">Ausführlicher CV</strong>
+                      <small data-i18n="expandedCvDescription">Vollständiger Lebenslauf mit allen Details</small>
+                    </span>
+                  </button>
+                </div>
+              </div>
               <button class="btn btn-outline btn-lg" id="heroDownloadMdBtn">
                 <i class="fab fa-markdown" aria-hidden="true"></i>
                 <span data-i18n="downloadMdText">Download as MD</span>
@@ -195,8 +237,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/data.js?v=20260729-professional-pdf"></script>
-  <script src="js/main.js?v=20260729-professional-pdf"></script>
-  <script src="js/cv-export.js?v=20260729-professional-pdf"></script>
+  <script src="js/data.js?v=20260729-expanded-pdf"></script>
+  <script src="js/main.js?v=20260729-expanded-pdf"></script>
+  <script src="js/cv-export.js?v=20260729-expanded-pdf"></script>
 </body>
 </html>

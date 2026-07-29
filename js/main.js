@@ -482,11 +482,7 @@ function initReveal() {
 document.addEventListener('DOMContentLoaded', () => {
   renderAll();
 
-  // Wire CV download buttons
-  ['downloadCvBtn', 'heroDownloadBtn'].forEach(id => {
-    const btn = document.getElementById(id);
-    if (btn) btn.addEventListener('click', downloadCv);
-  });
+  setupPdfExportMenus();
 
   // Wire Markdown download buttons
   ['downloadMdBtn', 'heroDownloadMdBtn'].forEach(id => {

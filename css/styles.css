@@ -934,6 +934,85 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 }
 .footer-sub { font-size: .8125rem; margin-top: .25rem; color: rgba(255,255,255,.35); }
 
+/* -------- PDF export menu -------- */
+.pdf-export-menu {
+  position: relative;
+  display: inline-flex;
+}
+.pdf-export-trigger[aria-expanded="true"] .pdf-export-chevron {
+  transform: rotate(180deg);
+}
+.pdf-export-chevron {
+  font-size: .7em;
+  transition: transform var(--t-base);
+}
+.pdf-export-options {
+  position: absolute;
+  z-index: 1100;
+  top: calc(100% + .5rem);
+  left: 0;
+  width: min(22rem, calc(100vw - 2rem));
+  padding: .375rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--sh-xl);
+}
+.pdf-export-menu-nav .pdf-export-options {
+  right: 0;
+  left: auto;
+}
+.pdf-export-option {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: .75rem;
+  width: 100%;
+  padding: .75rem;
+  border-radius: var(--r-sm);
+  color: var(--text);
+  text-align: left;
+}
+.pdf-export-option:hover,
+.pdf-export-option:focus-visible {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.pdf-export-option > i {
+  margin-top: .15rem;
+  color: var(--accent);
+}
+.pdf-export-option span {
+  min-width: 0;
+}
+.pdf-export-option strong,
+.pdf-export-option small {
+  display: block;
+  letter-spacing: 0;
+}
+.pdf-export-option strong {
+  font-size: .875rem;
+  line-height: 1.25;
+}
+.pdf-export-option small {
+  margin-top: .2rem;
+  color: var(--text-muted);
+  font-size: .75rem;
+  line-height: 1.35;
+  white-space: normal;
+}
+@media (max-width: 639px) {
+  .pdf-export-menu-hero,
+  .pdf-export-menu-hero .pdf-export-trigger {
+    width: 100%;
+  }
+  .pdf-export-menu-hero .pdf-export-trigger {
+    justify-content: center;
+  }
+  .pdf-export-menu-hero .pdf-export-options {
+    width: 100%;
+  }
+}
+
 /* -------- PDF overlay -------- */
 .pdf-overlay {
   display: none;
