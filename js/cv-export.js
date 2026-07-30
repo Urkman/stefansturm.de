@@ -206,6 +206,20 @@ function renderExpandedSectionTitle(title) {
   return `<h2 class="cv-expanded-section-title">${cvEsc(title)}</h2>`;
 }
 
+function renderExpandedPageHeader(title, pageLabel) {
+  return `<header class="cv-expanded-page-header">
+    <strong>${cvEsc(title)}</strong>
+    <span>${cvEsc(pageLabel)}</span>
+  </header>`;
+}
+
+function renderExpandedPageFooter(personal, page, total) {
+  return `<footer class="cv-expanded-footer">
+    <span>${cvEsc(personal.name)} - ${cvEsc(t('cvExpandedLabel'))}</span>
+    <span>${cvEsc(t('cvPage'))} ${page} / ${total}</span>
+  </footer>`;
+}
+
 function renderExpandedLink(url, label) {
   if (!label) return '';
   if (!url) return `<span class="cv-expanded-link">${cvEsc(label)}</span>`;
@@ -281,6 +295,8 @@ const CV_PRINT_STYLES = `
   .cv-identity h1{font-size:23pt;line-height:1.05;color:#0f172a}
   .cv-title{margin-top:1mm;font-size:11pt;font-weight:650;color:#0070e0}
   .cv-meta{margin-top:1.2mm;font-size:7.3pt;line-height:1.25;color:#526071}
+  .cv-meta a{color:#0070e0;text-decoration:none}
+  .cv-website-link{font-weight:650}
   .cv-intro-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:7mm;padding:5mm 0 4mm}
   .cv-section-title{margin-bottom:2.5mm;padding-bottom:1.5mm;border-bottom:.45mm solid #d9e7f5;color:#0070e0;font-size:9pt;line-height:1;text-transform:uppercase;letter-spacing:0}
   .cv-profile>p{font-size:8pt;line-height:1.45;color:#3f4d5f}
@@ -302,9 +318,11 @@ const CV_PRINT_STYLES = `
   .cv-recent .cv-app{font-size:7.2pt}
   .cv-recent .cv-copy{margin-top:1.2mm;font-size:8pt;line-height:1.4}
   .cv-recent .cv-tech{margin-top:1.2mm;font-size:6.7pt;line-height:1.32}
-  .cv-page-header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:3mm;border-bottom:.5mm solid #d9e7f5}
+  .cv-page-header{display:flex;justify-content:space-between;align-items:baseline;border-top:.8mm solid #0070e0;padding-top:3mm;padding-bottom:3mm;border-bottom:.5mm solid #d9e7f5}
   .cv-page-header strong{font-size:13pt;color:#152033}
   .cv-page-header span{font-size:8pt;color:#0070e0}
+  .cv-page-contact{margin:2mm 0 1mm;color:#526071;font-size:7pt;line-height:1.3}
+  .cv-page-contact a{color:#0070e0;text-decoration:none;font-weight:650}
   .cv-page-two-top{display:grid;grid-template-columns:1.1fr .9fr;gap:6mm;padding-top:4mm}
   .cv-earlier-column .cv-role{margin-bottom:2.8mm}
   .cv-earlier-column .cv-copy{font-size:7.4pt;line-height:1.35}
@@ -335,14 +353,19 @@ const CV_PRINT_STYLES = `
 `;
 
 const EXPANDED_CV_PRINT_STYLES = `
-  @page{size:A4;margin:13mm 14mm 18mm}
+  @page{size:A4;margin:0}
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#182230;background:#eef2f6}
   p,h1,h2,h3{margin:0}
   a{color:inherit}
-  .cv-expanded-document{width:100%;max-width:182mm;margin:0 auto;background:#fff}
-  .cv-expanded-cover{min-height:250mm;break-after:page;display:flex;flex-direction:column}
+  .cv-expanded-document{width:100%;margin:0 auto;background:#fff}
+  .cv-expanded-page{position:relative;width:210mm;height:297mm;padding:13mm 14mm 18mm;background:#fff;overflow:hidden;break-after:page;page-break-after:always}
+  .cv-expanded-page:last-child{break-after:auto;page-break-after:auto}
+  .cv-expanded-page-header{display:flex;justify-content:space-between;align-items:baseline;border-top:.8mm solid #0070e0;padding-top:3mm;padding-bottom:3mm;border-bottom:.5mm solid #d9e7f5}
+  .cv-expanded-page-header strong{font-size:13pt;color:#152033}
+  .cv-expanded-page-header span{font-size:8pt;color:#0070e0}
+  .cv-expanded-cover-page{display:flex;flex-direction:column}
   .cv-expanded-header{display:grid;grid-template-columns:34mm 1fr;gap:8mm;align-items:center;padding-bottom:7mm;border-bottom:.5mm solid #d9e7f5}
   .cv-expanded-photo{width:34mm;height:34mm;border-radius:50%;object-fit:cover;border:1mm solid #e5f1ff}
   .cv-expanded-photo-fallback{display:flex;align-items:center;justify-content:center;background:#0070e0;color:#fff;font-size:23pt;font-weight:800}
@@ -363,9 +386,8 @@ const EXPANDED_CV_PRINT_STYLES = `
   .cv-expanded-languages{display:grid;gap:2mm}
   .cv-expanded-language{display:flex;justify-content:space-between;gap:3mm;padding-bottom:1.5mm;border-bottom:.2mm solid #e7edf4;font-size:8pt}
   .cv-expanded-language span{color:#697586}
-  .cv-expanded-content-section{margin-top:8mm}
-  .cv-expanded-content-section>.cv-expanded-section-title{break-after:avoid-page;page-break-after:avoid}
-  .cv-expanded-project-section,.cv-expanded-skills-section{break-before:page;page-break-before:always}
+  .cv-expanded-page-content{margin-top:7mm}
+  .cv-expanded-page-content>.cv-expanded-section-title{break-after:avoid-page;page-break-after:avoid}
   .cv-expanded-entry{margin-bottom:6mm;padding-bottom:5mm;border-bottom:.25mm solid #dfe7f0;break-inside:avoid;page-break-inside:avoid}
   .cv-expanded-heading{display:flex;justify-content:space-between;gap:6mm;align-items:flex-start;break-inside:avoid;page-break-inside:avoid;break-after:avoid-page;page-break-after:avoid}
   .cv-expanded-heading h3{font-size:10.5pt;line-height:1.25;color:#152033}
@@ -380,7 +402,8 @@ const EXPANDED_CV_PRINT_STYLES = `
   .cv-expanded-project{margin:0;padding:4mm;border:.25mm solid #dfe7f0;border-radius:2mm}
   .cv-expanded-project .cv-expanded-copy{font-size:8pt}
   .cv-expanded-skills{display:grid;grid-template-columns:1fr 1fr;gap:5mm 8mm}
-  .cv-expanded-skill-group{break-inside:avoid;page-break-inside:avoid}
+  .cv-expanded-skills-page-grid{align-content:start}
+  .cv-expanded-skill-group{padding:4mm;border:.25mm solid #dfe7f0;border-radius:2mm;background:#fbfdff;break-inside:avoid;page-break-inside:avoid}
   .cv-expanded-skill-group h3{margin-bottom:2mm;font-size:9pt;color:#152033}
   .cv-expanded-skill-group>div{display:flex;flex-wrap:wrap;gap:1.5mm}
   .cv-expanded-skill{padding:1.2mm 1.8mm;border:.25mm solid #dfe7f0;border-radius:1.5mm;font-size:7.2pt;color:#526071}
@@ -391,14 +414,19 @@ const EXPANDED_CV_PRINT_STYLES = `
   .cv-expanded-education strong,.cv-expanded-education div span{display:block}
   .cv-expanded-education div span{margin-top:.7mm;color:#697586}
   .cv-expanded-education>span{flex-shrink:0;color:#0070e0;font-weight:700}
+  .cv-expanded-final-contact{margin-top:8mm;padding-top:4mm;border-top:.45mm solid #d9e7f5}
+  .cv-expanded-final-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2mm 8mm}
+  .cv-expanded-final-contact a,.cv-expanded-final-contact span{font-size:8pt;line-height:1.35;color:#526071;text-decoration:none}
+  .cv-expanded-final-contact a{color:#0070e0;font-weight:650}
+  .cv-expanded-footer{position:absolute;left:14mm;right:14mm;bottom:7mm;display:flex;justify-content:space-between;border-top:.25mm solid #d9e2ec;padding-top:2.5mm;font-size:6.5pt;color:#697586}
   .cv-expanded-print-button{position:fixed;right:18px;bottom:18px;z-index:20;border:0;border-radius:6px;padding:10px 16px;background:#0070e0;color:#fff;font:600 14px -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;cursor:pointer}
   @media print{
     body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
     .cv-expanded-print-button{display:none!important}
   }
   @media screen{
-    body{padding:10mm}
-    .cv-expanded-document{padding:13mm 14mm 18mm;box-shadow:0 8px 30px rgba(15,23,42,.18)}
+    body{display:flex;flex-direction:column;align-items:center;gap:10mm;padding:10mm}
+    .cv-expanded-page{box-shadow:0 8px 30px rgba(15,23,42,.18)}
   }
 `;
 
@@ -456,6 +484,11 @@ function buildCvHtml(photoDataUrl = '') {
         <strong>${cvEsc(personal.name)}</strong>
         <span>${cvEsc(personal.title)}</span>
       </header>
+      <p class="cv-page-contact">
+        ${renderCvWebsiteLink(personal, 'cv-website-link')} |
+        <a href="mailto:${esc(personal.email)}">${cvEsc(personal.email)}</a> |
+        <a href="${esc(personal.github)}">${cvEsc(personal.github.replace('https://', ''))}</a>
+      </p>
       <div class="cv-page-two-top">
         <div class="cv-earlier-column">
           ${renderCvSectionTitle(t('cvEarlierExperience'))}
@@ -503,6 +536,22 @@ function buildExpandedCvHtml(photoDataUrl = '') {
     renderCvWebsiteLink(personal, 'cv-expanded-contact-link'),
     `<span>${cvEsc(t('cvNationality'))}: ${cvEsc(personal.nationality)}</span>`,
   ].join('');
+  const finalContactItems = [
+    `<a href="mailto:${esc(personal.email)}">${cvEsc(personal.email)}</a>`,
+    `<a href="tel:${esc(personal.phone)}">${cvEsc(personal.phone)}</a>`,
+    `<a href="${esc(personal.website)}">${cvEsc(personal.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>`,
+    `<a href="${esc(personal.github)}">${cvEsc(personal.github.replace('https://', ''))}</a>`,
+    `<a href="${esc(personal.linkedin)}">${cvEsc(personal.linkedin.replace('https://www.', ''))}</a>`,
+    `<a href="${esc(personal.twitter)}">${cvEsc(personal.twitter.replace('https://', ''))}</a>`,
+  ].join('');
+  const experiencePages = [
+    activeCV.experience.slice(0, 4),
+    activeCV.experience.slice(4, 9),
+    activeCV.experience.slice(9),
+  ].filter(page => page.length);
+  const totalPages = 4 + experiencePages.length;
+  let pageNumber = 0;
+  const nextPageNumber = () => ++pageNumber;
 
   return `<!DOCTYPE html>
   <html lang="${cvEsc(currentLang)}">
@@ -510,18 +559,12 @@ function buildExpandedCvHtml(photoDataUrl = '') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>${cvEsc(t('cvExpandedLabel'))} - ${cvEsc(personal.name)}</title>
-    <style>${EXPANDED_CV_PRINT_STYLES}
-      @page{
-        @bottom-left{content:"${cvCssString(`${personal.name} - ${t('cvExpandedLabel')}`)}";font-size:6.5pt;color:#697586}
-        @bottom-right{content:counter(page);font-size:6.5pt;color:#697586}
-      }
-      @page :first{@bottom-left{content:""}}
-    </style>
+    <style>${EXPANDED_CV_PRINT_STYLES}</style>
   </head>
   <body>
     <button class="cv-expanded-print-button" onclick="window.print()">${cvEsc(t('cvPrint'))}</button>
     <main class="cv-expanded-document">
-      <section class="cv-expanded-cover">
+      <section class="cv-expanded-page cv-expanded-cover-page" data-page="cover">
         <header class="cv-expanded-header">
           ${portrait}
           <div class="cv-expanded-identity">
@@ -550,22 +593,43 @@ function buildExpandedCvHtml(photoDataUrl = '') {
             ).join('')}</div>
           </section>
         </div>
+        ${renderExpandedPageFooter(personal, nextPageNumber(), totalPages)}
       </section>
-      <section class="cv-expanded-content-section">
-        ${renderExpandedSectionTitle(t('cvExperience'))}
-        ${activeCV.experience.map(renderExpandedExperience).join('')}
+      <section class="cv-expanded-page cv-expanded-skills-page" data-page="skills">
+        ${renderExpandedPageHeader(t('cvTechnicalSkills'), t('cvExpandedLabel'))}
+        <div class="cv-expanded-page-content">
+          <div class="cv-expanded-skills cv-expanded-skills-page-grid">${activeCV.skills.map(renderExpandedSkillGroup).join('')}</div>
+        </div>
+        ${renderExpandedPageFooter(personal, nextPageNumber(), totalPages)}
       </section>
-      <section class="cv-expanded-content-section cv-expanded-project-section">
-        ${renderExpandedSectionTitle(t('cvProjects'))}
-        <div class="cv-expanded-projects">${activeCV.projects.map(renderExpandedProject).join('')}</div>
+
+      ${experiencePages.map((jobs, index) => `
+        <section class="cv-expanded-page cv-expanded-experience-page" data-page="experience-${index + 1}">
+          ${renderExpandedPageHeader(t('cvExperience'), t('cvExpandedLabel'))}
+          <div class="cv-expanded-page-content">
+            ${jobs.map(renderExpandedExperience).join('')}
+          </div>
+          ${renderExpandedPageFooter(personal, nextPageNumber(), totalPages)}
+        </section>
+      `).join('')}
+      <section class="cv-expanded-page cv-expanded-projects-page" data-page="projects">
+        ${renderExpandedPageHeader(t('cvProjects'), t('cvExpandedLabel'))}
+        <div class="cv-expanded-page-content">
+          <div class="cv-expanded-projects">${activeCV.projects.map(renderExpandedProject).join('')}</div>
+        </div>
+        ${renderExpandedPageFooter(personal, nextPageNumber(), totalPages)}
       </section>
-      <section class="cv-expanded-content-section cv-expanded-skills-section">
-        ${renderExpandedSectionTitle(t('cvTechnicalSkills'))}
-        <div class="cv-expanded-skills">${activeCV.skills.map(renderExpandedSkillGroup).join('')}</div>
-      </section>
-      <section class="cv-expanded-content-section">
-        ${renderExpandedSectionTitle(t('cvEducation'))}
-        <div class="cv-expanded-education-list">${activeCV.education.map(renderExpandedEducation).join('')}</div>
+
+      <section class="cv-expanded-page cv-expanded-education-page" data-page="education">
+        ${renderExpandedPageHeader(t('cvEducation'), t('cvExpandedLabel'))}
+        <div class="cv-expanded-page-content">
+          <div class="cv-expanded-education-list">${activeCV.education.map(renderExpandedEducation).join('')}</div>
+          <section class="cv-expanded-final-contact">
+            ${renderExpandedSectionTitle(t('cvContact'))}
+            <div class="cv-expanded-final-contact-grid">${finalContactItems}</div>
+          </section>
+        </div>
+        ${renderExpandedPageFooter(personal, nextPageNumber(), totalPages)}
       </section>
     </main>
     <script>window.addEventListener('load',function(){setTimeout(function(){window.print()},600)})<\/script>
