@@ -383,7 +383,7 @@ const EXPANDED_CV_PRINT_STYLES = `
   .cv-expanded-page-content{margin-top:7mm}
   .cv-expanded-page-content>.cv-expanded-section-title{break-after:avoid-page;page-break-after:avoid}
   .cv-expanded-entry{margin-bottom:6mm;padding-bottom:5mm;border-bottom:.25mm solid #dfe7f0;break-inside:avoid;page-break-inside:avoid}
-  .cv-expanded-heading{display:flex;justify-content:space-between;gap:6mm;align-items:flex-start;break-inside:avoid;page-break-inside:avoid;break-after:avoid-page;page-break-after:avoid}
+  .cv-expanded-heading{display:flex;justify-content:space-between;gap:6mm;align-items:flex-start;break-inside:avoid;page-break-inside:avoid}
   .cv-expanded-heading h3{font-size:10.5pt;line-height:1.25;color:#152033}
   .cv-expanded-company{margin-top:.8mm;color:#0070e0;font-size:9pt;font-weight:650}
   .cv-expanded-period{flex-shrink:0;color:#0070e0;font-size:8pt;font-weight:700;text-align:right}

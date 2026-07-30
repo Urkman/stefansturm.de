@@ -44,9 +44,10 @@ Add `scripts/generate-pdfs.js` as the single regeneration command. It will:
 3. Embed `assets/stefan.png` as a data URL for the generated HTML source.
 4. Build compact and expanded HTML using the existing renderer functions.
 5. Write intermediate HTML under `tmp/pdfs/`.
-6. Invoke a locally available headless Chrome binary to print each HTML file to a temporary output directory under `tmp/pdfs/`.
-7. Validate every resulting PDF as A4, unencrypted, non-empty on every page, and containing `stefansturm.de` as both text and a link.
-8. Move the validated PDFs into `assets/pdf/` and remove intermediate files when generation succeeds.
+6. Invoke a locally available headless Chrome binary to print each logical page to a temporary output directory under `tmp/pdfs/`.
+7. Assemble the one-page PDFs with `scripts/merge-pdfs.py` without rewriting page resources.
+8. Validate every resulting PDF as A4, unencrypted, non-empty on every page, and containing `stefansturm.de` as both text and a link.
+9. Move the validated PDFs into `assets/pdf/` and remove intermediate files when generation succeeds.
 
 The Chrome executable path will be configurable through `CHROME_BIN`, with the current macOS Chrome path as the local default. A missing browser dependency must produce a clear error instead of partially updating artifacts.
 

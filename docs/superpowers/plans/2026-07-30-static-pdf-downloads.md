@@ -4,7 +4,7 @@
 
 **Goal:** Replace browser-generated PDF downloads with four validated, committed PDF artifacts generated from the existing CV renderer.
 
-**Architecture:** Keep `js/data.js` and the existing `buildCvHtml` / `buildExpandedCvHtml` functions as the single source for PDF content and layout. Add a Node/Chrome generator that renders all language and format combinations into temporary files, validates them, then installs them under `assets/pdf/`; the browser download function maps the active language and format directly to those files.
+**Architecture:** Keep `js/data.js` and the existing `buildCvHtml` / `buildExpandedCvHtml` functions as the single source for PDF content and layout. Add a Node/Chrome generator that renders each logical page of all language and format combinations into temporary files, assembles those pages without rewriting their resources, validates them, then installs them under `assets/pdf/`; the browser download function maps the active language and format directly to those files.
 
 **Tech Stack:** Vanilla JavaScript, Node.js VM and child processes, headless Google Chrome, Poppler `pdfinfo` / `pdftoppm`, Python `pypdf` for PDF validation, and the existing Node test scripts.
 
@@ -14,7 +14,7 @@
 - Keep German and English compact and expanded exports.
 - Do not use browser-side `window.print()` for visitor downloads.
 - Generate from the existing PDF renderer; do not duplicate CV content in the generator.
-- Generate into `tmp/pdfs/` first and install artifacts only after all four pass validation.
+- Generate into `tmp/pdfs/` first, assemble pages with `scripts/merge-pdfs.py`, and install artifacts only after all four pass validation.
 - Use `CHROME_BIN` when set; otherwise use the current macOS Chrome path.
 - Validate A4 size, unencrypted output, non-empty pages, website text, and website links.
 - Regenerate with `node scripts/generate-pdfs.js` after CV data or translation changes.

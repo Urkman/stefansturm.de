@@ -53,6 +53,29 @@ this.__renderStaticCv = (language, format, photoDataUrl) => {
   return context.__renderStaticCv;
 }
 
+function extractPageSelectors(html, format) {
+  const className = format === 'expanded' ? 'cv-expanded-page' : 'cv-page';
+  const pattern = new RegExp(`<section class="${className}[^\"]*" data-page="([^"]+)"`, 'g');
+  return [...html.matchAll(pattern)].map(match => match[1]);
+}
+
+function singlePageHtml(html, format, selector) {
+  const className = format === 'expanded' ? 'cv-expanded-page' : 'cv-page';
+  const attribute = JSON.stringify(selector);
+  const display = format === 'expanded' && selector === 'cover' ? 'flex' : 'block';
+  const pageFilter = `<style>
+    @media print {
+      .${className}{display:none!important;break-before:auto!important;break-after:auto!important;page-break-before:auto!important;page-break-after:auto!important}
+      .${className}[data-page=${attribute}]{display:${display}!important}
+    }
+  </style>`;
+  return html.replace('</head>', `${pageFilter}</head>`);
+}
+
+function mergePdfs(outputPath, pagePaths) {
+  run('python3', [path.join(ROOT, 'scripts', 'merge-pdfs.py'), outputPath, ...pagePaths]);
+}
+
 function validatePdf(filePath, artifact) {
   const info = run('pdfinfo', [filePath]);
   const pageCount = Number(info.match(/^Pages:\s+(\d+)/m)?.[1]);
@@ -94,16 +117,24 @@ if expected_heading.lower() not in texts[1].lower():
 }
 
 function generateArtifact(renderHtml, artifact, photoDataUrl) {
-  const htmlPath = path.join(TMP_DIR, artifact.file.replace(/\.pdf$/, '.html'));
   const pdfPath = path.join(TMP_DIR, artifact.file);
-  fs.writeFileSync(htmlPath, renderHtml(artifact.language, artifact.format, photoDataUrl));
-  run(CHROME_BIN, [
-    '--headless',
-    '--disable-gpu',
-    '--no-pdf-header-footer',
-    `--print-to-pdf=${pdfPath}`,
-    pathToFileURL(htmlPath).href,
-  ], { stdio: 'pipe' });
+  const html = renderHtml(artifact.language, artifact.format, photoDataUrl);
+  const selectors = extractPageSelectors(html, artifact.format);
+  if (!selectors.length) throw new Error(`No printable pages found for ${artifact.file}`);
+  const pagePaths = selectors.map((selector, index) => {
+    const htmlPath = path.join(TMP_DIR, `${artifact.file}-${index + 1}.html`);
+    const pagePath = path.join(TMP_DIR, `${artifact.file}-${index + 1}.pdf`);
+    fs.writeFileSync(htmlPath, singlePageHtml(html, artifact.format, selector));
+    run(CHROME_BIN, [
+      '--headless',
+      '--disable-gpu',
+      '--no-pdf-header-footer',
+      `--print-to-pdf=${pagePath}`,
+      pathToFileURL(htmlPath).href,
+    ], { stdio: 'pipe' });
+    return pagePath;
+  });
+  mergePdfs(pdfPath, pagePaths);
   validatePdf(pdfPath, artifact);
   console.log(`Validated ${artifact.file}`);
 }
