@@ -118,6 +118,8 @@ for (const [lang, profile] of Object.entries(profiles)) {
 
 for (const [lang, profile] of Object.entries(profiles)) {
   assert.match(profile.summary, lang === 'de' ? /^Stefan Sturm ist/ : /^Stefan Sturm is/);
+  assert.match(profile.heroSummary, lang === 'de' ? /^Ich entwickle/ : /^I build/);
+  assert.notEqual(profile.heroSummary, profile.websiteSummary, `${lang}: hero and website summaries must differ`);
   assert.match(profile.websiteSummary, lang === 'de' ? /^Ich bin/ : /^I am/);
   assert.doesNotMatch(
     profile.websiteSummary,

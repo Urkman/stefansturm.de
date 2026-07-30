@@ -23,6 +23,8 @@ const CV = {
     twitter:       'https://x.com/StefanSturm_dev',
   },
 
+  heroSummary: 'Ich entwickle hochwertige iOS-Apps mit Swift und SwiftUI und verbinde technische Tiefe mit klaren, reaktiven Benutzeroberflächen.',
+
   summary: `Stefan Sturm ist Senior iOS-Entwickler mit mehr als 15 Jahren Erfahrung in der
 Entwicklung hochwertiger mobiler Anwendungen mit Swift. Sein Schwerpunkt liegt auf reaktiven
 und deklarativen Benutzeroberflächen mit SwiftUI und Combine, Swift Concurrency mit async/await
@@ -546,6 +548,7 @@ const CV_TRANSLATIONS = {
       maritalStatus: 'Married',
       birthplace: 'Willich-Anrath',
     },
+    heroSummary: 'I build high-quality iOS apps with Swift and SwiftUI, combining technical depth with clear, reactive user interfaces.',
     summary: `Stefan Sturm is a senior iOS developer with more than 15 years of experience building high-quality mobile applications with Swift. His focus includes reactive and declarative user interfaces with SwiftUI and Combine, Swift Concurrency with async/await and Actors, and practical work with Foundation and iOS platform APIs.
 <br><br>
 He safeguards delivery with automated tests in Swift Testing and XCTest and relies on robust GitLab CI/CD processes. His project experience at companies such as Chrono24, 1&1, RTL, Nexenio and Porsche covers complex product environments as well as an international e-commerce and marketplace setting. Professional German and English support close collaboration in interdisciplinary teams.`,

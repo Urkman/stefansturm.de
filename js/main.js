@@ -119,12 +119,7 @@ function renderHero() {
   const p = activeCV.personal;
 
   // Bio
-  document.getElementById('hero-bio').innerHTML = activeCV.websiteSummary
-    .replace(/\n/g, ' ')
-    .split('<br><br>')[0]
-    .trim()
-    .replace(/\s+/g, ' ')
-    .substring(0, 220) + '…';
+  document.getElementById('hero-bio').textContent = activeCV.heroSummary;
 
   // Social links
   document.getElementById('hero-social').innerHTML = `
