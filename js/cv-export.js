@@ -645,14 +645,29 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
+const STATIC_PDF_VERSION = '20260730-static-pdf-v1';
+const STATIC_PDF_ASSETS = {
+  de: {
+    compact: 'assets/pdf/stefan-sturm-cv-de.pdf',
+    expanded: 'assets/pdf/stefan-sturm-expanded-cv-de.pdf',
+  },
+  en: {
+    compact: 'assets/pdf/stefan-sturm-cv-en.pdf',
+    expanded: 'assets/pdf/stefan-sturm-expanded-cv-en.pdf',
+  },
+};
+
 function downloadCv(mode = 'compact') {
-  const photoDataUrl = getCvPhotoDataUrl();
-  const expanded = mode === 'expanded';
-  const html = expanded
-    ? buildExpandedCvHtml(photoDataUrl)
-    : buildCvHtml(photoDataUrl);
-  const filename = currentLang === 'en'
-    ? expanded ? 'Stefan_Sturm_Expanded_Resume.html' : 'Stefan_Sturm_Resume.html'
-    : expanded ? 'Stefan_Sturm_Ausfuehrlicher_CV.html' : 'Stefan_Sturm_CV.html';
-  openCvDocument(html, filename);
+  const language = STATIC_PDF_ASSETS[currentLang] ? currentLang : 'de';
+  const format = mode === 'expanded' ? 'expanded' : 'compact';
+  const asset = STATIC_PDF_ASSETS[language][format];
+  const filename = language === 'en'
+    ? format === 'expanded' ? 'Stefan_Sturm_Expanded_Resume.pdf' : 'Stefan_Sturm_Resume.pdf'
+    : format === 'expanded' ? 'Stefan_Sturm_Ausfuehrlicher_CV.pdf' : 'Stefan_Sturm_CV.pdf';
+  const link = document.createElement('a');
+  link.href = `${asset}?v=${encodeURIComponent(STATIC_PDF_VERSION)}`;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 }
