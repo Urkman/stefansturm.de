@@ -21,6 +21,7 @@ const CV = {
     github:        'https://github.com/Urkman',
     linkedin:      'https://www.linkedin.com/in/sturmstefan/',
     twitter:       'https://x.com/StefanSturm_dev',
+    website:       'https://stefansturm.de',
   },
 
   heroSummary: 'Ich entwickle hochwertige iOS-Apps mit Swift und SwiftUI und verbinde technische Tiefe mit klaren, reaktiven Benutzeroberflächen.',

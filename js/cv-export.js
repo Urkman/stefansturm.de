@@ -121,6 +121,11 @@ function renderCvSectionTitle(title) {
   return `<h2 class="cv-section-title">${cvEsc(title)}</h2>`;
 }
 
+function renderCvWebsiteLink(personal, className = '') {
+  const label = personal.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  return `<a class="${esc(className)}" href="${esc(personal.website)}">${cvEsc(label)}</a>`;
+}
+
 function renderCvHeader(personal, photoDataUrl) {
   const portrait = photoDataUrl
     ? `<img class="cv-photo" src="${esc(photoDataUrl)}" alt="">`
@@ -136,6 +141,7 @@ function renderCvHeader(personal, photoDataUrl) {
       <p class="cv-title">${cvEsc(personal.title)}</p>
       <p class="cv-meta">${cvEsc(t('cvLocation'))} | ${cvEsc(personal.email)} | ${cvEsc(personal.phone)}</p>
       <p class="cv-meta">${cvEsc(personal.github.replace('https://', ''))} | ${cvEsc(personal.linkedin.replace('https://www.', ''))}</p>
+      <p class="cv-meta">${renderCvWebsiteLink(personal, 'cv-website-link')}</p>
       <p class="cv-meta">${languages} | ${cvEsc(t('cvNationality'))}: ${cvEsc(personal.nationality)}</p>
     </div>
   </header>`;
@@ -494,6 +500,7 @@ function buildExpandedCvHtml(photoDataUrl = '') {
     `<a href="${esc(personal.github)}">${cvEsc(personal.github.replace('https://', ''))}</a>`,
     `<a href="${esc(personal.linkedin)}">${cvEsc(personal.linkedin.replace('https://www.', ''))}</a>`,
     `<a href="${esc(personal.twitter)}">${cvEsc(personal.twitter.replace('https://', ''))}</a>`,
+    renderCvWebsiteLink(personal, 'cv-expanded-contact-link'),
     `<span>${cvEsc(t('cvNationality'))}: ${cvEsc(personal.nationality)}</span>`,
   ].join('');
 
