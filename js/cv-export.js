@@ -14,12 +14,6 @@ function cvEsc(value) {
   return esc(cvText(value));
 }
 
-function cvCssString(value) {
-  return cvText(value)
-    .replace(/\\/g, '\\\\')
-    .replace(/"/g, '\\"');
-}
-
 function findCvSkill(name) {
   return activeCV.skills
     .flatMap(category => category.items)
@@ -360,8 +354,8 @@ const EXPANDED_CV_PRINT_STYLES = `
   p,h1,h2,h3{margin:0}
   a{color:inherit}
   .cv-expanded-document{width:100%;margin:0 auto;background:#fff}
-  .cv-expanded-page{position:relative;width:210mm;height:297mm;padding:13mm 14mm 18mm;background:#fff;overflow:hidden;break-after:page;page-break-after:always}
-  .cv-expanded-page:last-child{break-after:auto;page-break-after:auto}
+  .cv-expanded-page{position:relative;width:210mm;height:297mm;padding:13mm 14mm 18mm;background:#fff;overflow:hidden}
+  .cv-expanded-page+.cv-expanded-page{break-before:page;page-break-before:always}
   .cv-expanded-page-header{display:flex;justify-content:space-between;align-items:baseline;border-top:.8mm solid #0070e0;padding-top:3mm;padding-bottom:3mm;border-bottom:.5mm solid #d9e7f5}
   .cv-expanded-page-header strong{font-size:13pt;color:#152033}
   .cv-expanded-page-header span{font-size:8pt;color:#0070e0}
@@ -546,8 +540,9 @@ function buildExpandedCvHtml(photoDataUrl = '') {
   ].join('');
   const experiencePages = [
     activeCV.experience.slice(0, 4),
-    activeCV.experience.slice(4, 9),
-    activeCV.experience.slice(9),
+    activeCV.experience.slice(4, 8),
+    activeCV.experience.slice(8, 11),
+    activeCV.experience.slice(11),
   ].filter(page => page.length);
   const totalPages = 4 + experiencePages.length;
   let pageNumber = 0;
