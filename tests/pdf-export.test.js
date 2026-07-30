@@ -73,6 +73,8 @@ for (const lang of ['de', 'en']) {
   assert.match(page2, /Fast\.io - Fasting Timer/);
   assert.match(page2, /AI &amp; Agentic Development/);
   assert.match(page2, lang === 'de' ? /Informationstechnik/ : /Information Technology/);
+  assert.ok(compact.includes('href="https://stefansturm.de"'), `${lang}: compact website link missing`);
+  assert.match(compact, /stefansturm\.de/);
   assert.match(compact, /data:image\/jpeg;base64,TEST_PHOTO/);
   assert.doesNotMatch(compact, /Albert-Brülls/);
   assert.doesNotMatch(compact, /Willich-Anrath/);
@@ -82,6 +84,15 @@ for (const lang of ['de', 'en']) {
 
   assert.match(expanded, /<main class="cv-expanded-document">/);
   assert.doesNotMatch(expanded, /<section class="cv-page"/);
+  assert.ok(expanded.includes('href="https://stefansturm.de"'), `${lang}: expanded website link missing`);
+  assert.match(expanded, /stefansturm\.de/);
+  assert.match(expanded, /class="cv-expanded-page cv-expanded-cover-page"/);
+  assert.match(expanded, /class="cv-expanded-page cv-expanded-skills-page"/);
+  assert.match(expanded, /data-page="skills"/);
+  assert.match(expanded, /data-page="experience/);
+  assert.match(expanded, /data-page="projects"/);
+  assert.match(expanded, /data-page="education"/);
+  assert.doesNotMatch(expanded, /class="cv-expanded-content-section/);
   assert.match(expanded, /@page\{size:A4;/);
   assert.match(expanded, /data:image\/jpeg;base64,TEST_PHOTO/);
   assertContains(expanded, profile.personal.tagline, `${lang}: missing personal tagline`);
