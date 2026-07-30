@@ -119,7 +119,7 @@ function renderHero() {
   const p = activeCV.personal;
 
   // Bio
-  document.getElementById('hero-bio').innerHTML = activeCV.summary
+  document.getElementById('hero-bio').innerHTML = activeCV.websiteSummary
     .replace(/\n/g, ' ')
     .split('<br><br>')[0]
     .trim()
@@ -152,7 +152,7 @@ function renderHero() {
 }
 
 function renderAbout() {
-  const paras = activeCV.summary.split('<br><br>');
+  const paras = activeCV.websiteSummary.split('<br><br>');
   const parasHtml = paras.map(p => `<p>${p.replace(/\n/g, ' ').trim()}</p>`).join('');
 
   const langsHtml = activeCV.languages.map(l => `
@@ -291,7 +291,7 @@ function buildCvMarkdown() {
 
   // Profile
   lines.push(`## ${t('markdownProfile')}`);
-  lines.push(activeCV.summary.replace(/<br><br>/g, '\n\n').replace(/\n/g, ' ').trim());
+  lines.push(activeCV.websiteSummary.replace(/<br><br>/g, '\n\n').replace(/\n/g, ' ').trim());
   lines.push('');
 
   // Experience

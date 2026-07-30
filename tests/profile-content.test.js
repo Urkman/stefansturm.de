@@ -117,6 +117,13 @@ for (const [lang, profile] of Object.entries(profiles)) {
 }
 
 for (const [lang, profile] of Object.entries(profiles)) {
+  assert.match(profile.summary, lang === 'de' ? /^Stefan Sturm ist/ : /^Stefan Sturm is/);
+  assert.match(profile.websiteSummary, lang === 'de' ? /^Ich bin/ : /^I am/);
+  assert.doesNotMatch(
+    profile.websiteSummary,
+    lang === 'de' ? /\b(Stefan Sturm ist|Sein|Er)\b/ : /\b(Stefan Sturm is|His|He)\b/
+  );
+
   profile.projects.forEach(project => {
     assert.ok(project.cvDescription, `${lang}: ${project.name} is missing cvDescription`);
   });

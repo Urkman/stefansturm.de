@@ -34,6 +34,17 @@ Porsche umfasst komplexe Produktlandschaften sowie ein internationales E-Commerc
 Marktplatzumfeld. Sehr gute Deutsch- und Englischkenntnisse unterstützen die enge Zusammenarbeit
 in interdisziplinären Teams.`,
 
+  websiteSummary: `Ich bin Senior iOS-Entwickler mit mehr als 15 Jahren Erfahrung in der
+Entwicklung hochwertiger mobiler Anwendungen mit Swift. Mein Schwerpunkt liegt auf reaktiven
+und deklarativen Benutzeroberflächen mit SwiftUI und Combine, Swift Concurrency mit async/await
+und Actors sowie der Arbeit mit Foundation und den iOS-Plattform-APIs.
+<br><br>
+Ich sichere meine Arbeit mit automatisierten Tests in Swift Testing und XCTest ab und setze auf
+verlässliche GitLab-CI/CD-Prozesse. Meine Projekterfahrung bei Unternehmen wie Chrono24, 1und1, RTL, Nexenio und
+Porsche umfasst komplexe Produktlandschaften sowie ein internationales E-Commerce- und
+Marktplatzumfeld. Meine sehr guten Deutsch- und Englischkenntnisse unterstützen die enge Zusammenarbeit
+in interdisziplinären Teams.`,
+
   stats: [
     { value: '15+', label: 'Jahre iOS' },
     { value: '12+', label: 'Unternehmen' },
@@ -538,6 +549,9 @@ const CV_TRANSLATIONS = {
     summary: `Stefan Sturm is a senior iOS developer with more than 15 years of experience building high-quality mobile applications with Swift. His focus includes reactive and declarative user interfaces with SwiftUI and Combine, Swift Concurrency with async/await and Actors, and practical work with Foundation and iOS platform APIs.
 <br><br>
 He safeguards delivery with automated tests in Swift Testing and XCTest and relies on robust GitLab CI/CD processes. His project experience at companies such as Chrono24, 1&1, RTL, Nexenio and Porsche covers complex product environments as well as an international e-commerce and marketplace setting. Professional German and English support close collaboration in interdisciplinary teams.`,
+    websiteSummary: `I am a senior iOS developer with more than 15 years of experience building high-quality mobile applications with Swift. My focus includes reactive and declarative user interfaces with SwiftUI and Combine, Swift Concurrency with async/await and Actors, and practical work with Foundation and iOS platform APIs.
+<br><br>
+I safeguard delivery with automated tests in Swift Testing and XCTest and rely on robust GitLab CI/CD processes. My project experience at companies such as Chrono24, 1&1, RTL, Nexenio and Porsche covers complex product environments as well as an international e-commerce and marketplace setting. My strong German and English skills support close collaboration in interdisciplinary teams.`,
     stats: [
       { label: 'years iOS' },
       { label: 'companies' },
