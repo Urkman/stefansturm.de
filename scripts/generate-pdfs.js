@@ -12,8 +12,8 @@ const CHROME_BIN = process.env.CHROME_BIN || '/Applications/Google Chrome.app/Co
 const ARTIFACTS = [
   { language: 'de', format: 'compact', file: 'stefan-sturm-cv-de.pdf', heading: 'Technische Kenntnisse', pages: 2 },
   { language: 'en', format: 'compact', file: 'stefan-sturm-cv-en.pdf', heading: 'Technical Skills', pages: 2 },
-  { language: 'de', format: 'expanded', file: 'stefan-sturm-expanded-cv-de.pdf', heading: 'Technische Kenntnisse', minPages: 3 },
-  { language: 'en', format: 'expanded', file: 'stefan-sturm-expanded-cv-en.pdf', heading: 'Technical Skills', minPages: 3 },
+  { language: 'de', format: 'expanded', file: 'stefan-sturm-expanded-cv-de.pdf', heading: 'Technische Kenntnisse', pages: 9, aiHeading: 'AI-gestützte Entwicklung' },
+  { language: 'en', format: 'expanded', file: 'stefan-sturm-expanded-cv-en.pdf', heading: 'Technical Skills', pages: 9, aiHeading: 'AI-Supported Development' },
 ];
 
 function run(command, args, options = {}) {
@@ -83,9 +83,6 @@ function validatePdf(filePath, artifact) {
   if (artifact.pages && pageCount !== artifact.pages) {
     throw new Error(`${artifact.file} has ${pageCount} pages; expected ${artifact.pages}`);
   }
-  if (artifact.minPages && pageCount < artifact.minPages) {
-    throw new Error(`${artifact.file} has ${pageCount} pages; expected at least ${artifact.minPages}`);
-  }
   if (!/^Page size:\s+594\.96 x 841\.92 pts \(A4\)$/m.test(info)) {
     throw new Error(`${artifact.file} is not A4`);
   }
@@ -97,7 +94,7 @@ function validatePdf(filePath, artifact) {
 from pypdf import PdfReader
 import sys
 
-pdf_path, expected_heading = sys.argv[1:]
+pdf_path, expected_heading, expected_ai_heading = sys.argv[1:]
 reader = PdfReader(pdf_path)
 texts = [(page.extract_text() or '').strip() for page in reader.pages]
 if any(not text for text in texts):
@@ -112,8 +109,10 @@ if 'https://stefansturm.de' not in uris:
     raise SystemExit('PDF does not contain a website link')
 if expected_heading.lower() not in texts[1].lower():
     raise SystemExit(f'PDF page 2 does not contain {expected_heading!r}')
+if expected_ai_heading and expected_ai_heading.lower() not in texts[2].lower():
+    raise SystemExit(f'PDF page 3 does not contain {expected_ai_heading!r}')
 `;
-  run('python3', ['-c', validationScript, filePath, artifact.heading]);
+  run('python3', ['-c', validationScript, filePath, artifact.heading, artifact.aiHeading || '']);
 }
 
 function generateArtifact(renderHtml, artifact, photoDataUrl) {
