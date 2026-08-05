@@ -38,46 +38,70 @@ const profiles = {
 const expectedAiSkills = {
   de: {
     workflow: [
-      'Agentic Development',
+      'Agentic Coding',
+      'Vibe Coding',
       'Prompt & Context Engineering',
-      'Planning Skills (brainstorming / grill-me)',
-      'PRD / Sprintplanung',
+      'Skills & Plugins',
+      'Planning Skills (brainstorming / grill-me / writing-plans)',
       'Worktree / PR Workflows',
       'AI-gestütztes Testing',
       'AI Code Review',
-      'Modellauswahl',
+      'Modell- & Reasoning-Auswahl',
     ],
-    tools: ['Codex', 'Claude', 'ChatGPT', 'GitHub Copilot', 'Grok'],
+    tools: ['Codex', 'Claude', 'Grok'],
   },
   en: {
     workflow: [
-      'Agentic Development',
+      'Agentic Coding',
+      'Vibe Coding',
       'Prompt & Context Engineering',
-      'Planning Skills (brainstorming / grill-me)',
-      'PRD / Sprint Planning',
+      'Skills & Plugins',
+      'Planning Skills (brainstorming / grill-me / writing-plans)',
       'Worktree / PR Workflows',
       'AI-assisted Testing',
       'AI Code Review',
-      'Model Selection',
+      'Model & Reasoning Selection',
     ],
-    tools: ['Codex', 'Claude', 'ChatGPT', 'GitHub Copilot', 'Grok'],
+    tools: ['Codex', 'Claude', 'Grok'],
   },
 };
 
-const expectedDevBar = {
+const projectClaim = {
+  de: 'End-to-end mit AI-gestützten, agentischen Workflows unter eigener technischer Leitung entwickelt.',
+  en: 'Developed end to end using AI-supported, agentic workflows under my technical direction.',
+};
+
+const expectedAi = {
   de: {
-    period: '2026 – bis jetzt',
-    description: 'Eine native macOS-26-Menüleisten-App für Apple-Plattform-Entwickler. DevBar bereinigt Xcode- und SPM-Caches, steuert Simulatoren, unterstützt Git-Workflows mit Diffs, Commits, Push und Pull Requests und bündelt Referenzen sowie Entwicklerwerkzeuge. Die App arbeitet sandboxed und weitgehend offline; Commit-Nachrichten entstehen lokal mit Apple Intelligence.',
+    title: 'AI-gestützte Entwicklung',
+    introduction: 'Ich verbinde langjährige iOS-Erfahrung mit AI-gestützter und agentischer Entwicklung. Vibe Coding nutze ich für schnelle Exploration; Agentic Coding für strukturierte, nachvollziehbare Umsetzung. Werkzeug, Modell und Reasoning-Tiefe wähle ich passend zu Aufgabe, Kontext und Risiko. Skills und Plugins unterstützen den gesamten Ablauf, ohne Architektur- und Qualitätsverantwortung abzugeben.',
+    workflowTitle: 'Von der Idee zur geprüften Auslieferung',
+    compactSummary: 'Agentic Coding mit Codex, Claude und Grok: strukturierte Planung mit brainstorming, grill-me und writing-plans, aufgabengerechte Modell- und Reasoning-Auswahl sowie Umsetzung über Skills, Plugins, Worktrees, Tests und Code Review.',
+    toolDescriptions: [
+      'Repository-basierte Umsetzung, Tests, Code Review sowie Worktree- und Pull-Request-Workflows.',
+      'Brainstorming, grill-me, Planung, Kontextarbeit und Bewertung alternativer Lösungswege.',
+      'Recherche, Gegenprüfung und zusätzliche Perspektiven bei technischen Entscheidungen.',
+    ],
+    workflowTitles: ['Verstehen & planen', 'Modell wählen', 'Agentisch umsetzen', 'Prüfen & liefern'],
   },
   en: {
-    period: '2026 – present',
-    description: 'A native macOS 26 menu-bar app for Apple-platform developers. DevBar cleans Xcode and SPM caches, controls simulators, supports Git workflows with diffs, commits, pushes and pull requests, and bundles references and everyday developer utilities. The app is sandboxed and mostly offline; commit messages are generated locally with Apple Intelligence.',
+    title: 'AI-Supported Development',
+    introduction: 'I combine extensive iOS experience with AI-supported and agentic development. I use Vibe Coding for rapid exploration and Agentic Coding for structured, traceable implementation. I choose the tool, model, and reasoning depth to match the task, context, and risk. Skills and Plugins support the full workflow without delegating architectural or quality ownership.',
+    workflowTitle: 'From idea to verified delivery',
+    compactSummary: 'Agentic Coding with Codex, Claude, and Grok: structured planning using brainstorming, grill-me, and writing-plans; task-appropriate model and reasoning selection; and implementation through Skills, Plugins, worktrees, tests, and code review.',
+    toolDescriptions: [
+      'Repository-based implementation, testing, code review, and worktree and pull-request workflows.',
+      'Brainstorming, grill-me, planning, context work, and evaluation of alternative approaches.',
+      'Research, cross-checking, and additional perspectives for technical decisions.',
+    ],
+    workflowTitles: ['Understand & plan', 'Select the model', 'Implement agentically', 'Verify & deliver'],
   },
 };
 
-const expectedDevBarTech = [
+const expectedDevilTech = [
   'Swift',
   'SwiftUI',
+  'TCA',
   'Swift Concurrency',
   'Foundation',
   'AppKit',
@@ -88,13 +112,24 @@ const expectedDevBarTech = [
   'Xcode Cloud',
 ];
 
-const forbiddenAiTerms = /\bAI\b|Agentic|Codex|Claude|ChatGPT|Copilot|Grok|Prompt Engineering|RocketSim|App Store Connect CLI/i;
 for (const [lang, profile] of Object.entries(profiles)) {
-  assert.equal(profile.ai, undefined, `${lang}: standalone AI data must be removed`);
-
+  const expected = expectedAi[lang];
   const workflow = profile.skills.find(category => category.category === 'AI & Agentic Development');
   const aiTools = profile.skills.find(category => category.category === 'AI Tools');
   const generalTools = profile.skills.find(category => category.category === 'Tools & CI/CD');
+  const architecture = profile.skills.find(category =>
+    category.category === (lang === 'de' ? 'Architektur' : 'Architecture')
+  );
+
+  assert.ok(profile.ai, `${lang}: standalone AI data missing`);
+  assert.equal(profile.ai.title, expected.title, `${lang}: AI title differs`);
+  assert.equal(profile.ai.introduction, expected.introduction, `${lang}: AI introduction differs`);
+  assert.equal(profile.ai.workflowTitle, expected.workflowTitle, `${lang}: AI workflow title differs`);
+  assert.equal(profile.ai.compactSummary, expected.compactSummary, `${lang}: compact AI summary differs`);
+  assert.deepEqual(Array.from(profile.ai.tools, item => item.name), expectedAiSkills[lang].tools);
+  assert.deepEqual(Array.from(profile.ai.tools, item => item.description), expected.toolDescriptions);
+  assert.deepEqual(Array.from(profile.ai.workflow, item => item.title), expected.workflowTitles);
+  assert.deepEqual(Array.from(profile.ai.proof, item => item.description), [projectClaim[lang], projectClaim[lang]]);
 
   assert.ok(workflow, `${lang}: AI workflow skills category missing`);
   assert.ok(aiTools, `${lang}: AI tools category missing`);
@@ -114,6 +149,9 @@ for (const [lang, profile] of Object.entries(profiles)) {
     generalTools.items.some(item => item.name === 'App Store Connect CLI'),
     `${lang}: App Store Connect CLI must be a general tool`
   );
+  assert.ok(architecture.items.some(item => item.name === 'TCA'), `${lang}: architecture missing TCA`);
+  assert.doesNotMatch(JSON.stringify(profile.ai), /RocketSim/i);
+  assert.doesNotMatch(JSON.stringify(profile.ai), /ChatGPT|GitHub Copilot/i);
 }
 
 for (const [lang, profile] of Object.entries(profiles)) {
@@ -131,13 +169,17 @@ for (const [lang, profile] of Object.entries(profiles)) {
     assert.ok(project.cvDescription, `${lang}: ${project.name} is missing cvDescription`);
   });
 
-  const devbar = profile.projects[0];
-  assert.equal(devbar.name, 'DevBar – Apple Developer Toolkit', `${lang}: DevBar must be first`);
-  assert.equal(devbar.period, expectedDevBar[lang].period, `${lang}: DevBar period differs`);
-  assert.equal(devbar.url, 'https://devbar.netlify.app', `${lang}: DevBar URL differs`);
-  assert.equal(devbar.linkType, 'website', `${lang}: DevBar link type differs`);
-  assert.equal(devbar.description, expectedDevBar[lang].description, `${lang}: DevBar description differs`);
-  assert.deepEqual(Array.from(devbar.tech), expectedDevBarTech, `${lang}: DevBar technology tags differ`);
+  const devil = profile.projects[0];
+  const fast = profile.projects[1];
+  assert.equal(devil.name, 'Devil – Apple Developer Toolkit', `${lang}: Devil must be first`);
+  assert.equal(devil.url, 'https://devbar.netlify.app', `${lang}: Devil URL differs`);
+  assert.equal(devil.linkType, 'website', `${lang}: Devil link type differs`);
+  assert.deepEqual(Array.from(devil.tech), expectedDevilTech, `${lang}: Devil technology tags differ`);
+  assert.ok(devil.description.endsWith(projectClaim[lang]), `${lang}: Devil description missing AI claim`);
+  assert.ok(devil.cvDescription.endsWith(projectClaim[lang]), `${lang}: Devil compact copy missing AI claim`);
+  assert.ok(fast.tech.includes('TCA'), `${lang}: Fast.io missing TCA`);
+  assert.ok(fast.description.endsWith(projectClaim[lang]), `${lang}: Fast.io description missing AI claim`);
+  assert.ok(fast.cvDescription.endsWith(projectClaim[lang]), `${lang}: Fast.io compact copy missing AI claim`);
 }
 
 const pdfTranslationKeys = [
@@ -155,6 +197,7 @@ const pdfTranslationKeys = [
   'expandedCvDescription',
   'cvExpandedLabel',
   'cvStatistics',
+  'navAI',
 ];
 for (const lang of ['de', 'en']) {
   pdfTranslationKeys.forEach(key => {
@@ -205,7 +248,6 @@ for (const [lang, profile] of Object.entries(profiles)) {
 
   const fastIo = profile.projects.find(project => project.name.startsWith('Fast.io'));
   assert.ok(fastIo, `${lang}: Fast.io project missing`);
-  assert.doesNotMatch(fastIo.description, forbiddenAiTerms, `${lang}: Fast.io still contains AI wording`);
 }
 
 const sourceFiles = {
@@ -214,9 +256,6 @@ const sourceFiles = {
   css: fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8'),
 };
 
-assert.doesNotMatch(sourceFiles.html, /href="#ai"|id="ai"|AI & Tools/);
-assert.doesNotMatch(sourceFiles.main, /renderAI|activeCV\.ai|AI & Agentic Development/);
-assert.doesNotMatch(sourceFiles.css, /\.ai-[a-z-]+/);
 assert.match(sourceFiles.main, /proj\.linkType === 'website'/);
 assert.match(sourceFiles.main, /t\('websiteView'\)/);
 assert.match(dataSource, /websiteView:\s*'Website ansehen'/);
