@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- TCA appears on EnBW and Chrono24 only.
+- In experience/project technology arrays, TCA appears on EnBW and Chrono24 only; the profile Architecture knowledge may still list TCA.
 - Devil, Fast.io, OverlayLab, and S3XY Watch for Tesla contain MVVM.
 - Devil and Fast.io retain their existing AI project claims; only their technology tags change.
 - Update German base arrays and English experience overrides so both languages show the same stack.
@@ -64,6 +64,10 @@ Inside the existing project/content loop, add:
     expectedExperienceTech[company].forEach(technology => {
       assert.ok(job.tech.includes(technology), `${lang}: ${company} missing ${technology}`);
     });
+  });
+
+  profile.experience.slice(2).forEach(job => {
+    assert.ok(!job.tech.includes('TCA'), `${lang}: ${job.company} must not include TCA`);
   });
 
   profile.projects.forEach(project => {
