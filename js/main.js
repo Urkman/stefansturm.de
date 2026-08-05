@@ -211,6 +211,38 @@ function renderSkills() {
   document.getElementById('skills-grid').innerHTML = html;
 }
 
+function renderAI() {
+  const ai = activeCV.ai;
+  document.getElementById('ai-heading').textContent = ai.title;
+  document.getElementById('ai-content').innerHTML = `
+    <p class="ai-introduction reveal">${esc(ai.introduction)}</p>
+    <div class="ai-tools-grid">
+      ${ai.tools.map(tool => `
+        <article class="ai-tool-card reveal">
+          <h3>${esc(tool.name)}</h3>
+          <p>${esc(tool.description)}</p>
+        </article>`).join('')}
+    </div>
+    <section class="ai-workflow" aria-labelledby="ai-workflow-heading">
+      <h3 class="ai-subheading" id="ai-workflow-heading">${esc(ai.workflowTitle)}</h3>
+      <div class="ai-workflow-grid">
+        ${ai.workflow.map(item => `
+          <article class="ai-workflow-step reveal">
+            <span class="ai-step-number">${esc(item.step)}</span>
+            <h4>${esc(item.title)}</h4>
+            <p>${esc(item.description)}</p>
+          </article>`).join('')}
+      </div>
+    </section>
+    <div class="ai-proof-grid">
+      ${ai.proof.map(item => `
+        <article class="ai-proof-card reveal">
+          <h3>${esc(item.project)}</h3>
+          <p>${esc(item.description)}</p>
+        </article>`).join('')}
+    </div>`;
+}
+
 function renderProjects() {
   const html = activeCV.projects.map(proj => {
     const isWebsite = proj.linkType === 'website';
@@ -415,6 +447,7 @@ function renderAll() {
   renderAbout();
   renderExperience();
   renderSkills();
+  renderAI();
   renderProjects();
   renderEducation();
   renderContact();

@@ -754,6 +754,72 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   white-space: nowrap;
 }
 
+/* -------- AI Development -------- */
+.ai-section-content { display: grid; gap: 1.5rem; }
+.ai-introduction {
+  max-width: 58rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.ai-tools-grid,
+.ai-workflow-grid,
+.ai-proof-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.ai-tool-card,
+.ai-workflow-step,
+.ai-proof-card {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  padding: 1.25rem;
+}
+.ai-tool-card { border-top: .2rem solid var(--accent); }
+.ai-tool-card h3,
+.ai-proof-card h3 {
+  margin-bottom: .5rem;
+  color: var(--text);
+  font-size: 1rem;
+}
+.ai-tool-card p,
+.ai-workflow-step p,
+.ai-proof-card p {
+  color: var(--text-muted);
+  font-size: .875rem;
+  line-height: 1.65;
+}
+.ai-workflow { display: grid; gap: .875rem; }
+.ai-subheading { color: var(--text); font-size: 1rem; }
+.ai-workflow-step { position: relative; padding-top: 2.25rem; }
+.ai-step-number {
+  position: absolute;
+  top: 1rem;
+  color: var(--accent);
+  font-size: .6875rem;
+  font-weight: 800;
+}
+.ai-workflow-step h4 {
+  margin-bottom: .5rem;
+  color: var(--text);
+  font-size: .9375rem;
+}
+.ai-proof-card {
+  border-left: .2rem solid var(--accent);
+  background: var(--accent-light);
+}
+@media (min-width: 640px) {
+  .ai-workflow-grid,
+  .ai-proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+  .ai-tools-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ai-workflow-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
 /* -------- Projects -------- */
 .projects-grid {
   display: grid;
