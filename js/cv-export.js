@@ -182,6 +182,13 @@ function renderCvSkillGroup(category) {
   </div>`;
 }
 
+function renderCvAiSummary(ai) {
+  return `<section class="cv-section cv-ai-summary">
+    ${renderCvSectionTitle(ai.title)}
+    <p>${cvEsc(ai.compactSummary)}</p>
+  </section>`;
+}
+
 function renderCvEducationRow(education) {
   return `<div class="cv-education-row">
     <strong>${cvEsc(education.degree)}</strong>
@@ -267,6 +274,29 @@ function renderExpandedSkillGroup(category) {
   </section>`;
 }
 
+function renderExpandedAI(ai) {
+  return `<div class="cv-expanded-ai">
+    <p class="cv-expanded-ai-introduction">${cvEsc(ai.introduction)}</p>
+    <div class="cv-expanded-ai-tools">${ai.tools.map(tool => `
+      <section class="cv-expanded-ai-tool">
+        <h3>${cvEsc(tool.name)}</h3>
+        <p>${cvEsc(tool.description)}</p>
+      </section>`).join('')}</div>
+    ${renderExpandedSectionTitle(ai.workflowTitle)}
+    <div class="cv-expanded-ai-workflow">${ai.workflow.map(item => `
+      <section class="cv-expanded-ai-step">
+        <span>${cvEsc(item.step)}</span>
+        <h3>${cvEsc(item.title)}</h3>
+        <p>${cvEsc(item.description)}</p>
+      </section>`).join('')}</div>
+    <div class="cv-expanded-ai-proof">${ai.proof.map(item => `
+      <section>
+        <h3>${cvEsc(item.project)}</h3>
+        <p>${cvEsc(item.description)}</p>
+      </section>`).join('')}</div>
+  </div>`;
+}
+
 function renderExpandedEducation(education) {
   return `<div class="cv-expanded-education">
     <div><strong>${cvEsc(education.degree)}</strong><span>${cvEsc(education.institution)}</span></div>
@@ -332,6 +362,9 @@ const CV_PRINT_STYLES = `
   .cv-project .cv-tech{font-size:6.6pt}
   .cv-skills{margin-top:3mm}
   .cv-skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.7mm 6mm}
+  .cv-ai-summary{margin-top:2.5mm;padding:2.3mm 3mm;border-left:.7mm solid #0070e0;background:#f5f9fd;break-inside:avoid}
+  .cv-ai-summary .cv-section-title{margin-bottom:1.2mm;padding-bottom:1mm}
+  .cv-ai-summary>p{font-size:6.8pt;line-height:1.35;color:#526071}
   .cv-skill-group{break-inside:avoid}
   .cv-skill-group h3{margin-bottom:.7mm;font-size:7.4pt;color:#253244}
   .cv-skill-group p{font-size:6.9pt;line-height:1.34;color:#697586}
@@ -402,6 +435,17 @@ const EXPANDED_CV_PRINT_STYLES = `
   .cv-expanded-skill-group>div{display:flex;flex-wrap:wrap;gap:1.5mm}
   .cv-expanded-skill{padding:1.2mm 1.8mm;border:.25mm solid #dfe7f0;border-radius:1.5mm;font-size:7.2pt;color:#526071}
   .cv-expanded-skill small{color:#8793a3}
+  .cv-expanded-ai{display:grid;gap:6mm}
+  .cv-expanded-ai-introduction{font-size:9pt;line-height:1.6;color:#3f4d5f}
+  .cv-expanded-ai-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
+  .cv-expanded-ai-tool,.cv-expanded-ai-step,.cv-expanded-ai-proof>section{padding:4mm;border:.25mm solid #dfe7f0;border-radius:2mm;background:#fbfdff}
+  .cv-expanded-ai-tool{border-top:.8mm solid #0070e0}
+  .cv-expanded-ai-tool h3,.cv-expanded-ai-step h3,.cv-expanded-ai-proof h3{margin-bottom:1.5mm;font-size:9pt;color:#152033}
+  .cv-expanded-ai-tool p,.cv-expanded-ai-step p,.cv-expanded-ai-proof p{font-size:7.5pt;line-height:1.5;color:#526071}
+  .cv-expanded-ai-workflow{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+  .cv-expanded-ai-step span{display:block;margin-bottom:1mm;color:#0070e0;font-size:7pt;font-weight:800}
+  .cv-expanded-ai-proof{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+  .cv-expanded-ai-proof>section{border-left:.8mm solid #0070e0;background:#f5f9fd}
   .cv-expanded-education-list{display:grid;grid-template-columns:1fr 1fr;gap:3mm 8mm}
   .cv-expanded-education{display:flex;justify-content:space-between;gap:4mm;padding-bottom:2mm;border-bottom:.2mm solid #e7edf4;break-inside:avoid;page-break-inside:avoid;font-size:7.5pt}
   .cv-expanded-education div{min-width:0}
@@ -497,6 +541,7 @@ function buildCvHtml(photoDataUrl = '') {
           ${selectedProjects.map(renderCvProject).join('')}
         </div>
       </div>
+      ${renderCvAiSummary(activeCV.ai)}
       <section class="cv-section cv-skills">
         ${renderCvSectionTitle(t('cvTechnicalSkills'))}
         <div class="cv-skills-grid">${activeCV.skills.map(renderCvSkillGroup).join('')}</div>
@@ -544,7 +589,7 @@ function buildExpandedCvHtml(photoDataUrl = '') {
     activeCV.experience.slice(8, 11),
     activeCV.experience.slice(11),
   ].filter(page => page.length);
-  const totalPages = 4 + experiencePages.length;
+  const totalPages = 5 + experiencePages.length;
   let pageNumber = 0;
   const nextPageNumber = () => ++pageNumber;
 
@@ -594,6 +639,14 @@ function buildExpandedCvHtml(photoDataUrl = '') {
         ${renderExpandedPageHeader(t('cvTechnicalSkills'), t('cvExpandedLabel'))}
         <div class="cv-expanded-page-content">
           <div class="cv-expanded-skills cv-expanded-skills-page-grid">${activeCV.skills.map(renderExpandedSkillGroup).join('')}</div>
+        </div>
+        ${renderExpandedPageFooter(personal, nextPageNumber(), totalPages)}
+      </section>
+
+      <section class="cv-expanded-page cv-expanded-ai-page" data-page="ai">
+        ${renderExpandedPageHeader(activeCV.ai.title, t('cvExpandedLabel'))}
+        <div class="cv-expanded-page-content">
+          ${renderExpandedAI(activeCV.ai)}
         </div>
         ${renderExpandedPageFooter(personal, nextPageNumber(), totalPages)}
       </section>
