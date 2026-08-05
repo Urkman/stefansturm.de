@@ -7,6 +7,9 @@ import re
 import sys
 from pathlib import Path
 
+from pypdf import PdfReader, PdfWriter
+from pypdf.generic import ArrayObject, DictionaryObject, NameObject, NumberObject
+
 
 OBJECT_PATTERN = re.compile(rb"(?m)^(\d+)\s+(\d+)\s+obj(?:\r?\n|\s)")
 REFERENCE_PATTERN = re.compile(rb"(?<!\d)(\d+)\s+(\d+)\s+R\b")
@@ -59,6 +62,50 @@ def page_body(body: bytes, parent_id: int, mapping: dict[int, int]) -> bytes:
     if closing == -1:
         raise ValueError("Page object has no dictionary")
     return remapped[:closing] + b"\n" + replacement + remapped[closing:]
+
+
+def normalize_link_annotations(output_path: Path) -> None:
+    """Rewrite link annotations into a reader-compatible URI representation."""
+    reader = PdfReader(str(output_path))
+    writer = PdfWriter()
+    writer.clone_document_from_reader(reader)
+
+    for page in writer.pages:
+        for annotation_ref in page.get("/Annots", []) or []:
+            annotation = annotation_ref.get_object()
+            if annotation.get("/Subtype") != "/Link":
+                continue
+
+            action = annotation.get("/A")
+            action = action.get_object() if action else None
+            if not action or action.get("/S") != "/URI" or not action.get("/URI"):
+                continue
+
+            normalized_action = DictionaryObject({
+                NameObject("/Type"): NameObject("/Action"),
+                NameObject("/S"): NameObject("/URI"),
+                NameObject("/URI"): action.get("/URI"),
+            })
+            annotation[NameObject("/A")] = writer._add_object(normalized_action)
+            annotation[NameObject("/H")] = NameObject("/I")
+            annotation[NameObject("/Border")] = ArrayObject([
+                NumberObject(0),
+                NumberObject(0),
+                NumberObject(0),
+            ])
+
+            rect = annotation.get("/Rect")
+            if rect and len(rect) == 4:
+                left, bottom, right, top = rect
+                annotation[NameObject("/QuadPoints")] = ArrayObject([
+                    left, top, right, top,
+                    left, bottom, right, bottom,
+                ])
+
+    normalized_path = output_path.with_suffix(".normalized.pdf")
+    with normalized_path.open("wb") as stream:
+        writer.write(stream)
+    normalized_path.replace(output_path)
 
 
 def merge(output_path: Path, input_paths: list[Path]) -> None:
@@ -128,6 +175,7 @@ def merge(output_path: Path, input_paths: list[Path]) -> None:
         ).encode("ascii")
     )
     output_path.write_bytes(output)
+    normalize_link_annotations(output_path)
 
 
 def main() -> None:

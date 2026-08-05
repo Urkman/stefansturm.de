@@ -8,6 +8,7 @@ const ROOT = path.resolve(__dirname, '..');
 const ASSET_DIR = path.join(ROOT, 'assets', 'pdf');
 const TMP_DIR = path.join(ROOT, 'tmp', 'pdfs', `static-export-${Date.now()}`);
 const CHROME_BIN = process.env.CHROME_BIN || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const PORTRAIT_PATH = path.join(ROOT, 'assets', 'stefan-cv.jpg');
 
 const ARTIFACTS = [
   { language: 'de', format: 'compact', file: 'stefan-sturm-cv-de.pdf', heading: 'Technische Kenntnisse', pages: 2 },
@@ -102,7 +103,17 @@ if any(not text for text in texts):
 uris = []
 for page in reader.pages:
     for annotation in page.get('/Annots', []):
-        action = annotation.get_object().get('/A')
+        annotation = annotation.get_object()
+        if annotation.get('/Subtype') != '/Link':
+            continue
+        action = annotation.get('/A')
+        action = action.get_object() if action else None
+        if not action or action.get('/S') != '/URI' or not action.get('/URI'):
+            raise SystemExit('PDF contains a link without a URI action')
+        if annotation.get('/H') != '/I':
+            raise SystemExit('PDF contains a link without the standard highlight mode')
+        if not annotation.get('/QuadPoints'):
+            raise SystemExit('PDF contains a link without quad points')
         if action and action.get('/URI'):
             uris.append(str(action['/URI']).rstrip('/'))
 if 'https://stefansturm.de' not in uris:
@@ -142,13 +153,12 @@ function main() {
   if (!fs.existsSync(CHROME_BIN)) {
     throw new Error(`Chrome executable not found at ${CHROME_BIN}. Set CHROME_BIN to a headless Chrome binary.`);
   }
-  const portraitPath = path.join(ROOT, 'assets', 'stefan.png');
-  if (!fs.existsSync(portraitPath)) throw new Error(`Portrait not found at ${portraitPath}`);
+  if (!fs.existsSync(PORTRAIT_PATH)) throw new Error(`Portrait not found at ${PORTRAIT_PATH}`);
 
   fs.mkdirSync(TMP_DIR, { recursive: true });
   try {
     const renderHtml = loadRenderer();
-    const photoDataUrl = `data:image/png;base64,${fs.readFileSync(portraitPath).toString('base64')}`;
+    const photoDataUrl = `data:image/jpeg;base64,${fs.readFileSync(PORTRAIT_PATH).toString('base64')}`;
     for (const artifact of ARTIFACTS) generateArtifact(renderHtml, artifact, photoDataUrl);
     fs.mkdirSync(ASSET_DIR, { recursive: true });
     for (const artifact of ARTIFACTS) {
