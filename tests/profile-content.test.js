@@ -101,7 +101,6 @@ const expectedAi = {
 const expectedDevilTech = [
   'Swift',
   'SwiftUI',
-  'TCA',
   'Swift Concurrency',
   'Foundation',
   'AppKit',
@@ -110,7 +109,20 @@ const expectedDevilTech = [
   'GitHub',
   'XCTest',
   'Xcode Cloud',
+  'MVVM',
 ];
+
+const expectedExperienceTech = {
+  EnBW: [
+    'Swift', 'SwiftUI', 'Combine', 'TCA', 'MVVM', 'Swift Concurrency',
+    'SwiftData', 'Foundation', 'XCTest', 'Swift Testing', 'GitLab CI/CD',
+  ],
+  Chrono24: [
+    'Swift', 'SwiftUI', 'Combine', 'TCA', 'CleanSwift', 'Swift Concurrency',
+    'SwiftData', 'Foundation', 'XCTest', 'Swift Testing', 'REST (JSON)',
+    'GraphQL', 'GitLab CI/CD',
+  ],
+};
 
 for (const [lang, profile] of Object.entries(profiles)) {
   const expected = expectedAi[lang];
@@ -177,9 +189,27 @@ for (const [lang, profile] of Object.entries(profiles)) {
   assert.deepEqual(Array.from(devil.tech), expectedDevilTech, `${lang}: Devil technology tags differ`);
   assert.ok(devil.description.endsWith(projectClaim[lang]), `${lang}: Devil description missing AI claim`);
   assert.ok(devil.cvDescription.endsWith(projectClaim[lang]), `${lang}: Devil compact copy missing AI claim`);
-  assert.ok(fast.tech.includes('TCA'), `${lang}: Fast.io missing TCA`);
+  assert.ok(fast.tech.includes('MVVM'), `${lang}: Fast.io missing MVVM`);
+  assert.ok(!fast.tech.includes('TCA'), `${lang}: Fast.io must not include TCA`);
   assert.ok(fast.description.endsWith(projectClaim[lang]), `${lang}: Fast.io description missing AI claim`);
   assert.ok(fast.cvDescription.endsWith(projectClaim[lang]), `${lang}: Fast.io compact copy missing AI claim`);
+
+  ['EnBW', 'Chrono24'].forEach(company => {
+    const job = profile.experience.find(entry => entry.company === company);
+    assert.ok(job, `${lang}: ${company} experience missing`);
+    expectedExperienceTech[company].forEach(technology => {
+      assert.ok(job.tech.includes(technology), `${lang}: ${company} missing ${technology}`);
+    });
+  });
+
+  profile.experience.slice(2).forEach(job => {
+    assert.ok(!job.tech.includes('TCA'), `${lang}: ${job.company} must not include TCA`);
+  });
+
+  profile.projects.forEach(project => {
+    assert.ok(project.tech.includes('MVVM'), `${lang}: ${project.name} missing MVVM`);
+    assert.ok(!project.tech.includes('TCA'), `${lang}: ${project.name} must not include TCA`);
+  });
 }
 
 const pdfTranslationKeys = [
