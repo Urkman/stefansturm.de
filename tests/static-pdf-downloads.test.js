@@ -12,7 +12,7 @@ const expected = [
   'assets/pdf/stefan-sturm-expanded-cv-en.pdf',
 ];
 
-assert.match(exportSource, /const STATIC_PDF_VERSION = '20260805-ai-development-v2'/);
+assert.match(exportSource, /const STATIC_PDF_VERSION = '20260805-project-architecture-tags-v1'/);
 assert.match(generatorSource, /format: 'expanded'[^\n]*pages: 9[^\n]*aiHeading: 'AI-gestützte Entwicklung'/);
 assert.match(generatorSource, /format: 'expanded'[^\n]*pages: 9[^\n]*aiHeading: 'AI-Supported Development'/);
 assert.match(generatorSource, /texts\[2\]/);
