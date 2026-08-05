@@ -698,7 +698,7 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-const STATIC_PDF_VERSION = '20260805-ai-development-v2';
+const STATIC_PDF_VERSION = '20260805-project-architecture-tags-v1';
 const STATIC_PDF_ASSETS = {
   de: {
     compact: 'assets/pdf/stefan-sturm-cv-de.pdf',
