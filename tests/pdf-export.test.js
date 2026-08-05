@@ -69,9 +69,13 @@ for (const lang of ['de', 'en']) {
   assert.match(page2, /data-company="Comdirect"/);
   assert.match(page2, /data-company="Buhl"/);
   assert.match(page2, /data-company="Porsche"/);
-  assert.match(page2, /DevBar - Apple Developer Toolkit/);
+  assert.match(page2, /Devil - Apple Developer Toolkit/);
   assert.match(page2, /Fast\.io - Fasting Timer/);
   assert.match(page2, /AI &amp; Agentic Development/);
+  assertContains(page2, profile.ai.compactSummary, `${lang}: compact AI summary missing`);
+  assertContains(page2, 'TCA', `${lang}: compact TCA missing`);
+  assertContains(page2, profile.projects[0].cvDescription, `${lang}: compact Devil copy missing`);
+  assertContains(page2, profile.projects[1].cvDescription, `${lang}: compact Fast.io copy missing`);
   assert.match(page2, lang === 'de' ? /Informationstechnik/ : /Information Technology/);
   assert.ok(compact.includes('href="https://stefansturm.de"'), `${lang}: compact website link missing`);
   assert.match(compact, /stefansturm\.de/);
@@ -89,6 +93,14 @@ for (const lang of ['de', 'en']) {
   assert.match(expanded, /class="cv-expanded-page cv-expanded-cover-page"/);
   assert.match(expanded, /class="cv-expanded-page cv-expanded-skills-page"/);
   assert.match(expanded, /data-page="skills"/);
+  assert.match(expanded, /class="cv-expanded-page cv-expanded-ai-page"/);
+  assert.match(expanded, /data-page="ai"/);
+  assert.equal((expanded.match(/<section class="cv-expanded-page/g) || []).length, 9, `${lang}: expanded CV must contain nine pages`);
+  assert.ok(
+    expanded.indexOf('data-page="skills"') < expanded.indexOf('data-page="ai"') &&
+      expanded.indexOf('data-page="ai"') < expanded.indexOf('data-page="experience-1"'),
+    `${lang}: expanded AI page order is wrong`
+  );
   assert.match(expanded, /data-page="experience/);
   assert.match(expanded, /data-page="projects"/);
   assert.match(expanded, /data-page="education"/);
@@ -96,6 +108,21 @@ for (const lang of ['de', 'en']) {
   assert.match(expanded, /@page\{size:A4;/);
   assert.match(expanded, /data:image\/jpeg;base64,TEST_PHOTO/);
   assertContains(expanded, profile.personal.tagline, `${lang}: missing personal tagline`);
+  assertContains(expanded, profile.ai.introduction, `${lang}: full AI introduction missing`);
+  assertContains(expanded, profile.ai.workflowTitle, `${lang}: AI workflow title missing`);
+
+  profile.ai.tools.forEach(tool => {
+    assertContains(expanded, tool.name, `${lang}: missing AI tool ${tool.name}`);
+    assertContains(expanded, tool.description, `${lang}: missing AI tool description ${tool.name}`);
+  });
+  profile.ai.workflow.forEach(item => {
+    assertContains(expanded, item.title, `${lang}: missing AI workflow step ${item.title}`);
+    assertContains(expanded, item.description, `${lang}: missing AI workflow description ${item.title}`);
+  });
+  profile.ai.proof.forEach(item => {
+    assertContains(expanded, item.project, `${lang}: missing AI proof project ${item.project}`);
+    assertContains(expanded, item.description, `${lang}: missing AI proof claim ${item.project}`);
+  });
 
   profile.summary.split('<br><br>').forEach((paragraph, index) => {
     assertContains(expanded, paragraph, `${lang}: missing profile paragraph ${index}`);
