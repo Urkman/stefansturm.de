@@ -199,6 +199,8 @@ git commit -m "feat: align project architecture technology tags"
 
 - [ ] **Step 1: Run source contracts before generation**
 
+The static-download contract must expect `20260805-project-architecture-tags-v1` in `js/cv-export.js`.
+
 ```bash
 node tests/profile-content.test.js
 node tests/pdf-export.test.js
