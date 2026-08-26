@@ -277,23 +277,60 @@ function renderExpandedSkillGroup(category) {
 function renderExpandedAI(ai) {
   return `<div class="cv-expanded-ai">
     <p class="cv-expanded-ai-introduction">${cvEsc(ai.introduction)}</p>
-    <div class="cv-expanded-ai-tools">${ai.tools.map(tool => `
-      <section class="cv-expanded-ai-tool">
-        <h3>${cvEsc(tool.name)}</h3>
-        <p>${cvEsc(tool.description)}</p>
-      </section>`).join('')}</div>
-    ${renderExpandedSectionTitle(ai.workflowTitle)}
-    <div class="cv-expanded-ai-workflow">${ai.workflow.map(item => `
-      <section class="cv-expanded-ai-step">
-        <span>${cvEsc(item.step)}</span>
-        <h3>${cvEsc(item.title)}</h3>
-        <p>${cvEsc(item.description)}</p>
-      </section>`).join('')}</div>
-    <div class="cv-expanded-ai-proof">${ai.proof.map(item => `
-      <section>
-        <h3>${cvEsc(item.project)}</h3>
-        <p>${cvEsc(item.description)}</p>
-      </section>`).join('')}</div>
+    <section class="cv-expanded-ai-block">
+      ${renderExpandedSectionTitle(ai.workflowTitle)}
+      <div class="cv-expanded-ai-workflow">${ai.workflow.map(item => `
+        <section class="cv-expanded-ai-step">
+          <span>${cvEsc(item.step)}</span>
+          <h3>${cvEsc(item.title)}</h3>
+          <p>${cvEsc(item.description)}</p>
+        </section>`).join('')}</div>
+    </section>
+    <div class="cv-expanded-ai-columns">
+      <section class="cv-expanded-ai-block">
+        ${renderExpandedSectionTitle(ai.agentsTitle)}
+        <div class="cv-expanded-ai-agents">${ai.agents.map(agent => `
+          <article class="cv-expanded-ai-agent">
+            <div><h3>${cvEsc(agent.name)}</h3><span>${cvEsc(agent.role)}</span></div>
+            <p>${cvEsc(agent.description)}</p>
+          </article>`).join('')}</div>
+      </section>
+      <section class="cv-expanded-ai-block">
+        ${renderExpandedSectionTitle(ai.skillsTitle)}
+        <div class="cv-expanded-ai-skills">${ai.skills.map(group => `
+          <article class="cv-expanded-ai-skill-group">
+            <h3>${cvEsc(group.category)}</h3>
+            <p>${group.items.map(cvEsc).join(', ')}</p>
+          </article>`).join('')}</div>
+      </section>
+    </div>
+    <div class="cv-expanded-ai-columns">
+      <section class="cv-expanded-ai-block">
+        ${renderExpandedSectionTitle(ai.mcpsTitle)}
+        <div class="cv-expanded-ai-mcps">${ai.mcps.map(mcp => `
+          <article class="cv-expanded-ai-mcp cv-expanded-ai-mcp-${cvEsc(mcp.state)}">
+            <div><h3>${cvEsc(mcp.name)}</h3><span>${cvEsc(mcp.status)}</span></div>
+            <p>${cvEsc(mcp.description)}</p>
+          </article>`).join('')}</div>
+      </section>
+      <section class="cv-expanded-ai-block">
+        ${renderExpandedSectionTitle(ai.reasoningTitle)}
+        <p class="cv-expanded-ai-reasoning-note">${cvEsc(ai.reasoningNote)}</p>
+        <div class="cv-expanded-ai-reasoning">${ai.reasoning.map(item => `
+          <article>
+            <div><strong>${cvEsc(item.level)}</strong><span>${cvEsc(item.use)}</span></div>
+            <p>${cvEsc(item.description)}</p>
+          </article>`).join('')}</div>
+      </section>
+    </div>
+    <section class="cv-expanded-ai-block">
+      ${renderExpandedSectionTitle(ai.proofTitle)}
+      <div class="cv-expanded-ai-proof">${ai.proof.map(item => `
+        <section>
+          <h3>${cvEsc(item.project)}</h3>
+          <p>${cvEsc(item.description)}</p>
+        </section>`).join('')}</div>
+    </section>
   </div>`;
 }
 
@@ -435,17 +472,29 @@ const EXPANDED_CV_PRINT_STYLES = `
   .cv-expanded-skill-group>div{display:flex;flex-wrap:wrap;gap:1.5mm}
   .cv-expanded-skill{padding:1.2mm 1.8mm;border:.25mm solid #dfe7f0;border-radius:1.5mm;font-size:7.2pt;color:#526071}
   .cv-expanded-skill small{color:#8793a3}
-  .cv-expanded-ai{display:grid;gap:6mm}
-  .cv-expanded-ai-introduction{font-size:9pt;line-height:1.6;color:#3f4d5f}
-  .cv-expanded-ai-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
-  .cv-expanded-ai-tool,.cv-expanded-ai-step,.cv-expanded-ai-proof>section{padding:4mm;border:.25mm solid #dfe7f0;border-radius:2mm;background:#fbfdff}
-  .cv-expanded-ai-tool{border-top:.8mm solid #0070e0}
-  .cv-expanded-ai-tool h3,.cv-expanded-ai-step h3,.cv-expanded-ai-proof h3{margin-bottom:1.5mm;font-size:9pt;color:#152033}
-  .cv-expanded-ai-tool p,.cv-expanded-ai-step p,.cv-expanded-ai-proof p{font-size:7.5pt;line-height:1.5;color:#526071}
-  .cv-expanded-ai-workflow{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
-  .cv-expanded-ai-step span{display:block;margin-bottom:1mm;color:#0070e0;font-size:7pt;font-weight:800}
-  .cv-expanded-ai-proof{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
-  .cv-expanded-ai-proof>section{border-left:.8mm solid #0070e0;background:#f5f9fd}
+  .cv-expanded-ai{display:grid;gap:4mm}
+  .cv-expanded-ai-introduction{padding:3mm 4mm;border-left:.8mm solid #0070e0;background:#f5f9fd;font-size:8pt;line-height:1.48;color:#3f4d5f}
+  .cv-expanded-ai-block{min-width:0}
+  .cv-expanded-ai .cv-expanded-section-title{margin:0 0 2mm;padding-bottom:1.2mm;font-size:8pt}
+  .cv-expanded-ai-workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5mm}
+  .cv-expanded-ai-step{position:relative;padding:3mm;border:.25mm solid #dfe7f0;border-left:.7mm solid #0070e0;border-radius:1.5mm;background:#fbfdff}
+  .cv-expanded-ai-step>span{display:block;margin-bottom:.8mm;color:#0070e0;font-size:6.2pt;font-weight:800}
+  .cv-expanded-ai-step h3{margin-bottom:1mm;font-size:7.4pt;line-height:1.2;color:#152033}
+  .cv-expanded-ai-step p{font-size:6.3pt;line-height:1.4;color:#526071}
+  .cv-expanded-ai-columns{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+  .cv-expanded-ai-agents,.cv-expanded-ai-skills,.cv-expanded-ai-mcps,.cv-expanded-ai-reasoning{display:grid;gap:1.5mm}
+  .cv-expanded-ai-agent,.cv-expanded-ai-skill-group,.cv-expanded-ai-mcp,.cv-expanded-ai-reasoning>article{padding:2.2mm 2.5mm;border:.25mm solid #dfe7f0;border-radius:1.5mm;background:#fbfdff}
+  .cv-expanded-ai-agent>div,.cv-expanded-ai-mcp>div,.cv-expanded-ai-reasoning>article>div{display:flex;align-items:baseline;justify-content:space-between;gap:2mm}
+  .cv-expanded-ai-agent h3,.cv-expanded-ai-skill-group h3,.cv-expanded-ai-mcp h3{font-size:7.3pt;line-height:1.2;color:#152033}
+  .cv-expanded-ai-agent span,.cv-expanded-ai-mcp span,.cv-expanded-ai-reasoning span{color:#0070e0;font-size:5.8pt;font-weight:700;text-align:right}
+  .cv-expanded-ai-agent p,.cv-expanded-ai-skill-group p,.cv-expanded-ai-mcp p,.cv-expanded-ai-reasoning p{margin-top:.7mm;font-size:6.15pt;line-height:1.35;color:#526071}
+  .cv-expanded-ai-mcp-building{border-color:#f0b47c;background:#fff8f1}
+  .cv-expanded-ai-reasoning-note{margin-bottom:1.5mm;font-size:6.3pt;line-height:1.4;color:#697586}
+  .cv-expanded-ai-reasoning strong{color:#152033;font-size:6.8pt}
+  .cv-expanded-ai-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5mm}
+  .cv-expanded-ai-proof>section{padding:2.5mm 3mm;border:.25mm solid #dfe7f0;border-left:.7mm solid #0070e0;border-radius:1.5mm;background:#f5f9fd}
+  .cv-expanded-ai-proof h3{margin-bottom:1mm;font-size:7.3pt;color:#152033}
+  .cv-expanded-ai-proof p{font-size:6.2pt;line-height:1.38;color:#526071}
   .cv-expanded-education-list{display:grid;grid-template-columns:1fr 1fr;gap:3mm 8mm}
   .cv-expanded-education{display:flex;justify-content:space-between;gap:4mm;padding-bottom:2mm;border-bottom:.2mm solid #e7edf4;break-inside:avoid;page-break-inside:avoid;font-size:7.5pt}
   .cv-expanded-education div{min-width:0}
@@ -698,7 +747,7 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-const STATIC_PDF_VERSION = '20260805-pdf-size-v1';
+const STATIC_PDF_VERSION = '20260826-ai-agents-v1';
 const STATIC_PDF_ASSETS = {
   de: {
     compact: 'assets/pdf/stefan-sturm-cv-de.pdf',

@@ -755,69 +755,241 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 }
 
 /* -------- AI Development -------- */
-.ai-section-content { display: grid; gap: 1.5rem; }
+.ai-section-content { display: grid; gap: 2.75rem; }
 .ai-introduction {
-  max-width: 58rem;
+  max-width: 62rem;
+  padding: 1.25rem 1.5rem;
+  border-left: .25rem solid var(--accent);
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  background: linear-gradient(90deg, var(--accent-light), transparent 82%);
   color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.75;
 }
-.ai-tools-grid,
+.ai-domain { display: grid; gap: 1rem; min-width: 0; }
+.ai-domain-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ai-domain-header h3 {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.ai-domain-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+.ai-knowledge-grid,
+.ai-agents-grid,
+.ai-skills-groups,
+.ai-mcp-grid,
 .ai-workflow-grid,
 .ai-proof-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
-.ai-tool-card,
+.ai-agent-card,
+.ai-skill-group,
+.ai-mcp-card,
 .ai-workflow-step,
 .ai-proof-card {
   min-width: 0;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: .5rem;
+  border-radius: var(--r-lg);
   padding: 1.25rem;
 }
-.ai-tool-card { border-top: .2rem solid var(--accent); }
-.ai-tool-card h3,
-.ai-proof-card h3 {
-  margin-bottom: .5rem;
-  color: var(--text);
-  font-size: 1rem;
+.ai-workflow-step {
+  position: relative;
+  padding-top: 2.5rem;
+  overflow: hidden;
 }
-.ai-tool-card p,
-.ai-workflow-step p,
-.ai-proof-card p {
-  color: var(--text-muted);
-  font-size: .875rem;
-  line-height: 1.65;
+.ai-workflow-step::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: .2rem;
+  background: var(--accent);
 }
-.ai-workflow { display: grid; gap: .875rem; }
-.ai-subheading { color: var(--text); font-size: 1rem; }
-.ai-workflow-step { position: relative; padding-top: 2.25rem; }
 .ai-step-number {
   position: absolute;
   top: 1rem;
   color: var(--accent);
   font-size: .6875rem;
   font-weight: 800;
+  letter-spacing: .08em;
 }
-.ai-workflow-step h4 {
-  margin-bottom: .5rem;
+.ai-workflow-step h4,
+.ai-card-heading h4,
+.ai-skill-group h4,
+.ai-proof-card h4 {
   color: var(--text);
   font-size: .9375rem;
 }
+.ai-workflow-step h4 { margin-bottom: .5rem; }
+.ai-agent-card p,
+.ai-mcp-card p,
+.ai-workflow-step p,
+.ai-proof-card p {
+  color: var(--text-muted);
+  font-size: .875rem;
+  line-height: 1.65;
+}
+.ai-knowledge-grid { gap: 2.75rem; }
+.ai-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: .5rem;
+}
+.ai-card-heading > span:not(.ai-status) {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: .6875rem;
+  font-weight: 700;
+  text-align: right;
+}
+.ai-agent-card { border-top: .2rem solid var(--accent); }
+.ai-skills-groups { gap: .75rem; }
+.ai-skill-group h4 { margin-bottom: .75rem; }
+.ai-skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.ai-skill-chips span {
+  max-width: 100%;
+  padding: .35rem .65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .6875rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.ai-mcp-card { position: relative; }
+.ai-status {
+  flex-shrink: 0;
+  padding: .3rem .55rem;
+  border-radius: var(--r-full);
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: .625rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.ai-mcp-building {
+  border-color: #fed7aa;
+  background: linear-gradient(145deg, var(--surface), #fff7ed);
+}
+.ai-mcp-building .ai-status {
+  background: #ffedd5;
+  color: #9a3412;
+}
+[data-theme="dark"] .ai-mcp-building {
+  border-color: #7c2d12;
+  background: linear-gradient(145deg, var(--surface), #28170f);
+}
+[data-theme="dark"] .ai-mcp-building .ai-status {
+  background: #431c0d;
+  color: #fdba74;
+}
+.ai-reasoning {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+}
+.ai-reasoning-note {
+  max-width: 54rem;
+  color: var(--text-muted);
+  font-size: .875rem;
+  line-height: 1.65;
+}
+.ai-reasoning-list { display: grid; gap: .25rem; }
+.ai-reasoning-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .75rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+}
+.ai-reasoning-label {
+  display: flex;
+  align-items: baseline;
+  gap: .625rem;
+}
+.ai-reasoning-label strong {
+  min-width: 3.75rem;
+  color: var(--text);
+  font-size: .875rem;
+}
+.ai-reasoning-label span {
+  color: var(--accent);
+  font-size: .6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.ai-reasoning-row p {
+  color: var(--text-muted);
+  font-size: .8125rem;
+  line-height: 1.55;
+}
+.ai-reasoning-meter {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(1.5rem, 1fr));
+  gap: .3rem;
+  align-self: center;
+}
+.ai-reasoning-meter span {
+  height: .35rem;
+  border-radius: var(--r-full);
+  background: var(--border);
+}
+.ai-reasoning-meter span.active { background: var(--accent); }
 .ai-proof-card {
   border-left: .2rem solid var(--accent);
   background: var(--accent-light);
 }
+.ai-proof-card h4 { margin-bottom: .5rem; }
+
 @media (min-width: 640px) {
   .ai-workflow-grid,
+  .ai-agents-grid,
+  .ai-mcp-grid,
   .ai-proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ai-reasoning-label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .2rem;
+  }
+  .ai-reasoning-row { grid-template-columns: 8rem minmax(0, 1fr) 7rem; align-items: center; }
 }
 @media (min-width: 900px) {
-  .ai-tools-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .ai-workflow-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ai-knowledge-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+  .ai-agents-grid { grid-template-columns: 1fr; }
+  .ai-mcp-grid,
+  .ai-proof-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 420px) {
+  .ai-introduction { padding: 1rem; }
+  .ai-card-heading { display: grid; }
+  .ai-card-heading > span:not(.ai-status) { text-align: left; }
+  .ai-status { justify-self: start; }
 }
 
 /* -------- Projects -------- */

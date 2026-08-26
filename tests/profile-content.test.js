@@ -39,30 +39,26 @@ const expectedAiSkills = {
   de: {
     workflow: [
       'Agentic Coding',
-      'Vibe Coding',
       'Prompt & Context Engineering',
-      'Skills & Plugins',
-      'Planning Skills (brainstorming / grill-me / writing-plans)',
-      'Worktree / PR Workflows',
+      'Planungs- & Ausführungs-Skills',
       'AI-gestütztes Testing',
       'AI Code Review',
       'Modell- & Reasoning-Auswahl',
+      'MCP-Integration',
     ],
-    tools: ['Codex', 'Claude', 'Grok'],
+    harnesses: ['Codex', 'Grok', 'Claude Code', 'XcodeBuildMCP'],
   },
   en: {
     workflow: [
       'Agentic Coding',
-      'Vibe Coding',
       'Prompt & Context Engineering',
-      'Skills & Plugins',
-      'Planning Skills (brainstorming / grill-me / writing-plans)',
-      'Worktree / PR Workflows',
+      'Planning & Execution Skills',
       'AI-assisted Testing',
       'AI Code Review',
       'Model & Reasoning Selection',
+      'MCP Integration',
     ],
-    tools: ['Codex', 'Claude', 'Grok'],
+    harnesses: ['Codex', 'Grok', 'Claude Code', 'XcodeBuildMCP'],
   },
 };
 
@@ -74,27 +70,29 @@ const projectClaim = {
 const expectedAi = {
   de: {
     title: 'AI-gestützte Entwicklung',
-    introduction: 'Ich verbinde langjährige iOS-Erfahrung mit AI-gestützter und agentischer Entwicklung. Vibe Coding nutze ich für schnelle Exploration; Agentic Coding für strukturierte, nachvollziehbare Umsetzung. Werkzeug, Modell und Reasoning-Tiefe wähle ich passend zu Aufgabe, Kontext und Risiko. Skills und Plugins unterstützen den gesamten Ablauf, ohne Architektur- und Qualitätsverantwortung abzugeben.',
-    workflowTitle: 'Von der Idee zur geprüften Auslieferung',
-    compactSummary: 'Agentic Coding mit Codex, Claude und Grok: strukturierte Planung mit brainstorming, grill-me und writing-plans, aufgabengerechte Modell- und Reasoning-Auswahl sowie Umsetzung über Skills, Plugins, Worktrees, Tests und Code Review.',
-    toolDescriptions: [
-      'Repository-basierte Umsetzung, Tests, Code Review sowie Worktree- und Pull-Request-Workflows.',
-      'Brainstorming, grill-me, Planung, Kontextarbeit und Bewertung alternativer Lösungswege.',
-      'Recherche, Gegenprüfung und zusätzliche Perspektiven bei technischen Entscheidungen.',
-    ],
-    workflowTitles: ['Verstehen & planen', 'Modell wählen', 'Agentisch umsetzen', 'Prüfen & liefern'],
+    sectionTitles: ['Workflow', 'Harnesses / Coding-Agenten', 'Skills', 'MCPs', 'Reasoning & Token-Effizienz', 'Praxis'],
+    workflowTitles: ['Planung', 'Überprüfung', 'Implementierung', 'Code Review & Auslieferung'],
+    agentNames: ['Codex', 'Grok', 'Claude Code'],
+    skillGroups: ['Planung & Ausführung', 'Apple-Plattformen', 'Qualität & Auslieferung'],
+    mcpNames: ['XcodeBuildMCP', 'Browser / Computer Use', 'Devil MCP Server'],
+    mcpStatuses: ['Im Einsatz', 'Im Einsatz', 'In Entwicklung'],
+    reasoningLevels: ['Max', 'Low', 'Low / High', 'High'],
+    reasoningUses: ['Planung', 'Implementierung', 'Bugfixing', 'Code Review'],
+    reasoningVariants: ['Codex Sol', 'Luna', 'Claude Opus', 'Fable'],
+    compactTerms: ['XcodeBuildMCP', 'Reasoning', 'Planung', 'Implementierung', 'Bugfixing', 'Review', 'Devil MCP Server'],
   },
   en: {
     title: 'AI-Supported Development',
-    introduction: 'I combine extensive iOS experience with AI-supported and agentic development. I use Vibe Coding for rapid exploration and Agentic Coding for structured, traceable implementation. I choose the tool, model, and reasoning depth to match the task, context, and risk. Skills and Plugins support the full workflow without delegating architectural or quality ownership.',
-    workflowTitle: 'From idea to verified delivery',
-    compactSummary: 'Agentic Coding with Codex, Claude, and Grok: structured planning using brainstorming, grill-me, and writing-plans; task-appropriate model and reasoning selection; and implementation through Skills, Plugins, worktrees, tests, and code review.',
-    toolDescriptions: [
-      'Repository-based implementation, testing, code review, and worktree and pull-request workflows.',
-      'Brainstorming, grill-me, planning, context work, and evaluation of alternative approaches.',
-      'Research, cross-checking, and additional perspectives for technical decisions.',
-    ],
-    workflowTitles: ['Understand & plan', 'Select the model', 'Implement agentically', 'Verify & deliver'],
+    sectionTitles: ['Workflow', 'Harnesses / Coding Agents', 'Skills', 'MCPs', 'Reasoning & Token Efficiency', 'In Practice'],
+    workflowTitles: ['Planning', 'Verification', 'Implementation', 'Code Review & Delivery'],
+    agentNames: ['Codex', 'Grok', 'Claude Code'],
+    skillGroups: ['Planning & Execution', 'Apple Platforms', 'Quality & Delivery'],
+    mcpNames: ['XcodeBuildMCP', 'Browser / Computer Use', 'Devil MCP Server'],
+    mcpStatuses: ['In use', 'In use', 'In development'],
+    reasoningLevels: ['Max', 'Low', 'Low / High', 'High'],
+    reasoningUses: ['Planning', 'Implementation', 'Bug Fixing', 'Code Review'],
+    reasoningVariants: ['Codex Sol', 'Luna', 'Claude Opus', 'Fable'],
+    compactTerms: ['XcodeBuildMCP', 'reasoning', 'planning', 'implementation', 'bug fixing', 'review', 'Devil MCP Server'],
   },
 };
 
@@ -110,6 +108,7 @@ const expectedDevilTech = [
   'XCTest',
   'Xcode Cloud',
   'MVVM',
+  'MCP',
 ];
 
 const expectedExperienceTech = {
@@ -127,7 +126,7 @@ const expectedExperienceTech = {
 for (const [lang, profile] of Object.entries(profiles)) {
   const expected = expectedAi[lang];
   const workflow = profile.skills.find(category => category.category === 'AI & Agentic Development');
-  const aiTools = profile.skills.find(category => category.category === 'AI Tools');
+  const aiHarnesses = profile.skills.find(category => category.category === 'AI Harnesses & Tools');
   const generalTools = profile.skills.find(category => category.category === 'Tools & CI/CD');
   const architecture = profile.skills.find(category =>
     category.category === (lang === 'de' ? 'Architektur' : 'Architecture')
@@ -135,16 +134,33 @@ for (const [lang, profile] of Object.entries(profiles)) {
 
   assert.ok(profile.ai, `${lang}: standalone AI data missing`);
   assert.equal(profile.ai.title, expected.title, `${lang}: AI title differs`);
-  assert.equal(profile.ai.introduction, expected.introduction, `${lang}: AI introduction differs`);
-  assert.equal(profile.ai.workflowTitle, expected.workflowTitle, `${lang}: AI workflow title differs`);
-  assert.equal(profile.ai.compactSummary, expected.compactSummary, `${lang}: compact AI summary differs`);
-  assert.deepEqual(Array.from(profile.ai.tools, item => item.name), expectedAiSkills[lang].tools);
-  assert.deepEqual(Array.from(profile.ai.tools, item => item.description), expected.toolDescriptions);
+  assert.deepEqual(
+    [profile.ai.workflowTitle, profile.ai.agentsTitle, profile.ai.skillsTitle, profile.ai.mcpsTitle, profile.ai.reasoningTitle, profile.ai.proofTitle],
+    expected.sectionTitles,
+    `${lang}: AI section titles differ`
+  );
   assert.deepEqual(Array.from(profile.ai.workflow, item => item.title), expected.workflowTitles);
-  assert.deepEqual(Array.from(profile.ai.proof, item => item.description), [projectClaim[lang], projectClaim[lang]]);
+  assert.deepEqual(Array.from(profile.ai.agents, item => item.name), expected.agentNames);
+  assert.deepEqual(Array.from(profile.ai.skills, item => item.category), expected.skillGroups);
+  assert.deepEqual(Array.from(profile.ai.mcps, item => item.name), expected.mcpNames);
+  assert.deepEqual(Array.from(profile.ai.mcps, item => item.status), expected.mcpStatuses);
+  assert.deepEqual(Array.from(profile.ai.reasoning, item => item.level), expected.reasoningLevels);
+  assert.deepEqual(Array.from(profile.ai.reasoning, item => item.use), expected.reasoningUses);
+  expected.reasoningVariants.forEach(variant => {
+    assert.equal(
+      profile.ai.reasoningNote.split(variant).length - 1,
+      1,
+      `${lang}: ${variant} must appear exactly once in the model-agnostic reasoning note`
+    );
+  });
+  assert.equal(profile.ai.proof.length, 3, `${lang}: expected three AI proof entries`);
+  expected.compactTerms.forEach(term => {
+    assert.ok(profile.ai.compactSummary.includes(term), `${lang}: compact AI summary missing ${term}`);
+  });
+  assert.match(profile.ai.mcps[2].description, /Devil/i);
 
   assert.ok(workflow, `${lang}: AI workflow skills category missing`);
-  assert.ok(aiTools, `${lang}: AI tools category missing`);
+  assert.ok(aiHarnesses, `${lang}: AI harnesses category missing`);
   assert.ok(generalTools, `${lang}: general tools category missing`);
   assert.deepEqual(
     Array.from(workflow.items, item => item.name),
@@ -152,9 +168,9 @@ for (const [lang, profile] of Object.entries(profiles)) {
     `${lang}: AI workflow skills differ`
   );
   assert.deepEqual(
-    Array.from(aiTools.items, item => item.name),
-    expectedAiSkills[lang].tools,
-    `${lang}: AI tools differ`
+    Array.from(aiHarnesses.items, item => item.name),
+    expectedAiSkills[lang].harnesses,
+    `${lang}: AI harnesses and tools differ`
   );
   assert.ok(generalTools.items.some(item => item.name === 'RocketSim'), `${lang}: RocketSim must be a general tool`);
   assert.ok(
@@ -163,7 +179,7 @@ for (const [lang, profile] of Object.entries(profiles)) {
   );
   assert.ok(architecture.items.some(item => item.name === 'TCA'), `${lang}: architecture missing TCA`);
   assert.doesNotMatch(JSON.stringify(profile.ai), /RocketSim/i);
-  assert.doesNotMatch(JSON.stringify(profile.ai), /ChatGPT|GitHub Copilot/i);
+  assert.doesNotMatch(JSON.stringify(profile.ai), /ChatGPT|GitHub Copilot|grill-me/i);
 }
 
 for (const [lang, profile] of Object.entries(profiles)) {
@@ -187,6 +203,7 @@ for (const [lang, profile] of Object.entries(profiles)) {
   assert.equal(devil.url, 'https://devbar.netlify.app', `${lang}: Devil URL differs`);
   assert.equal(devil.linkType, 'website', `${lang}: Devil link type differs`);
   assert.deepEqual(Array.from(devil.tech), expectedDevilTech, `${lang}: Devil technology tags differ`);
+  assert.match(devil.description, /MCP/i, `${lang}: Devil description missing MCP server`);
   assert.ok(devil.description.endsWith(projectClaim[lang]), `${lang}: Devil description missing AI claim`);
   assert.ok(devil.cvDescription.endsWith(projectClaim[lang]), `${lang}: Devil compact copy missing AI claim`);
   assert.ok(fast.tech.includes('MVVM'), `${lang}: Fast.io missing MVVM`);
@@ -201,6 +218,11 @@ for (const [lang, profile] of Object.entries(profiles)) {
       assert.ok(job.tech.includes(technology), `${lang}: ${company} missing ${technology}`);
     });
   });
+
+  const enbw = profile.experience.find(entry => entry.company === 'EnBW');
+  assert.match(enbw.description, /AI-(?:gestützte|assisted) Workflows/i, `${lang}: EnBW description missing AI workflow`);
+  assert.ok(enbw.tech.includes('Agentic Coding'), `${lang}: EnBW missing Agentic Coding`);
+  assert.ok(enbw.tech.includes('AI-assisted Development'), `${lang}: EnBW missing AI-assisted Development`);
 
   profile.experience.slice(2).forEach(job => {
     assert.ok(!job.tech.includes('TCA'), `${lang}: ${job.company} must not include TCA`);

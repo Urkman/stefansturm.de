@@ -110,15 +110,35 @@ for (const lang of ['de', 'en']) {
   assertContains(expanded, profile.personal.tagline, `${lang}: missing personal tagline`);
   assertContains(expanded, profile.ai.introduction, `${lang}: full AI introduction missing`);
   assertContains(expanded, profile.ai.workflowTitle, `${lang}: AI workflow title missing`);
-
-  profile.ai.tools.forEach(tool => {
-    assertContains(expanded, tool.name, `${lang}: missing AI tool ${tool.name}`);
-    assertContains(expanded, tool.description, `${lang}: missing AI tool description ${tool.name}`);
-  });
   profile.ai.workflow.forEach(item => {
     assertContains(expanded, item.title, `${lang}: missing AI workflow step ${item.title}`);
     assertContains(expanded, item.description, `${lang}: missing AI workflow description ${item.title}`);
   });
+  assertContains(expanded, profile.ai.agentsTitle, `${lang}: AI harnesses title missing`);
+  profile.ai.agents.forEach(agent => {
+    assertContains(expanded, agent.name, `${lang}: missing coding agent ${agent.name}`);
+    assertContains(expanded, agent.role, `${lang}: missing coding agent role ${agent.name}`);
+    assertContains(expanded, agent.description, `${lang}: missing coding agent description ${agent.name}`);
+  });
+  assertContains(expanded, profile.ai.skillsTitle, `${lang}: AI skills title missing`);
+  profile.ai.skills.forEach(group => {
+    assertContains(expanded, group.category, `${lang}: missing AI skill group ${group.category}`);
+    group.items.forEach(item => assertContains(expanded, item, `${lang}: missing AI skill ${item}`));
+  });
+  assertContains(expanded, profile.ai.mcpsTitle, `${lang}: AI MCP title missing`);
+  profile.ai.mcps.forEach(mcp => {
+    assertContains(expanded, mcp.name, `${lang}: missing MCP ${mcp.name}`);
+    assertContains(expanded, mcp.status, `${lang}: missing MCP status ${mcp.name}`);
+    assertContains(expanded, mcp.description, `${lang}: missing MCP description ${mcp.name}`);
+  });
+  assertContains(expanded, profile.ai.reasoningTitle, `${lang}: AI reasoning title missing`);
+  assertContains(expanded, profile.ai.reasoningNote, `${lang}: AI reasoning note missing`);
+  profile.ai.reasoning.forEach(item => {
+    assertContains(expanded, item.level, `${lang}: missing reasoning level ${item.level}`);
+    assertContains(expanded, item.use, `${lang}: missing reasoning use ${item.level}`);
+    assertContains(expanded, item.description, `${lang}: missing reasoning description ${item.level}`);
+  });
+  assertContains(expanded, profile.ai.proofTitle, `${lang}: AI proof title missing`);
   profile.ai.proof.forEach(item => {
     assertContains(expanded, item.project, `${lang}: missing AI proof project ${item.project}`);
     assertContains(expanded, item.description, `${lang}: missing AI proof claim ${item.project}`);

@@ -13,8 +13,8 @@ const expected = [
   'assets/pdf/stefan-sturm-expanded-cv-en.pdf',
 ];
 
-assert.match(exportSource, /const STATIC_PDF_VERSION = '20260805-pdf-size-v1'/);
-assert.match(htmlSource, /js\/cv-export\.js\?v=20260805-pdf-size/);
+assert.match(exportSource, /const STATIC_PDF_VERSION = '20260826-ai-agents-v1'/);
+assert.match(htmlSource, /js\/cv-export\.js\?v=20260826-ai-agents/);
 assert.match(generatorSource, /assets', 'stefan-cv\.jpg'/);
 assert.match(generatorSource, /data:image\/jpeg;base64/);
 const portraitPath = path.join(root, 'assets', 'stefan-cv.jpg');

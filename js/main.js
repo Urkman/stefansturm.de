@@ -216,15 +216,11 @@ function renderAI() {
   document.getElementById('ai-heading').textContent = ai.title;
   document.getElementById('ai-content').innerHTML = `
     <p class="ai-introduction reveal">${esc(ai.introduction)}</p>
-    <div class="ai-tools-grid">
-      ${ai.tools.map(tool => `
-        <article class="ai-tool-card reveal">
-          <h3>${esc(tool.name)}</h3>
-          <p>${esc(tool.description)}</p>
-        </article>`).join('')}
-    </div>
-    <section class="ai-workflow" aria-labelledby="ai-workflow-heading">
-      <h3 class="ai-subheading" id="ai-workflow-heading">${esc(ai.workflowTitle)}</h3>
+    <section class="ai-domain ai-workflow" aria-labelledby="ai-workflow-heading">
+      <header class="ai-domain-header">
+        <h3 id="ai-workflow-heading">${esc(ai.workflowTitle)}</h3>
+        <span class="ai-domain-rule" aria-hidden="true"></span>
+      </header>
       <div class="ai-workflow-grid">
         ${ai.workflow.map(item => `
           <article class="ai-workflow-step reveal">
@@ -234,13 +230,88 @@ function renderAI() {
           </article>`).join('')}
       </div>
     </section>
-    <div class="ai-proof-grid">
-      ${ai.proof.map(item => `
-        <article class="ai-proof-card reveal">
-          <h3>${esc(item.project)}</h3>
-          <p>${esc(item.description)}</p>
-        </article>`).join('')}
-    </div>`;
+    <div class="ai-knowledge-grid">
+      <section class="ai-domain ai-agents" aria-labelledby="ai-agents-heading">
+        <header class="ai-domain-header">
+          <h3 id="ai-agents-heading">${esc(ai.agentsTitle)}</h3>
+          <span class="ai-domain-rule" aria-hidden="true"></span>
+        </header>
+        <div class="ai-agents-grid">
+          ${ai.agents.map(agent => `
+            <article class="ai-agent-card reveal">
+              <div class="ai-card-heading">
+                <h4>${esc(agent.name)}</h4>
+                <span>${esc(agent.role)}</span>
+              </div>
+              <p>${esc(agent.description)}</p>
+            </article>`).join('')}
+        </div>
+      </section>
+      <section class="ai-domain ai-skills" aria-labelledby="ai-skills-heading">
+        <header class="ai-domain-header">
+          <h3 id="ai-skills-heading">${esc(ai.skillsTitle)}</h3>
+          <span class="ai-domain-rule" aria-hidden="true"></span>
+        </header>
+        <div class="ai-skills-groups">
+          ${ai.skills.map(group => `
+            <article class="ai-skill-group reveal">
+              <h4>${esc(group.category)}</h4>
+              <div class="ai-skill-chips">
+                ${group.items.map(item => `<span>${esc(item)}</span>`).join('')}
+              </div>
+            </article>`).join('')}
+        </div>
+      </section>
+    </div>
+    <section class="ai-domain ai-mcps" aria-labelledby="ai-mcps-heading">
+      <header class="ai-domain-header">
+        <h3 id="ai-mcps-heading">${esc(ai.mcpsTitle)}</h3>
+        <span class="ai-domain-rule" aria-hidden="true"></span>
+      </header>
+      <div class="ai-mcp-grid">
+        ${ai.mcps.map(mcp => `
+          <article class="ai-mcp-card ai-mcp-${esc(mcp.state)} reveal">
+            <div class="ai-card-heading">
+              <h4>${esc(mcp.name)}</h4>
+              <span class="ai-status">${esc(mcp.status)}</span>
+            </div>
+            <p>${esc(mcp.description)}</p>
+          </article>`).join('')}
+      </div>
+    </section>
+    <section class="ai-domain ai-reasoning" aria-labelledby="ai-reasoning-heading">
+      <header class="ai-domain-header">
+        <h3 id="ai-reasoning-heading">${esc(ai.reasoningTitle)}</h3>
+        <span class="ai-domain-rule" aria-hidden="true"></span>
+      </header>
+      <p class="ai-reasoning-note reveal">${esc(ai.reasoningNote)}</p>
+      <div class="ai-reasoning-list">
+        ${ai.reasoning.map(item => `
+          <article class="ai-reasoning-row reveal">
+            <div class="ai-reasoning-label">
+              <strong>${esc(item.level)}</strong>
+              <span>${esc(item.use)}</span>
+            </div>
+            <p>${esc(item.description)}</p>
+            <div class="ai-reasoning-meter" aria-hidden="true">
+              ${[1, 2, 3, 4].map(level => `<span class="${level <= item.weight ? 'active' : ''}"></span>`).join('')}
+            </div>
+          </article>`).join('')}
+      </div>
+    </section>
+    <section class="ai-domain ai-proof" aria-labelledby="ai-proof-heading">
+      <header class="ai-domain-header">
+        <h3 id="ai-proof-heading">${esc(ai.proofTitle)}</h3>
+        <span class="ai-domain-rule" aria-hidden="true"></span>
+      </header>
+      <div class="ai-proof-grid">
+        ${ai.proof.map(item => `
+          <article class="ai-proof-card reveal">
+            <h4>${esc(item.project)}</h4>
+            <p>${esc(item.description)}</p>
+          </article>`).join('')}
+      </div>
+    </section>`;
 }
 
 function renderProjects() {
@@ -445,9 +516,9 @@ function renderAll() {
   applyStaticTranslations();
   renderHero();
   renderAbout();
+  renderAI();
   renderExperience();
   renderSkills();
-  renderAI();
   renderProjects();
   renderEducation();
   renderContact();
