@@ -15,7 +15,7 @@ const skillsIndex = html.indexOf('id="skills"');
 const aiIndex = html.indexOf('id="ai"');
 const projectsIndex = html.indexOf('id="projects"');
 assert.equal(
-  (html.match(/\?v=20260826-ai-agents/g) || []).length,
+  (html.match(/\?v=20260908-agile-methods/g) || []).length,
   4,
   'AI content and layout assets must share the updated cache version'
 );

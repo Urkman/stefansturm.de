@@ -397,17 +397,17 @@ const CV_PRINT_STYLES = `
   .cv-project-heading span{flex-shrink:0;font-size:6.4pt;font-weight:700;color:#0070e0}
   .cv-project>p:not(.cv-tech){margin-top:1mm;font-size:7.2pt;line-height:1.34;color:#526071}
   .cv-project .cv-tech{font-size:6.6pt}
-  .cv-skills{margin-top:3mm}
-  .cv-skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.7mm 6mm}
+  .cv-skills{margin-top:2.5mm}
+  .cv-skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.7mm 6mm}
   .cv-ai-summary{margin-top:2.5mm;padding:2.3mm 3mm;border-left:.7mm solid #0070e0;background:#f5f9fd;break-inside:avoid}
   .cv-ai-summary .cv-section-title{margin-bottom:1.2mm;padding-bottom:1mm}
   .cv-ai-summary>p{font-size:6.8pt;line-height:1.35;color:#526071}
   .cv-skill-group{break-inside:avoid}
   .cv-skill-group h3{margin-bottom:.7mm;font-size:7.4pt;color:#253244}
   .cv-skill-group p{font-size:6.9pt;line-height:1.34;color:#697586}
-  .cv-education{margin-top:3.5mm}
-  .cv-education-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.7mm 6mm}
-  .cv-education-row{display:flex;justify-content:space-between;gap:3mm;border-bottom:.2mm solid #e7edf4;padding-bottom:1mm;font-size:6.8pt;line-height:1.25;break-inside:avoid}
+  .cv-education{margin-top:2.5mm}
+  .cv-education-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2mm 6mm}
+  .cv-education-row{display:flex;justify-content:space-between;gap:3mm;border-bottom:.2mm solid #e7edf4;padding-bottom:.7mm;font-size:6.8pt;line-height:1.25;break-inside:avoid}
   .cv-education-row strong{color:#253244}
   .cv-education-row span{text-align:right;color:#697586}
   .cv-role,.cv-project,.cv-education-row,.cv-skill-group{break-inside:avoid}
@@ -747,7 +747,7 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-const STATIC_PDF_VERSION = '20260826-ai-agents-v1';
+const STATIC_PDF_VERSION = '20260908-agile-methods-v1';
 const STATIC_PDF_ASSETS = {
   de: {
     compact: 'assets/pdf/stefan-sturm-cv-de.pdf',

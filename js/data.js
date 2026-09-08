@@ -299,6 +299,14 @@ in interdisziplinären Teams.`,
       ],
     },
     {
+      category: 'Agile Arbeitsmethoden',
+      icon: 'fas fa-arrows-spin',
+      items: [
+        { name: 'Scrum' },
+        { name: 'Kanban' },
+      ],
+    },
+    {
       category: 'Testing',
       icon: 'fas fa-vial',
       items: [
@@ -725,6 +733,13 @@ I safeguard delivery with automated tests in Swift Testing and XCTest and rely o
           { years: '15 years' },
           { years: '20 years' },
           { years: '20 years' },
+        ],
+      },
+      {
+        category: 'Agile Ways of Working',
+        items: [
+          { name: 'Scrum' },
+          { name: 'Kanban' },
         ],
       },
       {

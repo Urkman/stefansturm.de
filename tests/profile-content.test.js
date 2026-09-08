@@ -128,6 +128,9 @@ for (const [lang, profile] of Object.entries(profiles)) {
   const workflow = profile.skills.find(category => category.category === 'AI & Agentic Development');
   const aiHarnesses = profile.skills.find(category => category.category === 'AI Harnesses & Tools');
   const generalTools = profile.skills.find(category => category.category === 'Tools & CI/CD');
+  const agileMethods = profile.skills.find(category =>
+    category.category === (lang === 'de' ? 'Agile Arbeitsmethoden' : 'Agile Ways of Working')
+  );
   const architecture = profile.skills.find(category =>
     category.category === (lang === 'de' ? 'Architektur' : 'Architecture')
   );
@@ -162,6 +165,12 @@ for (const [lang, profile] of Object.entries(profiles)) {
   assert.ok(workflow, `${lang}: AI workflow skills category missing`);
   assert.ok(aiHarnesses, `${lang}: AI harnesses category missing`);
   assert.ok(generalTools, `${lang}: general tools category missing`);
+  assert.ok(agileMethods, `${lang}: agile methods category missing`);
+  assert.deepEqual(
+    Array.from(agileMethods.items, item => item.name),
+    ['Scrum', 'Kanban'],
+    `${lang}: agile methods differ`
+  );
   assert.deepEqual(
     Array.from(workflow.items, item => item.name),
     expectedAiSkills[lang].workflow,
@@ -269,6 +278,8 @@ const requiredTerms = {
     /GitLab CI\/CD/,
     /E-Commerce/,
     /Marktplatz/,
+    /Scrum/,
+    /Kanban/,
   ],
   en: [
     /Swift Concurrency/,
@@ -281,6 +292,8 @@ const requiredTerms = {
     /GitLab CI\/CD/,
     /e-commerce/i,
     /marketplace/i,
+    /Scrum/,
+    /Kanban/,
   ],
 };
 
