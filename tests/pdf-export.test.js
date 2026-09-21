@@ -70,12 +70,15 @@ for (const lang of ['de', 'en']) {
   assert.match(page2, /data-company="Buhl"/);
   assert.match(page2, /data-company="Porsche"/);
   assert.match(page2, /Devil - Apple Developer Toolkit/);
+  assert.match(page2, /Vector Racer/);
+  assert.match(page2, /Ripple - Water Tracker/);
   assert.match(page2, /Fast\.io - Fasting Timer/);
   assert.match(page2, /AI &amp; Agentic Development/);
   assertContains(page2, profile.ai.compactSummary, `${lang}: compact AI summary missing`);
   assertContains(page2, 'TCA', `${lang}: compact TCA missing`);
   assertContains(page2, profile.projects[0].cvDescription, `${lang}: compact Devil copy missing`);
-  assertContains(page2, profile.projects[1].cvDescription, `${lang}: compact Fast.io copy missing`);
+  const fastProject = profile.projects.find(project => project.name.startsWith('Fast.io'));
+  assertContains(page2, fastProject.cvDescription, `${lang}: compact Fast.io copy missing`);
   assert.match(page2, lang === 'de' ? /Informationstechnik/ : /Information Technology/);
   assert.ok(compact.includes('href="https://stefansturm.de"'), `${lang}: compact website link missing`);
   assert.match(compact, /stefansturm\.de/);
@@ -181,6 +184,9 @@ for (const lang of ['de', 'en']) {
     assertContains(expanded, project.period, `${lang}: missing period for ${project.name}`);
     assertContains(expanded, project.description, `${lang}: full description missing for ${project.name}`);
     assert.ok(expanded.includes(`href="${project.url}"`), `${lang}: missing URL for ${project.name}`);
+    if (project.githubUrl) {
+      assert.ok(expanded.includes(`href="${project.githubUrl}"`), `${lang}: missing GitHub URL for ${project.name}`);
+    }
     if (project.cvDescription !== project.description) {
       assert.ok(
         !expanded.includes(`<p class="cv-expanded-copy">${cvExpected(project.cvDescription)}</p>`),

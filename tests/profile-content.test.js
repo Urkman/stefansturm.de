@@ -156,7 +156,10 @@ for (const [lang, profile] of Object.entries(profiles)) {
       `${lang}: ${variant} must appear exactly once in the model-agnostic reasoning note`
     );
   });
-  assert.equal(profile.ai.proof.length, 3, `${lang}: expected three AI proof entries`);
+  assert.equal(profile.ai.proof.length, 4, `${lang}: expected four AI proof entries`);
+  const rippleProof = profile.ai.proof.find(item => item.project === 'Ripple – Water Tracker');
+  assert.ok(rippleProof, `${lang}: Ripple must appear in AI proof`);
+  assert.match(rippleProof.description, /Android/i, `${lang}: Ripple AI proof must mention Android`);
   expected.compactTerms.forEach(term => {
     assert.ok(profile.ai.compactSummary.includes(term), `${lang}: compact AI summary missing ${term}`);
   });
@@ -207,7 +210,9 @@ for (const [lang, profile] of Object.entries(profiles)) {
   });
 
   const devil = profile.projects[0];
-  const fast = profile.projects[1];
+  const vectorRacer = profile.projects.find(project => project.name === 'Vector Racer');
+  const ripple = profile.projects.find(project => project.name === 'Ripple – Water Tracker');
+  const fast = profile.projects.find(project => project.name.startsWith('Fast.io'));
   assert.equal(devil.name, 'Devil – Apple Developer Toolkit', `${lang}: Devil must be first`);
   assert.equal(devil.url, 'https://devbar.netlify.app', `${lang}: Devil URL differs`);
   assert.equal(devil.linkType, 'website', `${lang}: Devil link type differs`);
@@ -215,6 +220,13 @@ for (const [lang, profile] of Object.entries(profiles)) {
   assert.match(devil.description, /MCP/i, `${lang}: Devil description missing MCP server`);
   assert.ok(devil.description.endsWith(projectClaim[lang]), `${lang}: Devil description missing AI claim`);
   assert.ok(devil.cvDescription.endsWith(projectClaim[lang]), `${lang}: Devil compact copy missing AI claim`);
+  assert.ok(vectorRacer, `${lang}: Vector Racer project missing`);
+  assert.equal(vectorRacer.url, 'https://apps.apple.com/de/app/vector-racer/id6801835511?l=en-GB', `${lang}: Vector Racer URL differs`);
+  assert.ok(vectorRacer.description.includes(lang === 'de' ? 'Arcade-Racer' : 'arcade racer'), `${lang}: Vector Racer description differs`);
+  assert.ok(ripple, `${lang}: Ripple project missing`);
+  assert.equal(ripple.url, 'https://apps.apple.com/de/app/ripple-water-tracker/id6808143149?l=en-GB', `${lang}: Ripple URL differs`);
+  assert.equal(ripple.githubUrl, 'https://github.com/Urkman/ripple', `${lang}: Ripple GitHub URL differs`);
+  assert.match(ripple.description, /(?:quelloffen|open-source)/i, `${lang}: Ripple description missing open-source wording`);
   assert.ok(fast.tech.includes('MVVM'), `${lang}: Fast.io missing MVVM`);
   assert.ok(!fast.tech.includes('TCA'), `${lang}: Fast.io must not include TCA`);
   assert.ok(fast.description.endsWith(projectClaim[lang]), `${lang}: Fast.io description missing AI claim`);
@@ -259,6 +271,7 @@ const pdfTranslationKeys = [
   'cvExpandedLabel',
   'cvStatistics',
   'navAI',
+  'githubView',
 ];
 for (const lang of ['de', 'en']) {
   pdfTranslationKeys.forEach(key => {
@@ -323,7 +336,10 @@ const sourceFiles = {
 
 assert.match(sourceFiles.main, /proj\.linkType === 'website'/);
 assert.match(sourceFiles.main, /t\('websiteView'\)/);
+assert.match(sourceFiles.main, /proj\.githubUrl/);
 assert.match(dataSource, /websiteView:\s*'Website ansehen'/);
 assert.match(dataSource, /websiteView:\s*'View website'/);
+assert.match(dataSource, /githubView:\s*'Auf GitHub ansehen'/);
+assert.match(dataSource, /githubView:\s*'View on GitHub'/);
 
 console.log('Profile content contract passed for DE and EN');

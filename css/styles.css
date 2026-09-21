@@ -1039,6 +1039,11 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   text-transform: uppercase;
   letter-spacing: .04em;
 }
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .75rem;
+}
 .project-store-link {
   display: inline-flex;
   align-items: center;

@@ -260,6 +260,7 @@ function renderExpandedProject(project) {
       <span class="cv-expanded-period">${cvEsc(project.period)}</span>
     </div>
     ${renderExpandedLink(project.url, linkLabel)}
+    ${project.githubUrl ? renderExpandedLink(project.githubUrl, t('githubView')) : ''}
     <p class="cv-expanded-copy">${cvEsc(project.description)}</p>
     ${renderExpandedTech(project.tech)}
   </article>`;
@@ -747,7 +748,7 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-const STATIC_PDF_VERSION = '20260908-agile-methods-v1';
+const STATIC_PDF_VERSION = '20260921-new-apps-v1';
 const STATIC_PDF_ASSETS = {
   de: {
     compact: 'assets/pdf/stefan-sturm-cv-de.pdf',

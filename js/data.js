@@ -391,6 +391,7 @@ in interdisziplinären Teams.`,
     proof: [
       { project: 'Devil – Apple Developer Toolkit', description: 'End-to-end mit AI-gestützten, agentischen Workflows unter eigener technischer Leitung entwickelt.' },
       { project: 'Fast.io – Fasting Timer', description: 'End-to-end mit AI-gestützten, agentischen Workflows unter eigener technischer Leitung entwickelt.' },
+      { project: 'Ripple – Water Tracker', description: 'Quelloffener Wassertracker für Apple-Geräte, einschließlich der AI-gestützten Übertragung der App nach Android.' },
       { project: 'EnBW – Neue App-Plattform', description: 'AI-gestützte Workflows für Planung, technische Überprüfung, Implementierung, Tests und Code Reviews.' },
     ],
     compactSummary: 'Agentic Coding mit den Harnesses Codex, Grok und Claude Code: Planung und Business-Logik mit Codex und Grok, UI und kreative Umsetzung mit Claude Code; Workflow aus Planung, Überprüfung, Implementierung und Code Review; spezialisierte Skills und XcodeBuildMCP; phasen- und risikogerechte Reasoning-Auswahl von Planung über Implementierung und Bugfixing bis zum Review. Ein eigener Devil MCP Server ist in Entwicklung.',
@@ -399,6 +400,7 @@ in interdisziplinären Teams.`,
   // ──────────────────────────────────────────────
   // PROJECTS
   // Add new personal projects here.
+  //   githubUrl   – optional GitHub repository URL
   // ──────────────────────────────────────────────
   projects: [
     {
@@ -422,6 +424,23 @@ in interdisziplinären Teams.`,
         'MVVM',
         'MCP',
       ],
+    },
+    {
+      name: 'Vector Racer',
+      period: '2026 – bis jetzt',
+      url: 'https://apps.apple.com/de/app/vector-racer/id6801835511?l=en-GB',
+      description: 'Ein eigenständiger Vector-only-Arcade-Racer im Stil eines Polygon-Automaten von 1992. Fünf Fahrzeuge, sechs handgebaute Strecken, präzise 60-Hz-Steuerung, lokale Bestzeiten sowie Game-Center-Erfolge und Bestenlisten entfalten sich in flach schattierten Welten aus untexturierten Dreiecken.',
+      cvDescription: 'Vector-only-Arcade-Racer mit fünf Fahrzeugen, sechs Strecken, präziser 60-Hz-Steuerung, lokalen Bestzeiten und Game-Center-Bestenlisten.',
+      tech: ['Swift', 'SwiftUI', 'Swift Concurrency', 'GameKit', 'AVFoundation', 'MVVM'],
+    },
+    {
+      name: 'Ripple – Water Tracker',
+      period: '2026 – bis jetzt',
+      url: 'https://apps.apple.com/de/app/ripple-water-tracker/id6808143149?l=en-GB',
+      githubUrl: 'https://github.com/Urkman/ripple',
+      description: 'Ein ruhiger, quelloffener Wassertracker für Apple-Geräte. Wasser lässt sich in der App, über Widgets, Siri, die Apple Watch, das Kontrollzentrum oder Erinnerungen erfassen. Tagesziel, Verlauf und Statistiken bleiben übersichtlich; SwiftData und CloudKit synchronisieren die Daten, HealthKit ist optional. Die App wurde außerdem mit AI-gestützten Workflows nach Android übertragen.',
+      cvDescription: 'Quelloffener Wassertracker für Apple-Geräte mit Widgets, Siri, Apple Watch, SwiftData, CloudKit und optionaler HealthKit-Anbindung. Die Übertragung nach Android erfolgte ebenfalls mit AI-gestützten Workflows.',
+      tech: ['Swift', 'SwiftUI', 'Swift Concurrency', 'SwiftData', 'CloudKit', 'HealthKit', 'WidgetKit', 'App Intents', 'MVVM'],
     },
     {
       name:   'Fast.io – Fasting Timer',
@@ -512,6 +531,7 @@ const I18N = {
     current: 'Aktuell',
     appStoreView: 'Im App Store ansehen',
     websiteView: 'Website ansehen',
+    githubView: 'Auf GitHub ansehen',
     cvPrint: 'Als PDF speichern',
     cvContact: 'Kontakt',
     cvCoreSkills: 'Kernkompetenzen',
@@ -572,6 +592,7 @@ const I18N = {
     current: 'Current',
     appStoreView: 'View on the App Store',
     websiteView: 'View website',
+    githubView: 'View on GitHub',
     cvPrint: 'Save as PDF',
     cvContact: 'Contact',
     cvCoreSkills: 'Core skills',
@@ -814,6 +835,7 @@ I safeguard delivery with automated tests in Swift Testing and XCTest and rely o
       proof: [
         { description: 'Developed end to end using AI-supported, agentic workflows under my technical direction.' },
         { description: 'Developed end to end using AI-supported, agentic workflows under my technical direction.' },
+        { description: 'Open-source water tracker for Apple devices, including the AI-assisted port of the app to Android.' },
         { project: 'EnBW – New App Platform', description: 'AI-assisted workflows for planning, technical verification, implementation, tests, and code reviews.' },
       ],
       compactSummary: 'Agentic Coding with the Codex, Grok, and Claude Code harnesses: planning and business logic with Codex and Grok, UI and creative implementation with Claude Code; a workflow spanning planning, verification, implementation, and code review; specialized Skills and XcodeBuildMCP; phase- and risk-aware reasoning selection across planning, implementation, bug fixing, and review. A custom Devil MCP Server is in development.',
@@ -823,6 +845,16 @@ I safeguard delivery with automated tests in Swift Testing and XCTest and rely o
         period: '2026 – present',
         description: 'A native macOS 26 menu-bar app for Apple-platform developers. Devil cleans Xcode and SPM caches, controls simulators, supports Git workflows with diffs, commits, pushes and pull requests, and bundles references and everyday developer utilities. The app is sandboxed and mostly offline; commit messages are generated locally with Apple Intelligence. A custom MCP server for Devil is currently in development. Developed end to end using AI-supported, agentic workflows under my technical direction.',
         cvDescription: 'Native macOS 26 menu-bar app for cleaning Xcode and SPM caches, controlling simulators, and running Git workflows with local Apple Intelligence. A custom MCP server for Devil is currently in development. Developed end to end using AI-supported, agentic workflows under my technical direction.',
+      },
+      {
+        period: '2026 – present',
+        description: 'An original vector-only arcade racer inspired by a 1992 polygon cabinet. Five cars, six handcrafted circuits, deterministic 60 Hz driving, local best laps, and Game Center achievements and leaderboards unfold across flat-shaded worlds made from untextured triangles.',
+        cvDescription: 'Vector-only arcade racer with five cars, six circuits, deterministic 60 Hz driving, local best laps, and Game Center leaderboards.',
+      },
+      {
+        period: '2026 – present',
+        description: 'A calm, open-source water tracker for Apple devices. Log water in the app, through widgets, Siri, Apple Watch, Control Center, or reminders, then keep an eye on today\'s goal, history, and statistics. SwiftData and CloudKit keep data in sync, while HealthKit is optional. The app was also ported to Android using AI-assisted workflows.',
+        cvDescription: 'Open-source water tracker for Apple devices with widgets, Siri, Apple Watch, SwiftData, CloudKit, and optional HealthKit integration. The Android port was also developed with AI-assisted workflows.',
       },
       {
         period: '2025 – present',

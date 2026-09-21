@@ -326,12 +326,21 @@ function renderProjects() {
         <h3 class="project-name">${esc(proj.name)}</h3>
         <span class="project-badge">${esc(proj.period)}</span>
       </div>
-      ${proj.url ? `
-        <a href="${esc(proj.url)}" target="_blank" rel="noopener noreferrer" class="project-store-link">
-          <i class="${linkIcon}" aria-hidden="true"></i>
-          ${esc(linkLabel)}
-          <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
-        </a>` : ''}
+      ${(proj.url || proj.githubUrl) ? `
+        <div class="project-links">
+          ${proj.url ? `
+            <a href="${esc(proj.url)}" target="_blank" rel="noopener noreferrer" class="project-store-link">
+              <i class="${linkIcon}" aria-hidden="true"></i>
+              ${esc(linkLabel)}
+              <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
+            </a>` : ''}
+          ${proj.githubUrl ? `
+            <a href="${esc(proj.githubUrl)}" target="_blank" rel="noopener noreferrer" class="project-store-link">
+              <i class="fab fa-github" aria-hidden="true"></i>
+              ${esc(t('githubView'))}
+              <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
+            </a>` : ''}
+        </div>` : ''}
       <p class="project-desc">${esc(proj.description)}</p>
       ${renderTechTags(proj.tech)}
     </article>`;
