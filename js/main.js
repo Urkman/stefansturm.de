@@ -323,6 +323,7 @@ function renderProjects() {
     return `
     <article class="project-card reveal">
       <div class="project-header">
+        ${proj.icon ? `<img class="project-icon" src="${esc(proj.icon)}" alt="" width="72" height="72" loading="lazy">` : ''}
         <h3 class="project-name">${esc(proj.name)}</h3>
         <span class="project-badge">${esc(proj.period)}</span>
       </div>
@@ -340,8 +341,19 @@ function renderProjects() {
               ${esc(t('githubView'))}
               <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
             </a>` : ''}
+          ${proj.androidGithubUrl ? `
+            <a href="${esc(proj.androidGithubUrl)}" target="_blank" rel="noopener noreferrer" class="project-store-link">
+              <i class="fab fa-github" aria-hidden="true"></i>
+              ${esc(t('androidProjectView'))}
+              <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
+            </a>` : ''}
         </div>` : ''}
       <p class="project-desc">${esc(proj.description)}</p>
+      ${proj.features?.length ? `
+        <div class="project-features">
+          <h4>${esc(t('projectFeatures'))}</h4>
+          <ul>${proj.features.map(feature => `<li>${esc(feature)}</li>`).join('')}</ul>
+        </div>` : ''}
       ${renderTechTags(proj.tech)}
     </article>`;
   }).join('');
@@ -529,6 +541,7 @@ function renderAll() {
   renderExperience();
   renderSkills();
   renderProjects();
+  renderBlog();
   renderEducation();
   renderContact();
 
@@ -602,6 +615,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   setupThemeToggle();
   setupLanguageToggle();
+  window.addEventListener('hashchange', openLinkedBlogPost);
+  openLinkedBlogPost();
 
   // Scroll-reveal (runs after render so .reveal elements exist)
   requestAnimationFrame(() => initReveal());
