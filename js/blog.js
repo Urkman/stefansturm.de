@@ -15,7 +15,7 @@ const BLOG_POSTS = [
         {
           heading: 'Die Idee: dasselbe Produkt, native Apps',
           paragraphs: [
-            'Ich bin kein großer Freund von Cross-Plattform-Frameworks. Ich entwickle gerne nativ und möchte die Möglichkeiten der jeweiligen Plattform direkt nutzen. Gleichzeitig suche ich einen praktikablen Weg, meine iOS-Apps auch für Android anzubieten.',
+            'Ich bin kein großer Freund von Cross-Plattform-Frameworks. Viele Apps, die ich ausprobiert habe, wirken auf iOS schlecht umgesetzt und fühlen sich für mich nicht wie native iOS-Apps an. Auch bei guten Apps fehlen mir oft Details. Bei Flutter fallen mir zum Beispiel die Animationen beim Anzeigen von Sheets und beim Zurückwischen in der Navigation auf: Sie fühlen sich für mich auf iOS häufig falsch an. Ich entwickle deshalb gerne nativ und möchte die Möglichkeiten der jeweiligen Plattform direkt nutzen. Gleichzeitig suche ich einen praktikablen Weg, meine iOS-Apps auch für Android anzubieten.',
             'Mit KI ergibt sich dafür eine interessante Möglichkeit: Eine bestehende iOS-App wird so vollständig beschrieben, dass eine KI daraus eine eigenständige, native Android-App entwickeln kann. Beide Apps teilen das Produktkonzept und die Anforderungen. Ihre Implementierungen bleiben unabhängig.',
             'Genau das wollte ich ausprobieren. Mein Testprojekt dafür heißt **Ripple**.',
             'Ripple ist eine App zum Erfassen der täglichen Trinkmenge. Für dieses Experiment brauchte ich ein überschaubares Produkt, dessen Grundidee ohne lange Erklärung verständlich ist: Wasser eintragen, ein Tagesziel verfolgen, vergangene Einträge ansehen und Statistiken auswerten.',
@@ -29,6 +29,7 @@ const BLOG_POSTS = [
             'Als technische Grundlage habe ich Swift als Programmiersprache, SwiftUI für die Oberfläche und SwiftData für die Speicherung gewählt. Die Synchronisierung innerhalb des Apple-Ökosystems läuft über iCloud beziehungsweise CloudKit.',
             'Auf dieser Basis habe ich Ripple mit Unterstützung von KI entwickelt und anschließend bei Apple eingereicht. Die [iOS-App ist inzwischen im App Store verfügbar](https://apps.apple.com/us/app/ripple-water-tracker/id6808143149). Damit gab es eine konkrete, funktionierende Anwendung als Ausgangspunkt für den nächsten Schritt.',
             'Nun ging es um den eigentlichen Versuch: die Konvertierung nach Android.',
+            'Eine zentrale Voraussetzung für die Übertragung der Oberfläche ist ein vorher definiertes **DesignSystem**. Darin stehen die gemeinsamen Regeln für Farbrollen, Typografie, Abstände, Formen, wiederverwendbare Komponenten und Bewegung. Die KI soll diese Rollen für jede Android-Oberfläche auf native Ressourcen und Komponenten abbilden können. Ohne diese Grundlage müsste sie das Erscheinungsbild aus einzelnen Screenshots immer wieder neu ableiten. Das DesignSystem gehört deshalb in die Produktdokumentation und muss feststehen, bevor die Android-UI umgesetzt wird.',
           ],
         },
         {
@@ -52,7 +53,7 @@ const BLOG_POSTS = [
         {
           heading: '2. cross-platform-product-documentation: Das Produkt vollständig beschreiben',
           paragraphs: [
-            'Dieser Skill erstellt und pflegt die Dokumentation, aus der eine andere Plattform das Produkt nachbauen können soll. Dazu gehören die Anforderungen, die einzelnen Screens und Sheets, das Designsystem, das Datenmodell und die Zuordnung zu den jeweiligen Plattformen.',
+            'Dieser Skill erstellt und pflegt die Dokumentation, aus der eine andere Plattform das Produkt nachbauen können soll. Dazu gehören die Anforderungen, die einzelnen Screens und Sheets, das DesignSystem, das Datenmodell und die Zuordnung zu den jeweiligen Plattformen. Besonders wichtig ist, dass das DesignSystem die gemeinsamen visuellen Rollen und Komponenten festlegt, bevor die Android-Oberflächen entstehen.',
             'Jeder Bildschirm erhält eine eindeutige Kennung und eine eigene Beschreibung: Welche Informationen werden angezeigt? Welche Aktionen sind möglich? Was passiert bei leeren Daten, Fehlern oder fehlenden Berechtigungen? Wie verändert sich die Darstellung auf unterschiedlichen Bildschirmgrößen?',
             'Wireframes und visuelle Referenzen ergänzen diese Beschreibungen. Die Dokumentation soll sowohl das sichtbare Ergebnis als auch das Verhalten erklären. Ein Screenshot allein kann beispielsweise nicht zeigen, wie ein gelöschter Eintrag wiederhergestellt wird.',
           ],
@@ -124,7 +125,7 @@ const BLOG_POSTS = [
         {
           heading: 'The idea: one product, native apps',
           paragraphs: [
-            'I am not a big fan of cross-platform frameworks. I enjoy building native apps and want to use each platform’s capabilities directly. At the same time, I have been looking for a practical way to bring my iOS apps to Android.',
+            'I am not a big fan of cross-platform frameworks. Many apps I have tried feel poorly implemented on iOS and do not feel like native iOS apps to me. Even well-made apps often miss details. Flutter is one example: its sheet presentation and interactive back-swipe navigation animations often feel wrong to me on iOS. That is why I enjoy building apps natively and want to use each platform’s capabilities directly. At the same time, I am looking for a practical way to bring my iOS apps to Android.',
             'AI offers an interesting possibility: describe an existing iOS app in enough detail for AI to build a separate, native Android app from that description. Both apps share the same product concept and requirements, while their implementations remain independent.',
             'That is exactly what I wanted to try. My test project is called **Ripple**.',
             'Ripple is an app for tracking daily water intake. For this experiment, I needed a product with a straightforward idea that takes little explanation: log water, track a daily goal, review past entries, and explore statistics.',
@@ -138,6 +139,7 @@ const BLOG_POSTS = [
             'I chose Swift as the programming language, SwiftUI for the interface, and SwiftData for storage. Within the Apple ecosystem, data synchronization runs through iCloud and CloudKit.',
             'With that foundation, I built Ripple with help from AI and submitted it to Apple. The [iOS app is now available on the App Store](https://apps.apple.com/us/app/ripple-water-tracker/id6808143149). That gave me a real, working app to use as the starting point for the next step.',
             'Now for the actual experiment: converting it to Android.',
+            'A defined **DesignSystem** is an essential prerequisite for translating the interface. It establishes shared rules for color roles, typography, spacing, shapes, reusable components, and motion. AI can then map these roles to native Android resources and components for each screen. Without this foundation, it would have to infer the visual style anew from individual screenshots. That is why the DesignSystem belongs in the product documentation and needs to be finalized before the Android UI is implemented.',
           ],
         },
         {
@@ -161,7 +163,7 @@ const BLOG_POSTS = [
         {
           heading: '2. cross-platform-product-documentation: Describe the product in full',
           paragraphs: [
-            'This skill creates and maintains the documentation another platform can use to recreate the product. It covers requirements, individual screens and sheets, the design system, the data model, and how each part maps to the relevant platforms.',
+            'This skill creates and maintains the documentation another platform can use to recreate the product. It covers requirements, individual screens and sheets, the DesignSystem, the data model, and how each part maps to the relevant platforms. In particular, the DesignSystem defines the shared visual roles and components before the Android interfaces are built.',
             'Every screen gets a unique identifier and its own description: What information does it show? What actions are available? What happens when data is empty, an error occurs, or a permission is missing? How does the layout change across screen sizes?',
             'Wireframes and visual references add context to the descriptions. The documentation is meant to explain both what the user sees and how the app behaves. A screenshot alone, for example, cannot show how a deleted entry can be restored.',
           ],
