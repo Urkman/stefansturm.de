@@ -231,51 +231,147 @@ const BLOG_POSTS = [
   },
 ];
 
+function blogEsc(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function renderBlogText(value) {
-  return esc(value)
+  return blogEsc(value)
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g,
       '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
+function getBlogLanguage() {
+  return typeof currentLang !== 'undefined'
+    ? currentLang
+    : (localStorage.getItem('language') === 'en' ? 'en' : 'de');
+}
+
+function renderBlogSections(content) {
+  return content.sections.map(section => `
+    ${section.heading ? `<h2>${blogEsc(section.heading)}</h2>` : ''}
+    ${(section.paragraphs || []).map(paragraph => `<p>${renderBlogText(paragraph)}</p>`).join('')}
+    ${section.items?.length ? `<ul>${section.items.map(item => `<li>${renderBlogText(item)}</li>`).join('')}</ul>` : ''}
+  `).join('');
+}
+
 function renderBlog() {
   const container = document.getElementById('blog-posts');
   if (!container) return;
-  const openPosts = new Set(Array.from(container.querySelectorAll('details[open]'), el => el.id));
   const posts = BLOG_POSTS.filter(post => post.de && post.en)
     .slice().sort((a, b) => b.date.localeCompare(a.date));
+  const lang = getBlogLanguage();
 
   container.innerHTML = posts.length ? posts.map(post => {
-    const content = post[currentLang];
+    const content = post[lang];
     const id = `blog-${post.slug}`;
-    const date = new Intl.DateTimeFormat(currentLang === 'en' ? 'en-GB' : 'de-DE', {
+    const url = `blog.html?post=${encodeURIComponent(post.slug)}`;
+    const date = new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'de-DE', {
       day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
     }).format(new Date(`${post.date}T12:00:00Z`));
-    const isOpen = openPosts.has(id) || window.location.hash === `#${id}`;
-    return `<article class="blog-post" aria-labelledby="${esc(id)}-title">
-      <div class="blog-meta"><time datetime="${esc(post.date)}">${esc(date)}</time><span>Stefan Sturm</span></div>
-      <h3 id="${esc(id)}-title">${esc(content.title)}</h3>
-      <p class="blog-excerpt">${esc(content.excerpt)}</p>
-      <details id="${esc(id)}" class="blog-details"${isOpen ? ' open' : ''}>
-        <summary>${esc(t('blogReadMore'))}<span class="sr-only">: ${esc(content.title)}</span></summary>
-        <div class="blog-body">
-          ${content.sections.map(section => `
-            ${section.heading ? `<h4>${esc(section.heading)}</h4>` : ''}
-            ${(section.paragraphs || []).map(paragraph => `<p>${renderBlogText(paragraph)}</p>`).join('')}
-            ${section.items?.length ? `<ul>${section.items.map(item => `<li>${renderBlogText(item)}</li>`).join('')}</ul>` : ''}
-          `).join('')}
-        </div>
-      </details>
-      <a class="blog-permalink" href="#${esc(id)}">${esc(t('blogPermalink'))}</a>
+    return `<article class="blog-post" aria-labelledby="${blogEsc(id)}-title">
+      <div class="blog-meta"><time datetime="${blogEsc(post.date)}">${blogEsc(date)}</time><span>Stefan Sturm</span></div>
+      <h3 id="${blogEsc(id)}-title"><a href="${blogEsc(url)}">${blogEsc(content.title)}</a></h3>
+      <p class="blog-excerpt">${blogEsc(content.excerpt)}</p>
+      <a class="blog-permalink" href="${blogEsc(url)}">${blogEsc(I18N[lang].blogReadMore)}<span class="sr-only">: ${blogEsc(content.title)}</span></a>
     </article>`;
-  }).join('') : `<p class="blog-empty">${esc(t('blogEmpty'))}</p>`;
+  }).join('') : `<p class="blog-empty">${blogEsc(I18N[lang].blogEmpty)}</p>`;
 }
 
-function openLinkedBlogPost() {
-  const id = window.location.hash.slice(1);
-  if (!id.startsWith('blog-')) return;
-  const details = document.getElementById(id);
-  if (!details || !details.classList.contains('blog-details')) return;
-  details.open = true;
-  details.scrollIntoView({ block: 'start' });
+function renderBlogArticlePage() {
+  const container = document.getElementById('blog-article');
+  if (!container) return;
+
+  const lang = getBlogLanguage();
+  const slug = new URLSearchParams(window.location.search).get('post');
+  const post = BLOG_POSTS.find(entry => entry.slug === slug && entry.de && entry.en);
+  document.documentElement.lang = lang;
+  const skipLink = document.getElementById('blogSkipLink');
+  if (skipLink) skipLink.textContent = lang === 'en' ? 'Skip to article' : 'Zum Beitrag springen';
+  document.querySelector('.language-toggle')?.setAttribute('aria-label', I18N[lang].languageToggle);
+  const footerLocation = document.querySelector('.footer-sub');
+  if (footerLocation) footerLocation.textContent = lang === 'en' ? 'Willich, Germany' : 'Willich, Deutschland';
+  const footerYear = document.getElementById('footer-year');
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+  if (!post) {
+    const title = lang === 'en' ? 'Article not found' : 'Beitrag nicht gefunden';
+    const message = lang === 'en'
+      ? 'This blog post may have moved or is no longer available.'
+      : 'Dieser Blogbeitrag wurde verschoben oder ist nicht verfügbar.';
+    container.innerHTML = `<article class="blog-article"><h1>${title}</h1><p>${message}</p><a class="blog-permalink" href="index.html#blog">${blogEsc(I18N[lang].blogBack)}</a></article>`;
+    document.title = `${title} | Stefan Sturm`;
+    return;
+  }
+
+  const content = post[lang];
+  const date = new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'de-DE', {
+    day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+  }).format(new Date(`${post.date}T12:00:00Z`));
+  const canonicalUrl = new URL(`blog.html?post=${encodeURIComponent(post.slug)}`, window.location.href).href;
+  container.innerHTML = `<article class="blog-article">
+    <a class="blog-back-link" href="index.html#blog">← ${blogEsc(I18N[lang].blogBack)}</a>
+    <header class="blog-article-header">
+      <div class="blog-meta"><time datetime="${blogEsc(post.date)}">${blogEsc(date)}</time><span>Stefan Sturm</span></div>
+      <h1>${blogEsc(content.title)}</h1>
+      <p class="blog-excerpt">${blogEsc(content.excerpt)}</p>
+    </header>
+    <div class="blog-body">${renderBlogSections(content)}</div>
+    <a class="blog-back-link blog-back-link-bottom" href="index.html#blog">← ${blogEsc(I18N[lang].blogBack)}</a>
+  </article>`;
+
+  document.title = `${content.title} | Stefan Sturm`;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', content.excerpt);
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', content.title);
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', content.excerpt);
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonicalUrl);
+  document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonicalUrl);
 }
+
+function setupBlogArticlePage() {
+  const themeButton = document.getElementById('themeToggle');
+  const applyTheme = dark => {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    if (themeButton) {
+      themeButton.setAttribute('aria-label', I18N[getBlogLanguage()][dark ? 'themeToggleLight' : 'themeToggle']);
+      const icon = themeButton.querySelector('i');
+      if (icon) icon.className = dark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+  };
+
+  if (themeButton) {
+    themeButton.addEventListener('click', () => {
+      applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
+    });
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark');
+  }
+
+  document.querySelectorAll('.language-option').forEach(button => {
+    const active = button.dataset.lang === getBlogLanguage();
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+    button.addEventListener('click', () => {
+      const lang = button.dataset.lang === 'en' ? 'en' : 'de';
+      localStorage.setItem('language', lang);
+      document.querySelectorAll('.language-option').forEach(option => {
+        const active = option.dataset.lang === lang;
+        option.classList.toggle('active', active);
+        option.setAttribute('aria-pressed', String(active));
+      });
+      renderBlogArticlePage();
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark');
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.getElementById('blog-article')) return;
+  renderBlogArticlePage();
+  setupBlogArticlePage();
+});

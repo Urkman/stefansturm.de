@@ -615,9 +615,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   setupThemeToggle();
   setupLanguageToggle();
-  window.addEventListener('hashchange', openLinkedBlogPost);
-  openLinkedBlogPost();
-
   // Scroll-reveal (runs after render so .reveal elements exist)
   requestAnimationFrame(() => initReveal());
 });

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Stefan Sturm</title>
+  <script>
+    (function(){
+      var theme = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (theme === 'dark' || (!theme && prefersDark)) document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <meta name="description" content="Blogbeitrag von Stefan Sturm über native App-Entwicklung.">
+  <meta name="author" content="Stefan Sturm">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Blog | Stefan Sturm">
+  <meta property="og:description" content="Blogbeitrag von Stefan Sturm über native App-Entwicklung.">
+  <meta property="og:url" content="">
+  <link rel="canonical" href="blog.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css?v=20261001-blog-pages">
+</head>
+<body>
+  <a href="#main" class="skip-link" id="blogSkipLink">Zum Beitrag springen</a>
+
+  <header class="header" role="banner">
+    <div class="container">
+      <nav class="nav blog-page-nav" aria-label="Blognavigation">
+        <a href="index.html#hero" class="nav-logo" aria-label="Stefan Sturm – Startseite">
+          <span class="nav-logo-name">Stefan Sturm</span>
+          <span class="nav-logo-title">iOS Developer</span>
+        </a>
+        <div class="blog-page-actions">
+          <a href="index.html#blog" class="blog-header-back">Blog</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Dark mode umschalten" type="button">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </button>
+          <div class="language-toggle" aria-label="Sprache wählen">
+            <button type="button" class="language-option active" data-lang="de" aria-pressed="true">DE</button>
+            <button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="blog-page-main">
+    <div class="container">
+      <div id="blog-article" aria-live="polite"><p class="blog-loading">Beitrag wird geladen …</p></div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p>© <span id="footer-year">2026</span> Stefan Sturm · Senior iOS Developer</p>
+      <p class="footer-sub">Willich, Deutschland</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js?v=20261001-blog-pages"></script>
+  <script src="js/blog.js?v=20261001-blog-pages"></script>
+</body>
+</html>
