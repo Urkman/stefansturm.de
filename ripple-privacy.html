@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="Privacy Policy for Ripple – Water Tracker (Android).">
+  <title>Privacy Policy – Ripple – Water Tracker</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #202b38;
+      background: #f4f7fa;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: clamp(1rem, 4vw, 3rem) 1rem;
+      line-height: 1.7;
+    }
+
+    main {
+      width: min(100%, 52rem);
+      margin: 0 auto;
+      padding: clamp(1.5rem, 5vw, 3.5rem);
+      border: 1px solid #e1e8ef;
+      border-radius: 1rem;
+      background: #fff;
+      box-shadow: 0 1rem 3rem rgb(28 45 64 / 7%);
+    }
+
+    h1, h2 { line-height: 1.25; color: #172433; }
+    h1 { margin: 0 0 .5rem; font-size: clamp(1.8rem, 5vw, 2.5rem); letter-spacing: -.035em; }
+    h2 { margin: 2.25rem 0 .75rem; font-size: 1.25rem; letter-spacing: -.015em; }
+    p, ul { margin: .75rem 0; }
+    ul { padding-left: 1.4rem; }
+    li + li { margin-top: .45rem; }
+    a { color: #086c9d; text-underline-offset: .18em; }
+    a:hover { color: #064f73; }
+    .updated { margin: 0 0 2rem; color: #607080; font-size: .95rem; }
+    address { font-style: normal; }
+
+    @media (max-width: 35rem) {
+      body { padding: .75rem; }
+      main { padding: 1.25rem; border-radius: .75rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <article>
+      <header>
+        <h1>Privacy Policy for Ripple – Water Tracker (Android)</h1>
+        <p class="updated"><strong>Last updated: October 1, 2026</strong></p>
+      </header>
+
+      <p>This Privacy Policy applies to the Android app <strong>Ripple – Water Tracker</strong> (package name <code>de.stefansturm.ripple</code>) and its Wear OS companion app. It explains what data the app processes and when data leaves your device.</p>
+
+      <section aria-labelledby="controller">
+        <h2 id="controller">Data Controller</h2>
+        <address>
+          <strong>Stefan Sturm</strong><br>
+          Albert-Brülls Str. 1<br>
+          47877 Willich<br>
+          Germany<br>
+          Email: <a href="mailto:info@sturm-dev.de">info@sturm-dev.de</a>
+        </address>
+      </section>
+
+      <section aria-labelledby="at-a-glance">
+        <h2 id="at-a-glance">At a Glance</h2>
+        <p>Ripple does not require a user account and does not operate its own server for the Android app. Hydration logs and settings are generally processed in the app’s private storage on your device. Data is transferred only when you use optional system features: Health Connect, a Wear OS watch connection, Android device backup, or an export that you initiate.</p>
+        <p>Ripple does not use advertising, usage analytics, or advertising trackers.</p>
+      </section>
+
+      <section aria-labelledby="data-processed">
+        <h2 id="data-processed">Data Ripple Processes</h2>
+        <p>When you use the relevant features, the app processes:</p>
+        <ul>
+          <li><strong>Hydration entries:</strong> the amount of water consumed, the date and time, and the entry source, such as your phone or watch.</li>
+          <li><strong>Custom containers:</strong> names, amounts, and ordering that you provide.</li>
+          <li><strong>App settings:</strong> your hydration goal, unit of measurement, selected activity level, and reminder settings and schedules.</li>
+          <li><strong>On-device technical state:</strong> for example, whether setup is complete or Health Connect is enabled.</li>
+        </ul>
+        <p>You provide this information, or it is created when you use an app feature. Ripple uses it to save entries, calculate daily and history views, schedule reminders, and apply your settings. The app does not use this data to make medical diagnoses or for advertising or cross-user analytics.</p>
+      </section>
+
+      <section aria-labelledby="storage-backup">
+        <h2 id="storage-backup">On-Device Storage and Android Backup</h2>
+        <p>Hydration entries and settings are stored in the Android app’s private storage. They are not sent to an online service operated by Ripple.</p>
+        <p>The phone app allows Android device backups. If Android backup is enabled on your device, Android may include app data in the backup associated with your device and restore it when you set up a device. Android or Google provides this backup feature, which is subject to your Google Account settings and privacy terms. You can manage device backup in Android system settings. See the <a href="https://developer.android.com/identity/data/autobackup">Android documentation on app backup</a> for more information.</p>
+      </section>
+
+      <section aria-labelledby="health-connect">
+        <h2 id="health-connect">Health Connect</h2>
+        <p>Connecting to Health Connect is optional. If you enable it and grant permission, Ripple writes hydration data from entries you record in the app, including the amount and date and time, to Health Connect. The data is stored there according to Health Connect’s rules and settings.</p>
+        <p>The current Android implementation does not read data from Health Connect. You can revoke permission at any time in Android settings under <strong>Health Connect → App permissions → Ripple</strong>. Deleting an entry in Ripple does not necessarily remove a copy already stored in Health Connect; manage or delete such entries separately in Health Connect.</p>
+      </section>
+
+      <section aria-labelledby="wear-os">
+        <h2 id="wear-os">Wear OS Connection</h2>
+        <p>If you use Ripple on a paired Wear OS watch, the watch sends hydration entries recorded or changed there to your phone so the phone app can process them. Ripple uses Google Play wearable services for this transfer. In addition to the entry amount, time, and source, the sync payload contains technical entry and change identifiers and a randomly generated identifier for the watch installation. Ripple does not receive a user account through this feature and does not operate its own server for it.</p>
+      </section>
+
+      <section aria-labelledby="data-export">
+        <h2 id="data-export">Data Export</h2>
+        <p>When you start a CSV or JSON export in Ripple, Android provides the export file through the system feature you choose. The app or service you select receives the file and processes it under its own privacy terms.</p>
+      </section>
+
+      <section aria-labelledby="notifications">
+        <h2 id="notifications">Notifications</h2>
+        <p>Hydration reminders are scheduled and displayed on your device. Ripple does not send hydration data to a notification server for this purpose. You can turn off reminders in Ripple and notifications in Android system settings.</p>
+      </section>
+
+      <section aria-labelledby="recipients">
+        <h2 id="recipients">Recipients</h2>
+        <p>Ripple does not transfer data for advertising or analytics. Depending on how you use the app, data may be processed or received by:</p>
+        <ul>
+          <li><strong>Health Connect,</strong> if you enable writing hydration data;</li>
+          <li><strong>Google Play wearable services,</strong> if you use the Wear OS app with your phone;</li>
+          <li><strong>Android or Google backup services,</strong> if device backup is enabled;</li>
+          <li><strong>the app or service you select,</strong> if you share or save an export file.</li>
+        </ul>
+        <p>These system services are also subject to their own privacy information and settings. Ripple cannot manage data you transfer to those services or to an export app.</p>
+      </section>
+
+      <section aria-labelledby="legal-bases">
+        <h2 id="legal-bases">Legal Bases</h2>
+        <p>Where the General Data Protection Regulation (GDPR) applies to processing by the Data Controller, data entered locally is processed to provide the app features you request (Article 6(1)(b) GDPR). Optional transfer to Health Connect takes place only after you enable the feature and grant the Android permission. Where this involves health data within the meaning of Article 9 GDPR, your explicit consent is the basis under Article 9(2)(a) GDPR. You can withdraw this consent at any time with effect for the future by revoking the permission in Health Connect.</p>
+      </section>
+
+      <section aria-labelledby="retention-deletion">
+        <h2 id="retention-deletion">Retention and Deletion</h2>
+        <p>App data remains on your device until it is deleted there. An entry deleted in Ripple is initially marked as deleted and can be restored in the app. Deleted entries may also be included in an export.</p>
+        <p>To remove all Ripple app data stored locally, clear the app’s data in Android system settings or uninstall Ripple. You may need to separately delete existing Android backups, Health Connect entries, data on your watch, and files you exported, using the relevant systems or apps. An Android backup may restore data to a device later.</p>
+      </section>
+
+      <section aria-labelledby="privacy-rights">
+        <h2 id="privacy-rights">Your Privacy Rights</h2>
+        <p>Where the GDPR applies, you have, within the scope provided by law, the right to access, rectify, erase, and restrict processing of your personal data, and the right to data portability. If processing is based on consent, you can withdraw that consent at any time for the future. You may also lodge a complaint with a data protection supervisory authority, particularly in the country where you live or work, or where the alleged infringement took place.</p>
+        <p>For requests to the Data Controller, use the email address above. Because Ripple does not operate a server containing your hydration logs, the Data Controller normally cannot access entries stored locally in the app. You can export your entries from the app or delete app data in Android settings.</p>
+      </section>
+
+      <section aria-labelledby="changes">
+        <h2 id="changes">Changes to This Privacy Policy</h2>
+        <p>This Privacy Policy will be updated if Ripple’s features or data practices change. The current version is available through the privacy policy link on the app’s Google Play Store page.</p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
