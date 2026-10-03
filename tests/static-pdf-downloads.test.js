@@ -14,7 +14,7 @@ const expected = [
 ];
 
 assert.match(exportSource, /const STATIC_PDF_VERSION = '20260921-new-apps-v1'/);
-assert.match(htmlSource, /js\/cv-export\.js\?v=20260930-blog/);
+assert.match(htmlSource, /js\/cv-export\.js\?v=20261003-app-icons/);
 assert.match(generatorSource, /assets', 'stefan-cv\.jpg'/);
 assert.match(generatorSource, /data:image\/jpeg;base64/);
 const portraitPath = path.join(root, 'assets', 'stefan-cv.jpg');

@@ -35,6 +35,18 @@ const profiles = {
   en: mergeLocalized(CV, CV_TRANSLATIONS.en),
 };
 
+for (const [lang, profile] of Object.entries(profiles)) {
+  const crossPlatform = profile.skills.find(category =>
+    category.category === (lang === 'de' ? 'Cross-Plattform' : 'Cross-platform')
+  );
+  assert.ok(crossPlatform, `${lang}: cross-platform skills category missing`);
+  assert.deepEqual(
+    Array.from(crossPlatform.items, item => item.name),
+    ['KMP (Kotlin Multiplatform)'],
+    `${lang}: KMP missing from knowledge skills`
+  );
+}
+
 const expectedAiSkills = {
   de: {
     workflow: [

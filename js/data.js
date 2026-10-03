@@ -260,6 +260,13 @@ in interdisziplinären Teams.`,
       ],
     },
     {
+      category: 'Cross-Plattform',
+      icon: 'fas fa-layer-group',
+      items: [
+        { name: 'KMP (Kotlin Multiplatform)' },
+      ],
+    },
+    {
       category: 'Architektur',
       icon: 'fas fa-sitemap',
       items: [
@@ -405,6 +412,7 @@ in interdisziplinären Teams.`,
   projects: [
     {
       name: 'Devil – Apple Developer Toolkit',
+      icon: 'assets/devil.png',
       period: '2026 – bis jetzt',
       url: 'https://devbar.netlify.app',
       linkType: 'website',
@@ -427,6 +435,7 @@ in interdisziplinären Teams.`,
     },
     {
       name: 'Vector Racer',
+      icon: 'assets/vector-racer.jpg',
       period: '2026 – bis jetzt',
       url: 'https://apps.apple.com/de/app/vector-racer/id6801835511?l=en-GB',
       description: 'Ein eigenständiger Vector-only-Arcade-Racer im Stil eines Polygon-Automaten von 1992. Fünf Fahrzeuge, sechs handgebaute Strecken, präzise 60-Hz-Steuerung, lokale Bestzeiten sowie Game-Center-Erfolge und Bestenlisten entfalten sich in flach schattierten Welten aus untexturierten Dreiecken.',
@@ -458,6 +467,7 @@ in interdisziplinären Teams.`,
     },
     {
       name:   'Fast.io – Fasting Timer',
+      icon:   'assets/fast-io.jpg',
       period: '2025 – bis jetzt',
       url:    'https://apps.apple.com/de/app/fast-io-fasting-timer/id6755233993',
       description: 'Ein einfach zu bedienender Intervallfasten-Timer für iPhone und Apple Watch. Fast.io hilft dabei, Fastenziele konsequent zu verfolgen – mit Echtzeit-Tracking, Hydration-Log, Live Activities, Dynamic Island, Home Screen Widgets und Apple Health Integration. Unterstützt populäre Fasten-Schemata wie 16:8, 18:6 und OMAD. Als Einmalkauf erhältlich – kein Abo. End-to-end mit AI-gestützten, agentischen Workflows unter eigener technischer Leitung entwickelt.',
@@ -468,6 +478,7 @@ in interdisziplinären Teams.`,
     },
     {
       name:   'OverlayLab – Weather Camera & Text Overlays',
+      icon:   'assets/overlaylab.jpg',
       period: '2025 – bis jetzt',
       url:    'https://apps.apple.com/de/app/overlaylab/id6749015733',
       description: 'Verwandelt jedes Foto in eine Geschichte mit Live-Wetter-, Standort- und Text-Overlays. Fotos aufnehmen oder aus der Bibliothek importieren, mit Wetter (Temperatur, Luftfeuchtigkeit, Wind), Datum, Uhrzeit und eigenem Text versehen, Stile anpassen und direkt teilen. Pro-Version: 5-Sekunden-Videos mit Overlays und Export ohne Branding.',
@@ -477,6 +488,7 @@ in interdisziplinären Teams.`,
     },
     {
       name:   'S3XY Watch for Tesla',
+      icon:   'assets/tesaro.jpg',
       period: '12/2022 – bis jetzt',
       url:    'https://apps.apple.com/de/app/s3xy-watch/id6444442058',
       description: 'Entwicklung einer App zur Steuerung und Überwachung eines Teslas. Die App ist komplett mit den neusten Frameworks von Apple entwickelt, da ich sie als Lernobjekt für neuste Technologien nutze. Sie besteht aus der App selbst sowie einer REST-API-Schnittstelle, die ebenfalls mit Swift / Vapor entwickelt wurde.',
@@ -770,6 +782,12 @@ I safeguard delivery with automated tests in Swift Testing and XCTest and rely o
           { years: '5 years' },
           { years: '10 years' },
           { years: '15 years' },
+        ],
+      },
+      {
+        category: 'Cross-platform',
+        items: [
+          { name: 'KMP (Kotlin Multiplatform)' },
         ],
       },
       { category: 'Architecture' },
