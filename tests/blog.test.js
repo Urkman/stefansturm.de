@@ -37,12 +37,14 @@ assert.match(article.innerHTML, /ios-app-setup/);
 assert.match(article.innerHTML, /android-app-from-documentation/);
 assert.match(article.innerHTML, /Android-Umsetzung von Ripple mit Kotlin und Jetpack Compose/);
 assert.match(article.innerHTML, /href="https:\/\/apps\.apple\.com\/us\/app\/ripple-water-tracker\/id6808143149"/);
+assert.match(article.innerHTML, /href="https:\/\/play\.google\.com\/store\/apps\/details\?id=de\.stefansturm\.ripple"/);
 assert.match(article.innerHTML, /← Zurück zum Blog/);
 assert.equal(context.document.title, 'Cross-Plattform ohne Cross-Plattform: Von iOS zu Android mit KI | Stefan Sturm');
 
 run("currentLang = 'en'; renderBlog(); renderBlogArticlePage()");
 assert.match(listing.innerHTML, /Cross-platform without a cross-platform framework/);
-assert.match(article.innerHTML, /The Android app has been submitted to Google/);
+assert.match(article.innerHTML, /The Android app is now available on Google Play/);
+assert.match(article.innerHTML, /href="https:\/\/play\.google\.com\/store\/apps\/details\?id=de\.stefansturm\.ripple"/);
 assert.match(article.innerHTML, /available on the App Store/);
 assert.match(article.innerHTML, /Back to blog/);
 assert.equal(context.document.documentElement.lang, 'en');
@@ -102,6 +104,8 @@ for (const lang of ['de', 'en']) {
   assert.match(projects.innerHTML, lang === 'de' ? /Funktionen &amp; Besonderheiten/ : /Features &amp; highlights/);
   assert.match(projects.innerHTML, lang === 'de' ? /iPhone, iPad, Apple Watch und Android/ : /iPhone, iPad, Apple Watch, and Android/);
   assert.match(projects.innerHTML, lang === 'de' ? /Kotlin und Jetpack Compose/ : /Kotlin and Jetpack Compose/);
+  assert.match(projects.innerHTML, /href="https:\/\/play\.google\.com\/store\/apps\/details\?id=de\.stefansturm\.ripple"/);
+  assert.match(projects.innerHTML, lang === 'de' ? /Im Google Play Store ansehen/ : /View on Google Play/);
   assert.equal((projects.innerHTML.match(/class="project-features"/g) || []).length, 1);
 }
 assert.ok(fs.existsSync(path.join(root, 'assets/ripple.png')));

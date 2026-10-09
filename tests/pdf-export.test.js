@@ -92,6 +92,7 @@ for (const lang of ['de', 'en']) {
   assert.match(expanded, /<main class="cv-expanded-document">/);
   assert.doesNotMatch(expanded, /<section class="cv-page"/);
   assert.ok(expanded.includes('href="https://stefansturm.de"'), `${lang}: expanded website link missing`);
+  assert.ok(expanded.includes('href="https://play.google.com/store/apps/details?id=de.stefansturm.ripple"'), `${lang}: expanded Google Play link missing`);
   assert.match(expanded, /stefansturm\.de/);
   assert.match(expanded, /class="cv-expanded-page cv-expanded-cover-page"/);
   assert.match(expanded, /class="cv-expanded-page cv-expanded-skills-page"/);

@@ -36,6 +36,11 @@ for filename in sys.argv[1:]:
         raise SystemExit(f'{filename}: expected more link annotations, found {len(annotations)}')
     if 'https://stefansturm.de/' not in annotations:
         raise SystemExit(f'{filename}: website link is missing')
+    if 'expanded' in filename and not any(
+        url.startswith('https://play.google.com/store/apps/details?id=de.stefansturm.ripple')
+        for url in annotations
+    ):
+        raise SystemExit(f'{filename}: Google Play link is missing')
 `;
 
 const result = spawnSync('python3', ['-c', audit, ...assets], { encoding: 'utf8' });

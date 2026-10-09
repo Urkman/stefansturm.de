@@ -237,11 +237,12 @@ for (const [lang, profile] of Object.entries(profiles)) {
   assert.ok(vectorRacer.description.includes(lang === 'de' ? 'Arcade-Racer' : 'arcade racer'), `${lang}: Vector Racer description differs`);
   assert.ok(ripple, `${lang}: Ripple project missing`);
   assert.equal(ripple.url, 'https://apps.apple.com/de/app/ripple-water-tracker/id6808143149?l=en-GB', `${lang}: Ripple URL differs`);
+  assert.equal(ripple.androidStoreUrl, 'https://play.google.com/store/apps/details?id=de.stefansturm.ripple', `${lang}: Ripple Google Play URL differs`);
   assert.equal(ripple.githubUrl, 'https://github.com/Urkman/ripple', `${lang}: Ripple GitHub URL differs`);
   assert.equal(ripple.androidGithubUrl, 'https://github.com/Urkman/ripple-android', `${lang}: Ripple Android GitHub URL differs`);
   assert.ok(ripple.tech.includes('Kotlin'), `${lang}: Ripple missing Kotlin`);
   assert.ok(ripple.tech.includes('Jetpack Compose'), `${lang}: Ripple missing Jetpack Compose`);
-  assert.match(ripple.cvDescription, /(?:Google eingereicht|submitted to Google)/i, `${lang}: Android store submission status differs`);
+  assert.match(ripple.cvDescription, /(?:bei Google Play verfügbar|available on Google Play)/i, `${lang}: Android availability status differs`);
   assert.match(ripple.description, /(?:quelloffen|open-source)/i, `${lang}: Ripple description missing open-source wording`);
   assert.ok(fast.tech.includes('MVVM'), `${lang}: Fast.io missing MVVM`);
   assert.ok(!fast.tech.includes('TCA'), `${lang}: Fast.io must not include TCA`);

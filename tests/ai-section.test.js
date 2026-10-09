@@ -15,7 +15,7 @@ const skillsIndex = html.indexOf('id="skills"');
 const aiIndex = html.indexOf('id="ai"');
 const projectsIndex = html.indexOf('id="projects"');
 assert.equal(
-  (html.match(/\?v=20261003-app-icons/g) || []).length,
+  (html.match(/\?v=20261009-ripple-android/g) || []).length,
   5,
   'AI content and layout assets must share the updated cache version'
 );

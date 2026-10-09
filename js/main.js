@@ -335,6 +335,12 @@ function renderProjects() {
               ${esc(linkLabel)}
               <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
             </a>` : ''}
+          ${proj.androidStoreUrl ? `
+            <a href="${esc(proj.androidStoreUrl)}" target="_blank" rel="noopener noreferrer" class="project-store-link">
+              <i class="fab fa-google-play" aria-hidden="true"></i>
+              ${esc(t('googlePlayView'))}
+              <i class="fas fa-external-link-alt" style="font-size:.7rem" aria-hidden="true"></i>
+            </a>` : ''}
           ${proj.githubUrl ? `
             <a href="${esc(proj.githubUrl)}" target="_blank" rel="noopener noreferrer" class="project-store-link">
               <i class="fab fa-github" aria-hidden="true"></i>

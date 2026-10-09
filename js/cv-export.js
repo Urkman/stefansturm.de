@@ -260,6 +260,7 @@ function renderExpandedProject(project) {
       <span class="cv-expanded-period">${cvEsc(project.period)}</span>
     </div>
     ${renderExpandedLink(project.url, linkLabel)}
+    ${project.androidStoreUrl ? renderExpandedLink(project.androidStoreUrl, t('googlePlayView')) : ''}
     ${project.githubUrl ? renderExpandedLink(project.githubUrl, t('githubView')) : ''}
     <p class="cv-expanded-copy">${cvEsc(project.description)}</p>
     ${renderExpandedTech(project.tech)}
@@ -385,30 +386,30 @@ const CV_PRINT_STYLES = `
   .cv-page-header span{font-size:8pt;color:#0070e0}
   .cv-page-contact{margin:2mm 0 1mm;color:#526071;font-size:7pt;line-height:1.3}
   .cv-page-contact a{color:#0070e0;text-decoration:none;font-weight:650}
-  .cv-page-two-top{display:grid;grid-template-columns:1.1fr .9fr;gap:6mm;padding-top:4mm}
+  .cv-page-two-top{display:grid;grid-template-columns:1.1fr .9fr;gap:6mm;padding-top:3.5mm}
   .cv-earlier-column .cv-role{margin-bottom:2.8mm}
   .cv-earlier-column .cv-copy{font-size:7.4pt;line-height:1.35}
   .cv-additional{margin-top:2mm}
   .cv-additional>h3{margin-bottom:1.4mm;font-size:7.5pt;color:#253244}
   .cv-history-row{display:grid;grid-template-columns:24mm 28mm 1fr;gap:2mm;padding:1.1mm 0;border-top:.2mm solid #e7edf4;font-size:6.5pt;line-height:1.2;color:#596779}
   .cv-history-row strong{color:#253244}
-  .cv-project{margin-bottom:3mm;padding:2.5mm 3mm;border:.25mm solid #dfe7f0;border-radius:2mm;break-inside:avoid}
+  .cv-project{margin-bottom:2mm;padding:2mm 3mm;border:.25mm solid #dfe7f0;border-radius:2mm;break-inside:avoid}
   .cv-project-heading{display:flex;justify-content:space-between;gap:3mm;align-items:flex-start}
   .cv-project h3{font-size:7.7pt;line-height:1.2;color:#152033}
   .cv-project-heading span{flex-shrink:0;font-size:6.4pt;font-weight:700;color:#0070e0}
   .cv-project>p:not(.cv-tech){margin-top:1mm;font-size:7.2pt;line-height:1.34;color:#526071}
   .cv-project .cv-tech{font-size:6.6pt}
-  .cv-skills{margin-top:2.5mm}
+  .cv-skills{margin-top:2mm}
   .cv-skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.7mm 6mm}
-  .cv-ai-summary{margin-top:2.5mm;padding:2.3mm 3mm;border-left:.7mm solid #0070e0;background:#f5f9fd;break-inside:avoid}
+  .cv-ai-summary{margin-top:2mm;padding:2.3mm 3mm;border-left:.7mm solid #0070e0;background:#f5f9fd;break-inside:avoid}
   .cv-ai-summary .cv-section-title{margin-bottom:1.2mm;padding-bottom:1mm}
   .cv-ai-summary>p{font-size:6.8pt;line-height:1.35;color:#526071}
   .cv-skill-group{break-inside:avoid}
   .cv-skill-group h3{margin-bottom:.7mm;font-size:7.4pt;color:#253244}
   .cv-skill-group p{font-size:6.9pt;line-height:1.34;color:#697586}
-  .cv-education{margin-top:2.5mm}
-  .cv-education-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2mm 6mm}
-  .cv-education-row{display:flex;justify-content:space-between;gap:3mm;border-bottom:.2mm solid #e7edf4;padding-bottom:.7mm;font-size:6.8pt;line-height:1.25;break-inside:avoid}
+  .cv-education{margin-top:1.5mm}
+  .cv-education-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8mm 6mm}
+  .cv-education-row{display:flex;justify-content:space-between;gap:3mm;border-bottom:.2mm solid #e7edf4;padding-bottom:.4mm;font-size:6.8pt;line-height:1.2;break-inside:avoid}
   .cv-education-row strong{color:#253244}
   .cv-education-row span{text-align:right;color:#697586}
   .cv-role,.cv-project,.cv-education-row,.cv-skill-group{break-inside:avoid}
@@ -748,7 +749,7 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-const STATIC_PDF_VERSION = '20260921-new-apps-v1';
+const STATIC_PDF_VERSION = '20261009-ripple-android';
 const STATIC_PDF_ASSETS = {
   de: {
     compact: 'assets/pdf/stefan-sturm-cv-de.pdf',

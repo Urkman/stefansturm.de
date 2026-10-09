@@ -97,7 +97,7 @@ const BLOG_POSTS = [
         {
           heading: 'Erste Runde abgeschlossen',
           paragraphs: [
-            'Anschließend habe ich die Android-App bei Google eingereicht. Damit war die erste Runde des Experiments abgeschlossen: von der Idee über eine mit KI entwickelte iOS-App bis zur durch KI umgesetzten Android-Version.',
+            'Anschließend habe ich die Android-App bei Google eingereicht. Nach der Freigabe ist sie jetzt im Google Play Store verfügbar. Damit war die erste Runde des Experiments abgeschlossen: von der Idee über eine mit KI entwickelte iOS-App bis zur durch KI umgesetzten Android-Version.',
             '„Vollständig durch KI konvertiert“ beschreibt dabei die Umsetzung der Android-App. Die Entscheidungen über Produktumfang, Architektur und Anforderungen habe weiterhin ich getroffen. Ich habe die Grundlage geschaffen, den Ablauf gesteuert und das Ergebnis geprüft.',
             'Für mich liegt der interessante Teil dieses Projekts darin, dass die Beschreibung des Produkts zu einem praktisch nutzbaren Entwicklungsartefakt wird. Die Skills geben der KI einen wiederverwendbaren Arbeitsablauf, und die Dokumentation verbindet zwei eigenständige native Implementierungen.',
             'Ripple ist bewusst ein kleines Beispiel. Wie gut sich dieser Ansatz auf größere Apps mit mehr Integrationen und komplizierteren Abläufen übertragen lässt, möchte ich weiter untersuchen. Die Skills und beide Projekte sind öffentlich, damit sich der Versuch nachvollziehen und auf andere Apps übertragen lässt.',
@@ -106,11 +106,11 @@ const BLOG_POSTS = [
         {
           heading: 'Ripple und das Experiment ansehen',
           paragraphs: [
-            'Die iOS-App für iPhone, iPad und Apple Watch ist im App Store verfügbar. Die Android-App wurde bei Google eingereicht; ein öffentlicher Store-Link folgt.',
+            'Die iOS-App für iPhone, iPad und Apple Watch ist im App Store verfügbar. Die Android-App ist jetzt bei Google Play erhältlich.',
           ],
           items: [
             '[Ripple für iPhone, iPad und Apple Watch im App Store](https://apps.apple.com/us/app/ripple-water-tracker/id6808143149)',
-            'Android-App: bei Google eingereicht; der öffentliche Store-Link folgt.',
+            '[Ripple für Android bei Google Play](https://play.google.com/store/apps/details?id=de.stefansturm.ripple)',
             '[iOS-Repository auf GitHub](https://github.com/Urkman/ripple)',
             '[Android-Repository auf GitHub](https://github.com/Urkman/ripple-android)',
             '[Alle vier Skills im iOS-Repository](https://github.com/Urkman/ripple/tree/main/skills)',
@@ -207,7 +207,7 @@ const BLOG_POSTS = [
         {
           heading: 'First round complete',
           paragraphs: [
-            'I then submitted the Android app to Google. That completed the first round of the experiment: from the idea, to an iOS app built with AI, to an Android version implemented with AI.',
+            'I then submitted the Android app to Google. After approval, it is now available on Google Play. That completed the first round of the experiment: from the idea, to an iOS app built with AI, to an Android version implemented with AI.',
             '“Converted entirely by AI” refers to the implementation of the Android app. I still made the decisions about product scope, architecture, and requirements. I established the foundation, guided the process, and reviewed the result.',
             'The interesting part for me is that a description of the product becomes a practical development artifact. The skills give AI a reusable workflow, and the documentation connects two independent native implementations.',
             'Ripple is intentionally a small example. I want to keep exploring how well this approach works with larger apps, more integrations, and more complex flows. The skills and both projects are public so others can follow the experiment and adapt the approach to their own apps.',
@@ -216,11 +216,11 @@ const BLOG_POSTS = [
         {
           heading: 'Explore Ripple and the experiment',
           paragraphs: [
-            'The iOS app for iPhone, iPad, and Apple Watch is available on the App Store. The Android app has been submitted to Google; a public store link will follow.',
+            'The iOS app for iPhone, iPad, and Apple Watch is available on the App Store. The Android app is now available on Google Play.',
           ],
           items: [
             '[Ripple for iPhone, iPad, and Apple Watch on the App Store](https://apps.apple.com/us/app/ripple-water-tracker/id6808143149)',
-            'Android app: submitted to Google; public store link to follow.',
+            '[Ripple for Android on Google Play](https://play.google.com/store/apps/details?id=de.stefansturm.ripple)',
             '[iOS repository on GitHub](https://github.com/Urkman/ripple)',
             '[Android repository on GitHub](https://github.com/Urkman/ripple-android)',
             '[All four skills in the iOS repository](https://github.com/Urkman/ripple/tree/main/skills)',
