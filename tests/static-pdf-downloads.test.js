@@ -13,8 +13,8 @@ const expected = [
   'assets/pdf/stefan-sturm-expanded-cv-en.pdf',
 ];
 
-assert.match(exportSource, /const STATIC_PDF_VERSION = '20261009-ripple-android'/);
-assert.match(htmlSource, /js\/cv-export\.js\?v=20261009-ripple-android/);
+assert.match(exportSource, /const STATIC_PDF_VERSION = '20261010-company-logos-1'/);
+assert.match(htmlSource, /js\/cv-export\.js\?v=20261010-company-logos-1/);
 assert.match(generatorSource, /assets', 'stefan-cv\.jpg'/);
 assert.match(generatorSource, /data:image\/jpeg;base64/);
 const portraitPath = path.join(root, 'assets', 'stefan-cv.jpg');
@@ -33,7 +33,7 @@ expected.forEach(asset => assert.ok(exportSource.includes(asset), `missing ${ass
 for (const asset of expected) {
   const artifactPath = path.join(root, asset);
   assert.ok(fs.existsSync(artifactPath), `missing generated artifact ${asset}`);
-  const maxBytes = asset.includes('expanded') ? 2_000_000 : 1_000_000;
+  const maxBytes = asset.includes('expanded') ? 2_100_000 : 1_000_000;
   assert.ok(fs.statSync(artifactPath).size < maxBytes, `${asset} is unexpectedly large`);
 }
 

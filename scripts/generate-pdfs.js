@@ -73,6 +73,12 @@ function singlePageHtml(html, format, selector) {
   return html.replace('</head>', `${pageFilter}</head>`);
 }
 
+function withAssetBase(html) {
+  const baseHref = pathToFileURL(`${ROOT}${path.sep}`).href;
+  if (!html.includes('<head>')) throw new Error('Could not find the document head for company logo assets');
+  return html.replace('<head>', `<head><base href="${baseHref}">`);
+}
+
 function mergePdfs(outputPath, pagePaths) {
   run('python3', [path.join(ROOT, 'scripts', 'merge-pdfs.py'), outputPath, ...pagePaths]);
 }
@@ -128,7 +134,7 @@ if expected_ai_heading and expected_ai_heading.lower() not in texts[2].lower():
 
 function generateArtifact(renderHtml, artifact, photoDataUrl) {
   const pdfPath = path.join(TMP_DIR, artifact.file);
-  const html = renderHtml(artifact.language, artifact.format, photoDataUrl);
+  const html = withAssetBase(renderHtml(artifact.language, artifact.format, photoDataUrl));
   const selectors = extractPageSelectors(html, artifact.format);
   if (!selectors.length) throw new Error(`No printable pages found for ${artifact.file}`);
   const pagePaths = selectors.map((selector, index) => {

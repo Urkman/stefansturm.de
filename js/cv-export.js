@@ -141,12 +141,21 @@ function renderCvHeader(personal, photoDataUrl) {
   </header>`;
 }
 
+function renderCvCompanyLogo(job, className) {
+  if (!job.companyLogo) return '';
+  const wordmarkClass = job.companyLogoVariant === 'wordmark' ? ` ${className}--wordmark` : '';
+  return `<img class="${className}${wordmarkClass}" src="${cvEsc(job.companyLogo)}" alt="" aria-hidden="true" loading="eager">`;
+}
+
 function renderCvRole(job, includeTech) {
   return `<article class="cv-role" data-company="${cvEsc(job.company)}">
     <div class="cv-role-heading">
-      <div>
-        <h3>${cvEsc(job.role)}</h3>
-        <p class="cv-company">${cvEsc(job.company)}${job.location ? ` - ${cvEsc(job.location)}` : ''}</p>
+      <div class="cv-role-main">
+        <div class="cv-role-details">
+          <h3>${cvEsc(job.role)}</h3>
+          <p class="cv-company">${cvEsc(job.company)}${job.location ? ` - ${cvEsc(job.location)}` : ''}</p>
+        </div>
+        ${renderCvCompanyLogo(job, 'cv-company-logo')}
       </div>
       <p class="cv-period">${cvEsc(job.period)}</p>
     </div>
@@ -159,7 +168,10 @@ function renderCvRole(job, includeTech) {
 function renderCvHistoryRow(job) {
   return `<div class="cv-history-row" data-company="${cvEsc(job.company)}">
     <span>${cvEsc(job.period)}</span>
-    <strong>${cvEsc(job.company)}</strong>
+    <div class="cv-history-company">
+      <strong>${cvEsc(job.company)}</strong>
+      ${renderCvCompanyLogo(job, 'cv-history-company-logo')}
+    </div>
     <span>${cvEsc(job.role)}</span>
   </div>`;
 }
@@ -237,9 +249,12 @@ function renderExpandedTech(items) {
 function renderExpandedExperience(job) {
   return `<article class="cv-expanded-entry" data-company="${cvEsc(job.company)}">
     <div class="cv-expanded-heading">
-      <div>
-        <h3>${cvEsc(job.role)}</h3>
-        <p class="cv-expanded-company">${cvEsc(job.company)}${job.location ? ` - ${cvEsc(job.location)}` : ''}</p>
+      <div class="cv-expanded-main">
+        <div class="cv-expanded-details">
+          <h3>${cvEsc(job.role)}</h3>
+          <p class="cv-expanded-company">${cvEsc(job.company)}${job.location ? ` - ${cvEsc(job.location)}` : ''}</p>
+        </div>
+        ${renderCvCompanyLogo(job, 'cv-expanded-company-logo')}
       </div>
       <div class="cv-expanded-period">
         <span>${cvEsc(job.period)}</span>
@@ -368,6 +383,10 @@ const CV_PRINT_STYLES = `
   .cv-core-skill strong{color:#253244}
   .cv-role{margin-bottom:3.2mm;break-inside:avoid}
   .cv-role-heading{display:flex;justify-content:space-between;gap:5mm;align-items:flex-start}
+  .cv-role-main{display:flex;flex:1 1 auto;justify-content:space-between;align-items:center;gap:2mm;min-width:0}
+  .cv-role-details{min-width:0}
+  .cv-company-logo{display:block;flex:0 0 auto;width:20mm;height:7mm;object-fit:contain;object-position:right center}
+  .cv-company-logo--wordmark{width:30mm}
   .cv-role h3{font-size:8.6pt;line-height:1.2;color:#152033}
   .cv-company{margin-top:.5mm;font-size:7.8pt;font-weight:650;color:#0070e0}
   .cv-period{flex-shrink:0;font-size:7pt;font-weight:700;color:#0070e0}
@@ -393,6 +412,9 @@ const CV_PRINT_STYLES = `
   .cv-additional>h3{margin-bottom:1.4mm;font-size:7.5pt;color:#253244}
   .cv-history-row{display:grid;grid-template-columns:24mm 28mm 1fr;gap:2mm;padding:1.1mm 0;border-top:.2mm solid #e7edf4;font-size:6.5pt;line-height:1.2;color:#596779}
   .cv-history-row strong{color:#253244}
+  .cv-history-company{display:flex;align-items:center;gap:1mm;min-width:0}
+  .cv-history-company strong{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cv-history-company-logo{display:block;flex:0 0 auto;width:9mm;height:4mm;object-fit:contain;object-position:right center}
   .cv-project{margin-bottom:2mm;padding:2mm 3mm;border:.25mm solid #dfe7f0;border-radius:2mm;break-inside:avoid}
   .cv-project-heading{display:flex;justify-content:space-between;gap:3mm;align-items:flex-start}
   .cv-project h3{font-size:7.7pt;line-height:1.2;color:#152033}
@@ -456,6 +478,10 @@ const EXPANDED_CV_PRINT_STYLES = `
   .cv-expanded-page-content>.cv-expanded-section-title{break-after:avoid-page;page-break-after:avoid}
   .cv-expanded-entry{margin-bottom:6mm;padding-bottom:5mm;border-bottom:.25mm solid #dfe7f0;break-inside:avoid;page-break-inside:avoid}
   .cv-expanded-heading{display:flex;justify-content:space-between;gap:6mm;align-items:flex-start;break-inside:avoid;page-break-inside:avoid}
+  .cv-expanded-main{display:flex;flex:1 1 auto;justify-content:space-between;align-items:center;gap:4mm;min-width:0}
+  .cv-expanded-details{min-width:0}
+  .cv-expanded-company-logo{display:block;flex:0 0 auto;width:25mm;height:9mm;object-fit:contain;object-position:right center}
+  .cv-expanded-company-logo--wordmark{width:40mm}
   .cv-expanded-heading h3{font-size:10.5pt;line-height:1.25;color:#152033}
   .cv-expanded-company{margin-top:.8mm;color:#0070e0;font-size:9pt;font-weight:650}
   .cv-expanded-period{flex-shrink:0;color:#0070e0;font-size:8pt;font-weight:700;text-align:right}
@@ -749,7 +775,7 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-const STATIC_PDF_VERSION = '20261009-ripple-android';
+const STATIC_PDF_VERSION = '20261010-company-logos-1';
 const STATIC_PDF_ASSETS = {
   de: {
     compact: 'assets/pdf/stefan-sturm-cv-de.pdf',

@@ -66,6 +66,13 @@ for (const lang of ['de', 'en']) {
   assert.match(page1, /data-company="RTL"/);
   assert.match(page1, /data-company="Nexenio \(Luca App\)"/);
   assert.doesNotMatch(page1, /data-company="Comdirect"/);
+  const logoJobs = profile.experience.filter(job => job.companyLogo);
+  assert.ok(logoJobs.length > 0, `${lang}: expected experience entries with company logos`);
+  for (const job of logoJobs) {
+    const logoSource = `src="${cvExpected(job.companyLogo)}"`;
+    assert.ok(compact.includes(logoSource), `${lang}: compact PDF is missing the ${job.company} logo`);
+    assert.ok(expanded.includes(logoSource), `${lang}: expanded PDF is missing the ${job.company} logo`);
+  }
   assert.match(page2, /data-company="Comdirect"/);
   assert.match(page2, /data-company="Buhl"/);
   assert.match(page2, /data-company="Porsche"/);

@@ -176,8 +176,17 @@ function renderExperience() {
       <li class="timeline-item${job.current ? ' current' : ''} reveal" role="listitem">
         <p class="timeline-period">${esc(job.period)}</p>
         <div class="timeline-card">
-          <h3 class="timeline-role">${esc(job.role)}</h3>
-          <p class="timeline-company">${esc(job.company)}</p>
+          <div class="timeline-card-heading">
+            <div class="timeline-card-title">
+              <h3 class="timeline-role">${esc(job.role)}</h3>
+              <p class="timeline-company">${esc(job.company)}</p>
+            </div>
+            ${job.companyLogo ? `
+              <span class="timeline-company-logo${job.companyLogoVariant === 'wordmark' ? ' timeline-company-logo--wordmark' : ''}" aria-hidden="true">
+                <img class="timeline-company-logo-light" src="${esc(job.companyLogo)}?v=20261010-company-logos-1" alt="" loading="lazy" decoding="async">
+                <img class="timeline-company-logo-dark" src="${esc(job.companyLogoDark || job.companyLogo)}?v=20261010-company-logos-1" alt="" loading="lazy" decoding="async">
+              </span>` : ''}
+          </div>
           <div class="timeline-meta">
             <span><i class="fas fa-location-dot" aria-hidden="true"></i> ${esc(job.location)}</span>
             ${job.current ? `<span class="text-accent"><i class="fas fa-circle" style="font-size:.45rem;vertical-align:middle" aria-hidden="true"></i> ${esc(t('current'))}</span>` : ''}

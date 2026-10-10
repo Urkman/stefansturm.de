@@ -626,11 +626,48 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   font-weight: 700;
   margin-bottom: .2rem;
 }
+.timeline-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .75rem;
+}
+.timeline-card-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.timeline-company-logo {
+  position: relative;
+  display: block;
+  width: clamp(6rem, 26vw, 12rem);
+  height: 3.5rem;
+  flex: 0 0 auto;
+  margin-top: .125rem;
+}
+.timeline-company-logo--wordmark {
+  width: clamp(8rem, 32vw, 14rem);
+}
+.timeline-company-logo img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right top;
+}
+.timeline-company-logo img.timeline-company-logo-dark { display: none; }
+[data-theme="dark"] .timeline-company-logo img.timeline-company-logo-light { display: none; }
+[data-theme="dark"] .timeline-company-logo img.timeline-company-logo-dark {
+  display: block;
+  filter: brightness(0) invert(1);
+}
 .timeline-company {
   font-size: .9375rem;
   font-weight: 600;
   color: var(--accent);
-  margin-bottom: .15rem;
+  margin: 0;
 }
 .timeline-meta {
   display: flex;
