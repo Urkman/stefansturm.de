@@ -176,10 +176,18 @@ function renderCvHistoryRow(job) {
   </div>`;
 }
 
+function renderCvProjectIcon(project, className) {
+  if (!project.icon) return '';
+  return `<img class="${className}" src="${cvEsc(project.icon)}" alt="" aria-hidden="true" loading="eager">`;
+}
+
 function renderCvProject(project) {
   return `<article class="cv-project">
     <div class="cv-project-heading">
-      <h3>${cvEsc(project.name)}</h3>
+      <div class="cv-project-name">
+        ${renderCvProjectIcon(project, 'cv-project-icon')}
+        <h3>${cvEsc(project.name)}</h3>
+      </div>
       <span>${cvEsc(project.period)}</span>
     </div>
     <p>${cvEsc(project.cvDescription || project.description)}</p>
@@ -271,7 +279,10 @@ function renderExpandedProject(project) {
   const linkLabel = project.linkType === 'website' ? t('websiteView') : t('appStoreView');
   return `<article class="cv-expanded-entry cv-expanded-project">
     <div class="cv-expanded-heading">
-      <h3>${cvEsc(project.name)}</h3>
+      <div class="cv-expanded-project-name">
+        ${renderCvProjectIcon(project, 'cv-expanded-project-icon')}
+        <h3>${cvEsc(project.name)}</h3>
+      </div>
       <span class="cv-expanded-period">${cvEsc(project.period)}</span>
     </div>
     ${renderExpandedLink(project.url, linkLabel)}
@@ -415,23 +426,25 @@ const CV_PRINT_STYLES = `
   .cv-history-company{display:flex;align-items:center;gap:1mm;min-width:0}
   .cv-history-company strong{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .cv-history-company-logo{display:block;flex:0 0 auto;width:9mm;height:4mm;object-fit:contain;object-position:right center}
-  .cv-project{margin-bottom:2mm;padding:2mm 3mm;border:.25mm solid #dfe7f0;border-radius:2mm;break-inside:avoid}
+  .cv-project{margin-bottom:.7mm;padding:1mm 2mm;border:.25mm solid #dfe7f0;border-radius:2mm;break-inside:avoid}
   .cv-project-heading{display:flex;justify-content:space-between;gap:3mm;align-items:flex-start}
+  .cv-project-name{display:flex;flex:1 1 auto;align-items:flex-start;gap:1.6mm;min-width:0}
+  .cv-project-icon{display:block;flex:0 0 auto;width:5.5mm;height:5.5mm;object-fit:contain;border-radius:1mm}
   .cv-project h3{font-size:7.7pt;line-height:1.2;color:#152033}
   .cv-project-heading span{flex-shrink:0;font-size:6.4pt;font-weight:700;color:#0070e0}
-  .cv-project>p:not(.cv-tech){margin-top:1mm;font-size:7.2pt;line-height:1.34;color:#526071}
-  .cv-project .cv-tech{font-size:6.6pt}
-  .cv-skills{margin-top:2mm}
+  .cv-project>p:not(.cv-tech){margin-top:.5mm;font-size:7pt;line-height:1.26;color:#526071}
+  .cv-project .cv-tech{font-size:6.4pt;line-height:1.2}
+  .cv-skills{margin-top:1.4mm}
   .cv-skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.7mm 6mm}
-  .cv-ai-summary{margin-top:2mm;padding:2.3mm 3mm;border-left:.7mm solid #0070e0;background:#f5f9fd;break-inside:avoid}
+  .cv-ai-summary{margin-top:1mm;padding:1.8mm 2.5mm;border-left:.7mm solid #0070e0;background:#f5f9fd;break-inside:avoid}
   .cv-ai-summary .cv-section-title{margin-bottom:1.2mm;padding-bottom:1mm}
   .cv-ai-summary>p{font-size:6.8pt;line-height:1.35;color:#526071}
   .cv-skill-group{break-inside:avoid}
   .cv-skill-group h3{margin-bottom:.7mm;font-size:7.4pt;color:#253244}
   .cv-skill-group p{font-size:6.9pt;line-height:1.34;color:#697586}
-  .cv-education{margin-top:1.5mm}
-  .cv-education-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8mm 6mm}
-  .cv-education-row{display:flex;justify-content:space-between;gap:3mm;border-bottom:.2mm solid #e7edf4;padding-bottom:.4mm;font-size:6.8pt;line-height:1.2;break-inside:avoid}
+  .cv-education{margin-top:1mm}
+  .cv-education-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4mm 6mm}
+  .cv-education-row{display:flex;justify-content:space-between;gap:3mm;border-bottom:.2mm solid #e7edf4;padding-bottom:.2mm;font-size:6.5pt;line-height:1.15;break-inside:avoid}
   .cv-education-row strong{color:#253244}
   .cv-education-row span{text-align:right;color:#697586}
   .cv-role,.cv-project,.cv-education-row,.cv-skill-group{break-inside:avoid}
@@ -490,9 +503,15 @@ const EXPANDED_CV_PRINT_STYLES = `
   .cv-expanded-copy{margin-top:2mm;font-size:8.6pt;line-height:1.5;color:#465466}
   .cv-expanded-tech{display:flex;flex-wrap:wrap;gap:1.2mm;margin-top:2.5mm}
   .cv-expanded-tech span{padding:1mm 1.6mm;border-radius:1.5mm;background:#f1f6fb;color:#526071;font-size:6.8pt}
-  .cv-expanded-projects{display:grid;grid-template-columns:1fr 1fr;gap:5mm 7mm}
-  .cv-expanded-project{margin:0;padding:4mm;border:.25mm solid #dfe7f0;border-radius:2mm}
-  .cv-expanded-project .cv-expanded-copy{font-size:8pt}
+  .cv-expanded-projects{display:grid;grid-template-columns:1fr 1fr;gap:3mm 5mm}
+  .cv-expanded-project{margin:0;padding:3mm;border:.25mm solid #dfe7f0;border-radius:2mm}
+  .cv-expanded-project-name{display:flex;flex:1 1 auto;align-items:flex-start;gap:3mm;min-width:0}
+  .cv-expanded-project-icon{display:block;flex:0 0 auto;width:9mm;height:9mm;object-fit:contain;border-radius:1.5mm}
+  .cv-expanded-project-name h3{min-width:0}
+  .cv-expanded-project .cv-expanded-link{margin-top:1mm}
+  .cv-expanded-project .cv-expanded-copy{font-size:7.8pt;line-height:1.4}
+  .cv-expanded-project .cv-expanded-tech{gap:1mm;margin-top:1.5mm}
+  .cv-expanded-projects-page .cv-expanded-page-content{margin-top:4mm}
   .cv-expanded-skills{display:grid;grid-template-columns:1fr 1fr;gap:5mm 8mm}
   .cv-expanded-skills-page-grid{align-content:start}
   .cv-expanded-skill-group{padding:4mm;border:.25mm solid #dfe7f0;border-radius:2mm;background:#fbfdff;break-inside:avoid;page-break-inside:avoid}
@@ -775,7 +794,7 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-const STATIC_PDF_VERSION = '20261010-company-logos-1';
+const STATIC_PDF_VERSION = '20261012-project-app-logos-1';
 const STATIC_PDF_ASSETS = {
   de: {
     compact: 'assets/pdf/stefan-sturm-cv-de.pdf',

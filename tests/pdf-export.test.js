@@ -73,6 +73,17 @@ for (const lang of ['de', 'en']) {
     assert.ok(compact.includes(logoSource), `${lang}: compact PDF is missing the ${job.company} logo`);
     assert.ok(expanded.includes(logoSource), `${lang}: expanded PDF is missing the ${job.company} logo`);
   }
+  const compactProjects = profile.projects.slice(0, 4);
+  for (const project of compactProjects) {
+    if (!project.icon) continue;
+    const iconSource = `src="${cvExpected(project.icon)}"`;
+    assert.ok(compact.includes(iconSource), `${lang}: compact PDF is missing the ${project.name} app icon`);
+  }
+  for (const project of profile.projects) {
+    if (!project.icon) continue;
+    const iconSource = `src="${cvExpected(project.icon)}"`;
+    assert.ok(expanded.includes(iconSource), `${lang}: expanded PDF is missing the ${project.name} app icon`);
+  }
   assert.match(page2, /data-company="Comdirect"/);
   assert.match(page2, /data-company="Buhl"/);
   assert.match(page2, /data-company="Porsche"/);
