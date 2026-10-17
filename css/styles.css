@@ -294,7 +294,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
     max-height: none;
     overflow: visible;
   }
-  .nav-link { font-size: .875rem; padding: .5rem .75rem; min-height: 2.25rem; }
+  .nav { gap: .5rem; }
+  .nav-link { font-size: .8125rem; padding: .5rem .55rem; min-height: 2.25rem; white-space: nowrap; }
 }
 
 /* -------- Sections -------- */
@@ -320,6 +321,9 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 }
 
 /* -------- Hero -------- */
+.hero > .container {
+  min-width: 0;
+}
 .hero {
   position: relative;
   overflow: hidden;
@@ -368,6 +372,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 }
 .hero-content {
   text-align: center;
+  width: 100%;
+  min-width: 0;
   max-width: 38rem;
   margin: 0 auto;
 }
@@ -403,6 +409,12 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   color: var(--text-muted);
   line-height: 1.75;
   margin-bottom: 1.75rem;
+}
+.hero-bio p {
+  margin: 0;
+}
+.hero-bio p + p {
+  margin-top: .85rem;
 }
 .hero-actions {
   display: flex;
@@ -739,6 +751,9 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 @media (min-width: 640px)  { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .skills-grid { grid-template-columns: repeat(3, 1fr); } }
 
+.skill-card-wide {
+  grid-column: 1 / -1;
+}
 .skill-card {
   background: var(--surface);
   border-radius: var(--r-xl);

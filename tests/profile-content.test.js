@@ -35,16 +35,106 @@ const profiles = {
   en: mergeLocalized(CV, CV_TRANSLATIONS.en),
 };
 
+const mobileSkills = {
+  de: {
+    category: 'Mobile-Entwicklung',
+    platformApis: 'iOS-Plattform-APIs',
+    androidApis: 'Android-Plattform-APIs',
+  },
+  en: {
+    category: 'Mobile Development',
+    platformApis: 'iOS platform APIs',
+    androidApis: 'Android platform APIs',
+  },
+};
+
 for (const [lang, profile] of Object.entries(profiles)) {
-  const crossPlatform = profile.skills.find(category =>
-    category.category === (lang === 'de' ? 'Cross-Plattform' : 'Cross-platform')
+  assert.equal(
+    profile.skills.some(category => category.category === (lang === 'de' ? 'Cross-Plattform' : 'Cross-platform')),
+    false,
+    `${lang}: cross-platform category should be part of mobile development`
   );
-  assert.ok(crossPlatform, `${lang}: cross-platform skills category missing`);
+
+  const mobile = profile.skills.find(category => category.category === mobileSkills[lang].category);
+  assert.ok(mobile, `${lang}: mobile skills category missing`);
+  assert.equal(mobile.icon, 'fas fa-mobile-screen', `${lang}: mobile icon differs`);
   assert.deepEqual(
-    Array.from(crossPlatform.items, item => item.name),
-    ['KMP (Kotlin Multiplatform)'],
-    `${lang}: KMP missing from knowledge skills`
+    Array.from(mobile.items, item => item.name),
+    [
+      'Swift',
+      'SwiftUI',
+      'UIKit',
+      'Combine',
+      'Swift Concurrency',
+      'async/await',
+      'Actors',
+      'Foundation',
+      mobileSkills[lang].platformApis,
+      'Widgets / Siri',
+      'Apple Watch',
+      'iPhone / iPad',
+      'KMP (Kotlin Multiplatform)',
+      'Kotlin',
+      'Jetpack Compose',
+      'Android Views',
+      'Kotlin Coroutines',
+      mobileSkills[lang].androidApis,
+      'Jetpack Navigation',
+      'Room',
+      'Hilt',
+      'Retrofit',
+      'Dart',
+      'Flutter',
+      'Riverpod',
+      'Bloc',
+      'go_router',
+    ],
+    `${lang}: mobile skills differ`
   );
+
+  const years = lang === 'de'
+    ? ['10 Jahre', '5 Jahre', '15 Jahre', '5 Jahre', '3 Jahre', '3 Jahre', '3 Jahre', '15 Jahre', '15 Jahre', '5 Jahre', '10 Jahre', '15 Jahre']
+    : ['10 years', '5 years', '15 years', '5 years', '3 years', '3 years', '3 years', '15 years', '15 years', '5 years', '10 years', '15 years'];
+  years.forEach((value, index) => {
+    assert.equal(mobile.items[index].years, value, `${lang}: ${mobile.items[index].name} years differ`);
+  });
+  mobile.items.slice(years.length).forEach(item => {
+    assert.equal(item.years, lang === 'de' ? '5 Jahre' : '5 years', `${lang}: ${item.name} should list 5 years`);
+  });
+
+  assert.equal(profile.personal.title, 'Mobile Developer / AI Engineer', `${lang}: profile title differs`);
+  assert.equal(profile.personal.tagline, I18N[lang].heroTagline, `${lang}: tagline and hero line differ`);
+  assert.equal(
+    I18N[lang].heroTagline,
+    lang === 'de'
+      ? '15+ Jahre iOS · Mobile · AI-gestützte Entwicklung'
+      : '15+ years of iOS · Mobile · AI-supported development'
+  );
+  assert.equal(profile.stats[0].label, lang === 'de' ? 'Jahre iOS' : 'years iOS', `${lang}: iOS stat label differs`);
+  assert.equal(
+    profile.experience.find(entry => entry.company === 'EnBW').role,
+    'Senior iOS Developer',
+    `${lang}: employment titles must stay`
+  );
+  assert.match(profile.heroSummary, /iOS/);
+  assert.match(profile.heroSummary, /\bAI\b/);
+  assert.match(profile.heroSummary, lang === 'de' ? /Android und Cross-Plattform/ : /Android and cross-platform/);
+  const freelancer = lang === 'de' ? /über 20 Jahren Erfahrung als Freelancer/ : /more than 20 years of experience as a freelancer/;
+  assert.match(profile.heroSummary, freelancer, `${lang}: hero should mention freelance experience`);
+  assert.match(profile.websiteSummary, freelancer, `${lang}: about text should mention freelance experience`);
+  assert.match(profile.summary, freelancer, `${lang}: profile summary should mention freelance experience`);
+  assert.match(I18N[lang].cvProfileSummary, freelancer, `${lang}: CV profile should mention freelance experience`);
+  for (const field of [profile.heroSummary, profile.websiteSummary, profile.summary, I18N[lang].cvProfileSummary]) {
+    assert.doesNotMatch(field, /Swift Testing|XCTest|automatisierten Tests|automated tests/i, `${lang}: introduction should not mention tests`);
+    assert.doesNotMatch(field, /wenn der Kunde es vorgibt|when a client asks|GitLab/i, `${lang}: introduction should stay an overview`);
+  }
+  assert.match(
+    profile.ai.introduction,
+    lang === 'de' ? /iOS bleibt die Spezialisierung/ : /iOS remains the specialization/
+  );
+  assert.match(I18N[lang].cvProfileSummary, /Mobile [Dd]eveloper und AI|Mobile developer and AI/);
+  assert.match(I18N[lang].cvProfileSummary, /iOS/);
+  assert.doesNotMatch(I18N[lang].cvProfileSummary, /Senior iOS/);
 }
 
 const expectedAiSkills = {
@@ -209,8 +299,8 @@ for (const [lang, profile] of Object.entries(profiles)) {
 for (const [lang, profile] of Object.entries(profiles)) {
   assert.match(profile.summary, lang === 'de' ? /^Stefan Sturm ist/ : /^Stefan Sturm is/);
   assert.equal(profile.personal.website, 'https://stefansturm.de', `${lang}: website URL differs`);
-  assert.match(profile.heroSummary, lang === 'de' ? /^Ich entwickle/ : /^I build/);
-  assert.notEqual(profile.heroSummary, profile.websiteSummary, `${lang}: hero and website summaries must differ`);
+  assert.match(profile.heroSummary, lang === 'de' ? /^Ich bin/ : /^I am/);
+  assert.equal(profile.heroSummary, profile.websiteSummary, `${lang}: hero and about text should match`);
   assert.match(profile.websiteSummary, lang === 'de' ? /^Ich bin/ : /^I am/);
   assert.doesNotMatch(
     profile.websiteSummary,
@@ -358,5 +448,21 @@ assert.match(dataSource, /websiteView:\s*'Website ansehen'/);
 assert.match(dataSource, /websiteView:\s*'View website'/);
 assert.match(dataSource, /githubView:\s*'Auf GitHub ansehen'/);
 assert.match(dataSource, /githubView:\s*'View on GitHub'/);
+
+for (const [name, source] of Object.entries({
+  'index.html': fs.readFileSync(path.join(root, 'index.html'), 'utf8'),
+  'blog.html': fs.readFileSync(path.join(root, 'blog.html'), 'utf8'),
+  'js/main.js': fs.readFileSync(path.join(root, 'js/main.js'), 'utf8'),
+})) {
+  assert.match(source, /Mobile Developer \/ AI Engineer/, `${name}: missing profile title`);
+  assert.doesNotMatch(source, /Senior iOS Developer/, `${name}: old profile title remains`);
+}
+assert.doesNotMatch(
+  fs.readFileSync(path.join(root, 'index.html'), 'utf8'),
+  /fa-apple/,
+  'hero badge should not use the Apple icon'
+);
+assert.match(sourceFiles.main, /fas fa-mobile-screen' \? ' skill-card-wide'/);
+assert.match(sourceFiles.css, /\.skill-card-wide\s*\{[^}]*grid-column:\s*1\s*\/\s*-1/);
 
 console.log('Profile content contract passed for DE and EN');

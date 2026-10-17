@@ -10,8 +10,8 @@ const CV = {
 
   personal: {
     name:          'Stefan Sturm',
-    title:         'Senior iOS Developer',
-    tagline:       '15+ Jahre iOS-Entwicklung · Swift · SwiftUI · Combine',
+    title:         'Mobile Developer / AI Engineer',
+    tagline:       '15+ Jahre iOS · Mobile · AI-gestützte Entwicklung',
     address:       'Albert-Brülls Str. 1, Willich, 47877',
     email:         'stefan.sturm@me.com',
     phone:         '01778911950',
@@ -24,29 +24,17 @@ const CV = {
     website:       'https://stefansturm.de',
   },
 
-  heroSummary: 'Ich entwickle hochwertige iOS-Apps mit Swift und SwiftUI und verbinde technische Tiefe mit klaren, reaktiven Benutzeroberflächen.',
-
-  summary: `Stefan Sturm ist Senior iOS-Entwickler mit mehr als 15 Jahren Erfahrung in der
-Entwicklung hochwertiger mobiler Anwendungen mit Swift. Sein Schwerpunkt liegt auf reaktiven
-und deklarativen Benutzeroberflächen mit SwiftUI und Combine, Swift Concurrency mit async/await
-und Actors sowie der Arbeit mit Foundation und den iOS-Plattform-APIs.
+  heroSummary: `Ich bin Mobile Developer und AI Engineer mit über 20 Jahren Erfahrung als Freelancer. Mein Schwerpunkt liegt auf iOS – ergänzend entwickle ich auch für Android und Cross-Plattform. KI gehört für mich selbstverständlich zur modernen App-Entwicklung dazu.
 <br><br>
-Er sichert seine Arbeit mit automatisierten Tests in Swift Testing und XCTest ab und setzt auf
-verlässliche GitLab-CI/CD-Prozesse. Seine Projekterfahrung bei Unternehmen wie Chrono24, 1und1, RTL, Nexenio und
-Porsche umfasst komplexe Produktlandschaften sowie ein internationales E-Commerce- und
-Marktplatzumfeld. Sehr gute Deutsch- und Englischkenntnisse unterstützen die enge Zusammenarbeit
-in interdisziplinären Teams.`,
+Mit Projekten bei Chrono24, 1&1, RTL, Nexenio und Porsche kenne ich komplexe Produktlandschaften sowie internationale E-Commerce- und Marktplatzumgebungen. Meine sehr guten Deutsch- und Englischkenntnisse ermöglichen die enge Zusammenarbeit in interdisziplinären Teams.`,
 
-  websiteSummary: `Ich bin Senior iOS-Entwickler mit mehr als 15 Jahren Erfahrung in der
-Entwicklung hochwertiger mobiler Anwendungen mit Swift. Mein Schwerpunkt liegt auf reaktiven
-und deklarativen Benutzeroberflächen mit SwiftUI und Combine, Swift Concurrency mit async/await
-und Actors sowie der Arbeit mit Foundation und den iOS-Plattform-APIs.
+  summary: `Stefan Sturm ist Mobile Developer und AI Engineer mit über 20 Jahren Erfahrung als Freelancer. Sein Schwerpunkt liegt auf iOS – ergänzend entwickelt er auch für Android und Cross-Plattform. KI gehört für ihn selbstverständlich zur modernen App-Entwicklung dazu.
 <br><br>
-Ich sichere meine Arbeit mit automatisierten Tests in Swift Testing und XCTest ab und setze auf
-verlässliche GitLab-CI/CD-Prozesse. Meine Projekterfahrung bei Unternehmen wie Chrono24, 1und1, RTL, Nexenio und
-Porsche umfasst komplexe Produktlandschaften sowie ein internationales E-Commerce- und
-Marktplatzumfeld. Meine sehr guten Deutsch- und Englischkenntnisse unterstützen die enge Zusammenarbeit
-in interdisziplinären Teams.`,
+Mit Projekten bei Chrono24, 1&1, RTL, Nexenio und Porsche kennt er komplexe Produktlandschaften sowie internationale E-Commerce- und Marktplatzumgebungen. Seine sehr guten Deutsch- und Englischkenntnisse ermöglichen die enge Zusammenarbeit in interdisziplinären Teams.`,
+
+  websiteSummary: `Ich bin Mobile Developer und AI Engineer mit über 20 Jahren Erfahrung als Freelancer. Mein Schwerpunkt liegt auf iOS – ergänzend entwickle ich auch für Android und Cross-Plattform. KI gehört für mich selbstverständlich zur modernen App-Entwicklung dazu.
+<br><br>
+Mit Projekten bei Chrono24, 1&1, RTL, Nexenio und Porsche kenne ich komplexe Produktlandschaften sowie internationale E-Commerce- und Marktplatzumgebungen. Meine sehr guten Deutsch- und Englischkenntnisse ermöglichen die enge Zusammenarbeit in interdisziplinären Teams.`,
 
   stats: [
     { value: '15+', label: 'Jahre iOS' },
@@ -263,8 +251,8 @@ in interdisziplinären Teams.`,
   // ──────────────────────────────────────────────
   skills: [
     {
-      category: 'iOS Entwicklung',
-      icon: 'fab fa-apple',
+      category: 'Mobile-Entwicklung',
+      icon: 'fas fa-mobile-screen',
       items: [
         { name: 'Swift',          years: '10 Jahre' },
         { name: 'SwiftUI',        years: '5 Jahre' },
@@ -278,13 +266,21 @@ in interdisziplinären Teams.`,
         { name: 'Widgets / Siri', years: '5 Jahre' },
         { name: 'Apple Watch',    years: '10 Jahre' },
         { name: 'iPhone / iPad',  years: '15 Jahre' },
-      ],
-    },
-    {
-      category: 'Cross-Plattform',
-      icon: 'fas fa-layer-group',
-      items: [
-        { name: 'KMP (Kotlin Multiplatform)' },
+        { name: 'KMP (Kotlin Multiplatform)', years: '5 Jahre' },
+        { name: 'Kotlin', years: '5 Jahre' },
+        { name: 'Jetpack Compose', years: '5 Jahre' },
+        { name: 'Android Views', years: '5 Jahre' },
+        { name: 'Kotlin Coroutines', years: '5 Jahre' },
+        { name: 'Android-Plattform-APIs', years: '5 Jahre' },
+        { name: 'Jetpack Navigation', years: '5 Jahre' },
+        { name: 'Room', years: '5 Jahre' },
+        { name: 'Hilt', years: '5 Jahre' },
+        { name: 'Retrofit', years: '5 Jahre' },
+        { name: 'Dart', years: '5 Jahre' },
+        { name: 'Flutter', years: '5 Jahre' },
+        { name: 'Riverpod', years: '5 Jahre' },
+        { name: 'Bloc', years: '5 Jahre' },
+        { name: 'go_router', years: '5 Jahre' },
       ],
     },
     {
@@ -381,7 +377,7 @@ in interdisziplinären Teams.`,
 
   ai: {
     title: 'AI-gestützte Entwicklung',
-    introduction: 'Ich verbinde langjährige iOS-Erfahrung mit AI-gestützter und agentischer Entwicklung. AI dient dabei nicht als Autopilot, sondern als präzise gesteuertes Engineering-Werkzeug: Ich strukturiere den Kontext, wähle Modell und Reasoning passend zur Aufgabe und überprüfe jedes Ergebnis mit Code, Tests und fachlicher Erfahrung.',
+    introduction: 'Ich verbinde mobile Entwicklung mit AI-gestützter und agentischer Arbeit. iOS bleibt die Spezialisierung. AI dient dabei nicht als Autopilot, sondern als präzise gesteuertes Engineering-Werkzeug: Ich strukturiere den Kontext, wähle Modell und Reasoning passend zur Aufgabe und überprüfe jedes Ergebnis mit Code, Tests und fachlicher Erfahrung.',
     workflowTitle: 'Workflow',
     workflow: [
       { step: '01', title: 'Planung', description: 'Ziel, Kontext, Risiken und Akzeptanzkriterien mit brainstorming und writing-plans präzisieren.' },
@@ -565,7 +561,7 @@ const I18N = {
     projectFeatures: 'Funktionen & Besonderheiten',
     navEducation: 'Ausbildung',
     navContact: 'Kontakt',
-    heroTagline: '15+ Jahre iOS-Entwicklung',
+    heroTagline: '15+ Jahre iOS · Mobile · AI-gestützte Entwicklung',
     downloadPdf: 'Download as PDF',
     downloadMd: 'Download as MD',
     downloadPdfText: 'Download as PDF',
@@ -603,7 +599,7 @@ const I18N = {
     cvProjects: 'Projekte',
     cvSkills: 'Kenntnisse',
     cvEducation: 'Ausbildung',
-    cvProfileSummary: 'Senior iOS-Entwickler mit mehr als 15 Jahren Erfahrung in der Entwicklung hochwertiger Apps mit Swift, SwiftUI und Combine. Schwerpunkte sind Swift Concurrency, Foundation, iOS-Plattform-APIs sowie automatisierte Tests mit Swift Testing und XCTest. Erfahrung in komplexen Produktlandschaften, E-Commerce- und Marktplatzumfeldern sowie verlässlichen GitLab-CI/CD-Prozessen.',
+    cvProfileSummary: 'Mobile Developer und AI Engineer mit über 20 Jahren Erfahrung als Freelancer. Schwerpunkt liegt auf iOS, ergänzend Android und Cross-Plattform. KI gehört selbstverständlich zur modernen App-Entwicklung dazu. Erfahrung in komplexen Produktlandschaften sowie internationalen E-Commerce- und Marktplatzumgebungen.',
     cvLocation: 'Willich, Deutschland',
     cvEarlierExperience: 'Frühere Berufserfahrung',
     cvAdditionalExperience: 'Weitere Stationen',
@@ -636,7 +632,7 @@ const I18N = {
     projectFeatures: 'Features & highlights',
     navEducation: 'Education',
     navContact: 'Contact',
-    heroTagline: '15+ years of iOS development',
+    heroTagline: '15+ years of iOS · Mobile · AI-supported development',
     downloadPdf: 'Download as PDF',
     downloadMd: 'Download as MD',
     downloadPdfText: 'Download as PDF',
@@ -674,7 +670,7 @@ const I18N = {
     cvProjects: 'Projects',
     cvSkills: 'Skills',
     cvEducation: 'Education',
-    cvProfileSummary: 'Senior iOS developer with more than 15 years of experience building high-quality apps with Swift, SwiftUI and Combine. Key strengths include Swift Concurrency, Foundation, iOS platform APIs, and automated testing with Swift Testing and XCTest. Experienced in complex product environments, e-commerce and marketplaces, and reliable GitLab CI/CD delivery.',
+    cvProfileSummary: 'Mobile developer and AI engineer with more than 20 years of experience as a freelancer. The focus is iOS, plus Android and cross-platform development. AI is a natural part of modern app development. Experience in complex product environments and international e-commerce and marketplaces.',
     cvLocation: 'Willich, Germany',
     cvEarlierExperience: 'Earlier Experience',
     cvAdditionalExperience: 'Additional Experience',
@@ -690,19 +686,21 @@ const I18N = {
 const CV_TRANSLATIONS = {
   en: {
     personal: {
-      tagline: '15+ years of iOS development · Swift · SwiftUI · Combine',
+      tagline: '15+ years of iOS · Mobile · AI-supported development',
       address: 'Albert-Brülls Str. 1, Willich, 47877, Germany',
       nationality: 'German',
       maritalStatus: 'Married',
       birthplace: 'Willich-Anrath',
     },
-    heroSummary: 'I build high-quality iOS apps with Swift and SwiftUI, combining technical depth with clear, reactive user interfaces.',
-    summary: `Stefan Sturm is a senior iOS developer with more than 15 years of experience building high-quality mobile applications with Swift. His focus includes reactive and declarative user interfaces with SwiftUI and Combine, Swift Concurrency with async/await and Actors, and practical work with Foundation and iOS platform APIs.
+    heroSummary: `I am a mobile developer and AI engineer with more than 20 years of experience as a freelancer. My focus is iOS – I also develop for Android and cross-platform. For me, AI is a natural part of modern app development.
 <br><br>
-He safeguards delivery with automated tests in Swift Testing and XCTest and relies on robust GitLab CI/CD processes. His project experience at companies such as Chrono24, 1&1, RTL, Nexenio and Porsche covers complex product environments as well as an international e-commerce and marketplace setting. Professional German and English support close collaboration in interdisciplinary teams.`,
-    websiteSummary: `I am a senior iOS developer with more than 15 years of experience building high-quality mobile applications with Swift. My focus includes reactive and declarative user interfaces with SwiftUI and Combine, Swift Concurrency with async/await and Actors, and practical work with Foundation and iOS platform APIs.
+With projects at Chrono24, 1&1, RTL, Nexenio and Porsche, I know complex product landscapes and international e-commerce and marketplace environments. My strong German and English skills make close collaboration in interdisciplinary teams possible.`,
+    summary: `Stefan Sturm is a mobile developer and AI engineer with more than 20 years of experience as a freelancer. His focus is iOS – he also develops for Android and cross-platform. For him, AI is a natural part of modern app development.
 <br><br>
-I safeguard delivery with automated tests in Swift Testing and XCTest and rely on robust GitLab CI/CD processes. My project experience at companies such as Chrono24, 1&1, RTL, Nexenio and Porsche covers complex product environments as well as an international e-commerce and marketplace setting. My strong German and English skills support close collaboration in interdisciplinary teams.`,
+With projects at Chrono24, 1&1, RTL, Nexenio and Porsche, he knows complex product landscapes and international e-commerce and marketplace environments. His strong German and English skills make close collaboration in interdisciplinary teams possible.`,
+    websiteSummary: `I am a mobile developer and AI engineer with more than 20 years of experience as a freelancer. My focus is iOS – I also develop for Android and cross-platform. For me, AI is a natural part of modern app development.
+<br><br>
+With projects at Chrono24, 1&1, RTL, Nexenio and Porsche, I know complex product landscapes and international e-commerce and marketplace environments. My strong German and English skills make close collaboration in interdisciplinary teams possible.`,
     stats: [
       { label: 'years iOS' },
       { label: 'companies' },
@@ -792,7 +790,7 @@ I safeguard delivery with automated tests in Swift Testing and XCTest and rely o
     ],
     skills: [
       {
-        category: 'iOS Development',
+        category: 'Mobile Development',
         items: [
           { years: '10 years' },
           { years: '5 years' },
@@ -806,12 +804,21 @@ I safeguard delivery with automated tests in Swift Testing and XCTest and rely o
           { years: '5 years' },
           { years: '10 years' },
           { years: '15 years' },
-        ],
-      },
-      {
-        category: 'Cross-platform',
-        items: [
-          { name: 'KMP (Kotlin Multiplatform)' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { name: 'Android platform APIs', years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
+          { years: '5 years' },
         ],
       },
       { category: 'Architecture' },
@@ -874,7 +881,7 @@ I safeguard delivery with automated tests in Swift Testing and XCTest and rely o
     ],
     ai: {
       title: 'AI-Supported Development',
-      introduction: 'I combine extensive iOS experience with AI-supported and agentic development. AI is not an autopilot; it is a precisely directed engineering tool. I structure the context, select the model and reasoning depth for the task, and verify every result through code, tests, and engineering experience.',
+      introduction: 'I combine mobile development with AI-supported and agentic work. iOS remains the specialization. AI is not an autopilot; it is a precisely directed engineering tool. I structure the context, select the model and reasoning depth for the task, and verify every result through code, tests, and engineering experience.',
       workflowTitle: 'Workflow',
       workflow: [
         { title: 'Planning', description: 'Clarify goals, context, risks, and acceptance criteria with brainstorming and writing-plans.' },

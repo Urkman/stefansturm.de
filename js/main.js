@@ -92,14 +92,12 @@ function applyStaticTranslations() {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     themeBtn.setAttribute('aria-label', isDark ? t('themeToggleLight') : t('themeToggle'));
   }
-  document.title = currentLang === 'en'
-    ? 'Stefan Sturm – Senior iOS Developer'
-    : 'Stefan Sturm – Senior iOS Developer';
+  document.title = 'Stefan Sturm – Mobile Developer / AI Engineer';
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription) {
     metaDescription.setAttribute('content', currentLang === 'en'
-      ? 'Stefan Sturm – Senior iOS Developer with 15+ years of experience in Swift, SwiftUI and Combine.'
-      : 'Stefan Sturm – Senior iOS Developer mit 15+ Jahren Erfahrung in Swift, SwiftUI und Combine.');
+      ? 'Stefan Sturm – Mobile Developer / AI Engineer. More than 20 years of experience as a freelancer, with a focus on iOS plus Android and cross-platform development.'
+      : 'Stefan Sturm – Mobile Developer / AI Engineer. Über 20 Jahre Erfahrung als Freelancer, Schwerpunkt iOS, ergänzend Android und Cross-Plattform.');
   }
 }
 
@@ -119,7 +117,12 @@ function renderHero() {
   const p = activeCV.personal;
 
   // Bio
-  document.getElementById('hero-bio').textContent = activeCV.heroSummary;
+  const heroBio = document.getElementById('hero-bio');
+  heroBio.replaceChildren(...activeCV.heroSummary.split('<br><br>').map(text => {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text.replace(/\n/g, ' ').trim();
+    return paragraph;
+  }));
 
   // Social links
   document.getElementById('hero-social').innerHTML = `
@@ -203,7 +206,7 @@ function renderExperience() {
 
 function renderSkills() {
   const html = activeCV.skills.map(cat => `
-    <div class="skill-card reveal">
+    <div class="skill-card reveal${cat.icon === 'fas fa-mobile-screen' ? ' skill-card-wide' : ''}">
       <h3 class="skill-card-title">
         <i class="${esc(cat.icon)}" aria-hidden="true"></i>
         ${esc(cat.category)}

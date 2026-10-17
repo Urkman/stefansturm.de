@@ -794,7 +794,7 @@ function openCvDocument(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 
-const STATIC_PDF_VERSION = '20261012-project-app-logos-1';
+const STATIC_PDF_VERSION = '20261017-mobile-years';
 const STATIC_PDF_ASSETS = {
   de: {
     compact: 'assets/pdf/stefan-sturm-cv-de.pdf',
